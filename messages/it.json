@@ -1,0 +1,60 @@
+{
+  "HomePage": {
+    "title": "Gestisci il tuo ristorante con eleganza"
+  },
+  "NotFound": {
+    "title": "Pagina non trovata",
+    "description": "La pagina che cerchi non esiste.",
+    "backHome": "Torna alla home"
+  },
+  "Nav": {
+    "features": "Funzionalità",
+    "howItWorks": "Come funziona",
+    "pricing": "Prezzi",
+    "faq": "FAQ",
+    "contact": "Contatti",
+    "login": "Accedi",
+    "getStarted": "Inizia ora",
+    "menu": "Apri il menu"
+  },
+  "Pricing": {
+    "title": "Prezzi semplici che crescono con te",
+    "subtitle": "Un'unica piattaforma per tutto il tuo ristorante. Scegli il piano, il paese e inizia oggi.",
+    "monthly": "Mensile",
+    "yearly": "Annuale",
+    "perMonth": "/mese",
+    "perYear": "/anno",
+    "billedYearly": "fatturato annualmente",
+    "popular": "Il più scelto",
+    "save": "Risparmia {percent}%",
+    "choosePlan": "Scegli {plan}",
+    "country": "Paese",
+    "currencyDisclaimer": "Prezzi in {currency}. Tasse applicabili.",
+    "giftsTitle": "Regali inclusi con i piani annuali",
+    "giftsSubtitle": "Ogni abbonamento annuale include questi extra gratuitamente",
+    "includedFeatures": "Cosa è incluso",
+    "loading": "Caricamento prezzi…"
+  },
+  "Testimonials": {
+    "title": "I ristoranti lavorano meglio con RESTORA",
+    "previous": "Recensione precedente",
+    "next": "Recensione successiva"
+  },
+  "Hero": {
+    "seeStory": "Scopri come funziona",
+    "newOrder": "Nuovo ordine",
+    "justNow": "proprio ora",
+    "guestRating": "Valutazione degli ospiti"
+  },
+  "FinalCta": {
+    "serviceRating": "Servizio valutato 4,9"
+  },
+  "Common": {
+    "learnMore": "Scopri di più",
+    "seePricing": "Vedi i prezzi"
+  },
+  "Story": {
+    "scanBrowseOrder": "Scansiona · Sfoglia · Ordina",
+    "noDownloads": "0 app da scaricare"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "HomePage": {
+    "title": "أدر مطعمك بأناقة"
+  },
+  "NotFound": {
+    "title": "الصفحة غير موجودة",
+    "description": "الصفحة التي تبحث عنها غير موجودة.",
+    "backHome": "العودة للرئيسية"
+  },
+  "Nav": {
+    "features": "المميزات",
+    "howItWorks": "كيف يعمل",
+    "pricing": "الأسعار",
+    "faq": "الأسئلة الشائعة",
+    "contact": "تواصل معنا",
+    "login": "تسجيل الدخول",
+    "getStarted": "ابدأ الآن",
+    "menu": "افتح القائمة"
+  },
+  "Pricing": {
+    "title": "أسعار بسيطة تنمو معك",
+    "subtitle": "منصة واحدة لمطعمك بالكامل. اختر الخطة، حدد بلدك، وابدأ اليوم.",
+    "monthly": "شهري",
+    "yearly": "سنوي",
+    "perMonth": "/شهر",
+    "perYear": "/سنة",
+    "billedYearly": "تُدفع سنويًا",
+    "popular": "الأكثر شيوعًا",
+    "save": "وفّر {percent}%",
+    "choosePlan": "اختر {plan}",
+    "country": "البلد",
+    "currencyDisclaimer": "الأسعار بعملة {currency}. قد تُطبق الضرائب.",
+    "giftsTitle": "هدايا مجانية مع الخطط السنوية",
+    "giftsSubtitle": "كل اشتراك سنوي يتضمن هذه المزايا دون أي تكلفة",
+    "includedFeatures": "ماذا تتضمن",
+    "loading": "جارٍ تحميل الأسعار…"
+  },
+  "Testimonials": {
+    "title": "مطاعم بتشتغل أحسن مع RESTORA",
+    "previous": "التقييم السابق",
+    "next": "التقييم التالي"
+  },
+  "Hero": {
+    "seeStory": "شوف كيف يعمل",
+    "newOrder": "طلب جديد",
+    "justNow": "الآن",
+    "guestRating": "تقييم الزوار"
+  },
+  "FinalCta": {
+    "serviceRating": "خدمة بتقييم ٤٫٩"
+  },
+  "Common": {
+    "learnMore": "اعرف المزيد",
+    "seePricing": "اطّلع على الأسعار"
+  },
+  "Story": {
+    "scanBrowseOrder": "امسح · تصفّح · اطلب",
+    "noDownloads": "بدون تحميل أي تطبيق"
+  }
+}

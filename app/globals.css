@@ -1,26 +1,272 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ---------------------------------------------------------------------------
+   RESTORA Design System
+   Brand: RESTORA orange #EF6701 on warm espresso neutrals.
+   These CSS variables are the single source of truth. The public website
+   overrides --brand-* at runtime from DB branding (Admin-editable).
+--------------------------------------------------------------------------- */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand — overridden at runtime by DB values */
+  --brand-primary: #ef6701;
+  --brand-secondary: #221812;
+  --brand-accent: #ff8a3d;
+
+  /* Semantic palette — light (warm ivory / espresso) */
+  --background: #faf8f4;
+  --foreground: #201a15;
+
+  --card: #ffffff;
+  --card-foreground: #201a15;
+
+  --popover: #ffffff;
+  --popover-foreground: #201a15;
+
+  --primary: var(--brand-primary);
+  --primary-foreground: #fff7f0;
+
+  --secondary: #f4efe7;
+  --secondary-foreground: #33261c;
+
+  --muted: #f1ebe2;
+  --muted-foreground: #6d635a;
+
+  --accent: var(--brand-accent);
+  --accent-foreground: #2a1503;
+
+  --destructive: #b3372c;
+  --destructive-foreground: #fdf3f1;
+
+  --success: #1e7d4f;
+  --warning: #b97f16;
+
+  --border: #e9e1d5;
+  --input: #ddd3c4;
+  --ring: color-mix(in oklab, var(--brand-primary) 65%, transparent);
+
+  /* Chart / data-viz ramp */
+  --chart-1: var(--brand-primary);
+  --chart-2: #ffb25e;
+  --chart-3: #c2542a;
+  --chart-4: #8a5a3b;
+  --chart-5: #5c4632;
+
+  /* Radius scale */
+  --radius: 0.8rem;
+
+  /* Elevation */
+  --shadow-xs: 0 1px 2px 0 rgb(32 26 21 / 0.05);
+  --shadow-card: 0 1px 2px rgb(32 26 21 / 0.04), 0 8px 24px -12px rgb(32 26 21 / 0.14);
+  --shadow-lift: 0 2px 4px rgb(32 26 21 / 0.05), 0 20px 44px -16px rgb(32 26 21 / 0.22);
+  --shadow-glow: 0 0 0 1px color-mix(in oklab, var(--brand-primary) 22%, transparent),
+    0 12px 48px -12px color-mix(in oklab, var(--brand-primary) 38%, transparent);
+
+  /* Typography */
+  --font-sans: var(--font-geist-sans), var(--font-arabic), ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-fraunces), var(--font-arabic), ui-serif, Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "Cascadia Mono", monospace;
+
+  /* Fluid editorial type scale */
+  --text-display-sm: clamp(1.75rem, 1.4rem + 1.8vw, 2.5rem);
+  --text-display-sm--line-height: 1.15;
+  --text-display-sm--letter-spacing: -0.02em;
+  --text-display-md: clamp(2.25rem, 1.6rem + 3.2vw, 3.5rem);
+  --text-display-md--line-height: 1.08;
+  --text-display-md--letter-spacing: -0.025em;
+  --text-display-lg: clamp(2.75rem, 1.8rem + 4.6vw, 4.5rem);
+  --text-display-lg--line-height: 1.04;
+  --text-display-lg--letter-spacing: -0.03em;
+  --text-display-xl: clamp(3rem, 2rem + 5.5vw, 5.25rem);
+  --text-display-xl--line-height: 1;
+  --text-display-xl--letter-spacing: -0.035em;
+}
+
+.dark {
+  --background: #131009;
+  --foreground: #ede7dd;
+
+  --card: #1c1712;
+  --card-foreground: #ede7dd;
+
+  --popover: #1c1712;
+  --popover-foreground: #ede7dd;
+
+  --primary: color-mix(in oklab, var(--brand-primary) 88%, #ffb25e);
+  --primary-foreground: #221005;
+
+  --secondary: #241d16;
+  --secondary-foreground: #e6d9c9;
+
+  --muted: #201a14;
+  --muted-foreground: #a89c8f;
+
+  --accent: color-mix(in oklab, var(--brand-accent) 90%, #ffd9b0);
+  --accent-foreground: #2a1503;
+
+  --destructive: #e05b4e;
+  --destructive-foreground: #1a0806;
+
+  --success: #37a56d;
+  --warning: #d99b2b;
+
+  --border: #2c241b;
+  --input: #362c21;
+  --ring: color-mix(in oklab, var(--brand-primary) 55%, #ffb25e);
+
+  --chart-1: color-mix(in oklab, var(--brand-primary) 85%, #ffb25e);
+  --chart-2: #ffb25e;
+  --chart-3: #d97a4a;
+  --chart-4: #a07856;
+  --chart-5: #6e5741;
+
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 28px -12px rgb(0 0 0 / 0.5);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.35), 0 24px 52px -16px rgb(0 0 0 / 0.65);
+  --shadow-glow: 0 0 0 1px color-mix(in oklab, var(--brand-primary) 45%, transparent),
+    0 12px 52px -12px color-mix(in oklab, var(--brand-primary) 55%, transparent);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
+  --text-display-sm: var(--text-display-sm);
+  --text-display-md: var(--text-display-md);
+  --text-display-lg: var(--text-display-lg);
+  --text-display-xl: var(--text-display-xl);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --shadow-xs: var(--shadow-xs);
+  --shadow-card: var(--shadow-card);
+  --shadow-lift: var(--shadow-lift);
+  --shadow-glow: var(--shadow-glow);
+
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border outline-ring/40;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--brand-accent) 30%, transparent);
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Arabic script is connected — any letter-spacing visually severs the joins.
+     Normalize tracking for all RTL text regardless of utility classes used. */
+  [dir="rtl"] * {
+    letter-spacing: normal !important;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--muted-foreground) 30%, transparent);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Respect reduced motion globally; GSAP/FM also check this */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility container-page {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 76rem;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
 }

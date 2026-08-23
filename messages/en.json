@@ -1,0 +1,60 @@
+{
+  "HomePage": {
+    "title": "Run your restaurant, beautifully"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist.",
+    "backHome": "Back to Home"
+  },
+  "Nav": {
+    "features": "Features",
+    "howItWorks": "How it works",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "login": "Log in",
+    "getStarted": "Get started",
+    "menu": "Open menu"
+  },
+  "Pricing": {
+    "title": "Simple pricing that grows with you",
+    "subtitle": "One platform for your entire restaurant. Pick a plan, choose your country, and start today.",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "perMonth": "/mo",
+    "perYear": "/yr",
+    "billedYearly": "billed yearly",
+    "popular": "Most popular",
+    "save": "Save {percent}%",
+    "choosePlan": "Choose {plan}",
+    "country": "Country",
+    "currencyDisclaimer": "Prices shown in {currency}. Taxes may apply.",
+    "giftsTitle": "Free gifts with yearly plans",
+    "giftsSubtitle": "Every annual subscription includes these extras at no cost",
+    "includedFeatures": "What's included",
+    "loading": "Loading pricing…"
+  },
+  "Testimonials": {
+    "title": "Restaurants run better on RESTORA",
+    "previous": "Previous testimonial",
+    "next": "Next testimonial"
+  },
+  "Hero": {
+    "seeStory": "See how it works",
+    "newOrder": "New order",
+    "justNow": "just now",
+    "guestRating": "Guest rating"
+  },
+  "FinalCta": {
+    "serviceRating": "4.9 rated service"
+  },
+  "Common": {
+    "learnMore": "Learn more",
+    "seePricing": "See pricing"
+  },
+  "Story": {
+    "scanBrowseOrder": "Scan · Browse · Order",
+    "noDownloads": "0 downloads needed"
+  }
+}

@@ -1,0 +1,390 @@
+// RESTORA — Prisma schema
+// Multi-tenant restaurant SaaS marketing website + internal CMS.
+//
+// Conventions:
+// - Money: Decimal(12,2) — never floats.
+// - Localized content: translation tables keyed by (entityId, locale).
+//   Entities themselves are locale-agnostic so adding a language never
+//   duplicates commercial data.
+// - Ordering: integer `sortOrder` columns, managed by the Admin CMS.
+// - All commercial data lives in the DB. Nothing is hardcoded in components.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------------------------------------------------------------------------
+// Platform / Branding
+// ---------------------------------------------------------------------------
+
+/// Singleton row (id = 1) holding platform-wide branding + contact info.
+model Branding {
+  id             Int      @id @default(1)
+  brandName      String   @default("RESTORA")
+  logoUrl        String?
+  faviconUrl     String?
+  primaryColor   String   @default("#0e5f4b")
+  secondaryColor String   @default("#123c33")
+  accentColor    String   @default("#e2a13c")
+  defaultLocale  String   @default("ar")
+  contactEmail   String?
+  contactPhone   String?
+  whatsapp       String?
+  address        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  socialLinks SocialLink[]
+
+  @@map("branding")
+}
+
+model SocialLink {
+  id        Int     @id @default(autoincrement())
+  platform  String // e.g. facebook, instagram, x, tiktok
+  url       String
+  active    Boolean @default(true)
+  sortOrder Int     @default(0)
+
+  brandingId Int
+  branding   Branding @relation(fields: [brandingId], references: [id], onDelete: Cascade)
+
+  @@index([active, sortOrder])
+  @@map("social_links")
+}
+
+// ---------------------------------------------------------------------------
+// Countries & currency
+// ---------------------------------------------------------------------------
+
+model Country {
+  id             Int     @id @default(autoincrement())
+  code           String  @unique // ISO 3166-1 alpha-2, e.g. EG, SA, AE
+  name           String // admin-facing label; public names are localized via messages
+  currencyCode   String // ISO 4217, e.g. EGP
+  currencySymbol String // e.g. ج.م, ر.س, د.إ
+  locale         String? // preferred storefront locale for this country
+  dialCode       String?
+  active         Boolean @default(true)
+  sortOrder      Int     @default(0)
+
+  planPricings PlanCountryPricing[]
+
+  @@index([active, sortOrder])
+  @@map("countries")
+}
+
+// ---------------------------------------------------------------------------
+// Plans
+// ---------------------------------------------------------------------------
+
+model Plan {
+  id           Int     @id @default(autoincrement())
+  slug         String  @unique
+  displayOrder Int     @default(0)
+  active       Boolean @default(true)
+  popular      Boolean @default(false)
+
+  /// Default prices (used when a country has no specific pricing override).
+  monthlyPrice         Decimal  @db.Decimal(12, 2) @default(0)
+  yearlyPrice          Decimal  @db.Decimal(12, 2) @default(0)
+  monthlyCompareAtPrice Decimal? @db.Decimal(12, 2)
+  yearlyCompareAtPrice  Decimal? @db.Decimal(12, 2)
+
+  ctaKey  String  @default("choosePlan") // i18n key or literal handled by UI
+  ctaUrl  String?
+  badgeKey String? // optional i18n key for card badge e.g. "popular"
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  translations PlanTranslation[]
+  features     PlanFeatureAssignment[]
+  countryPrices PlanCountryPricing[]
+  gifts        PlanGift[]
+
+  @@index([active, displayOrder])
+  @@map("plans")
+}
+
+/// Localized plan copy — one row per locale, never duplicating pricing.
+model PlanTranslation {
+  id               Int     @id @default(autoincrement())
+  locale           String
+  name             String
+  shortDescription String
+  longDescription  String?
+
+  planId Int
+  plan   Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+  @@unique([planId, locale])
+  @@index([locale])
+  @@map("plan_translations")
+}
+
+/// Country-specific pricing overrides. Falls back to Plan defaults when absent.
+model PlanCountryPricing {
+  id                    Int     @id @default(autoincrement())
+  active                Boolean @default(true)
+
+  monthlyPrice          Decimal  @db.Decimal(12, 2)
+  yearlyPrice           Decimal  @db.Decimal(12, 2)
+  monthlyCompareAtPrice Decimal? @db.Decimal(12, 2)
+  yearlyCompareAtPrice  Decimal? @db.Decimal(12, 2)
+
+  planId    Int
+  plan      Plan    @relation(fields: [planId], references: [id], onDelete: Cascade)
+  countryId Int
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+
+  @@unique([planId, countryId])
+  @@map("plan_country_pricing")
+}
+
+// ---------------------------------------------------------------------------
+// Features
+// ---------------------------------------------------------------------------
+
+model Feature {
+  id        Int     @id @default(autoincrement())
+  key       String  @unique // stable identifier used by icons/mappings
+  icon      String? // icon name key resolved by the UI icon registry
+  category  String  @default("general") // grouping in CMS + pricing table
+  active    Boolean @default(true)
+  sortOrder Int     @default(0)
+
+  translations FeatureTranslation[]
+  plans        PlanFeatureAssignment[]
+
+  @@index([category, sortOrder])
+  @@map("features")
+}
+
+model FeatureTranslation {
+  id          Int     @id @default(autoincrement())
+  locale      String
+  name        String
+  description String?
+
+  featureId Int
+  feature   Feature @relation(fields: [featureId], references: [id], onDelete: Cascade)
+
+  @@unique([featureId, locale])
+  @@index([locale])
+  @@map("feature_translations")
+}
+
+/// Which plan includes which feature (with optional limit/value).
+model PlanFeatureAssignment {
+  id         Int     @id @default(autoincrement())
+  included   Boolean @default(true)
+  limitValue String? // e.g. "1" employee, "unlimited", "5 languages"
+  sortOrder  Int     @default(0)
+
+  planId    Int
+  plan      Plan    @relation(fields: [planId], references: [id], onDelete: Cascade)
+  featureId Int
+  feature   Feature @relation(fields: [featureId], references: [id], onDelete: Cascade)
+
+  @@unique([planId, featureId])
+  @@index([planId, sortOrder])
+  @@map("plan_feature_assignments")
+}
+
+// ---------------------------------------------------------------------------
+// Gifts (annual subscription perks)
+// ---------------------------------------------------------------------------
+
+model Gift {
+  id         Int     @id @default(autoincrement())
+  slug       String  @unique
+  imageUrl   String?
+  icon       String?
+  yearlyOnly Boolean @default(true)
+  active     Boolean @default(true)
+  sortOrder  Int     @default(0)
+
+  translations GiftTranslation[]
+  plans        PlanGift[]
+
+  @@index([active, sortOrder])
+  @@map("gifts")
+}
+
+model GiftTranslation {
+  id          Int     @id @default(autoincrement())
+  locale      String
+  name        String
+  description String?
+
+  giftId Int
+  gift   Gift  @relation(fields: [giftId], references: [id], onDelete: Cascade)
+
+  @@unique([giftId, locale])
+  @@index([locale])
+  @@map("gift_translations")
+}
+
+/// Assignment of gifts to plans.
+model PlanGift {
+  id        Int @id @default(autoincrement())
+  planId    Int
+  plan      Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  giftId    Int
+  gift      Gift @relation(fields: [giftId], references: [id], onDelete: Cascade)
+
+  @@unique([planId, giftId])
+  @@map("plan_gifts")
+}
+
+// ---------------------------------------------------------------------------
+// Marketing content
+// ---------------------------------------------------------------------------
+
+/// A named marketing block (hero, problem, solution, ...). The public site
+/// looks sections up by `sectionKey`; copy lives in translations.
+model MarketingSection {
+  id         Int     @id @default(autoincrement())
+  sectionKey String  @unique // e.g. "hero", "problem", "solution"
+  imageUrl   String?
+  active     Boolean @default(true)
+  sortOrder  Int     @default(0)
+
+  translations MarketingSectionTranslation[]
+
+  @@map("marketing_sections")
+}
+
+model MarketingSectionTranslation {
+  id          Int     @id @default(autoincrement())
+  locale      String
+  title       String
+  subtitle    String?
+  description String?
+  ctaLabel    String?
+  ctaHref     String?
+
+  sectionId Int
+  section   MarketingSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  @@unique([sectionId, locale])
+  @@index([locale])
+  @@map("marketing_section_translations")
+}
+
+model Testimonial {
+  id             Int     @id @default(autoincrement())
+  customerName   String
+  restaurantName String?
+  imageUrl       String?
+  rating         Int     @default(5) // 1..5
+  active         Boolean @default(true)
+  sortOrder      Int     @default(0)
+
+  translations TestimonialTranslation[]
+
+  @@index([active, sortOrder])
+  @@map("testimonials")
+}
+
+/// A scene in the cinematic scroll-driven product story on the homepage.
+model StoryScene {
+  id        Int     @id @default(autoincrement())
+  sceneKey  String  @unique // stable id used by the UI, e.g. "qr-table"
+  icon      String? // icon name key resolved by the UI
+  visual    String  @default("phone") // which mockup to show: phone | dashboard | analytics | growth
+  active    Boolean @default(true)
+  sortOrder Int     @default(0)
+
+  translations StorySceneTranslation[]
+
+  @@map("story_scenes")
+}
+
+model StorySceneTranslation {
+  id       Int    @id @default(autoincrement())
+  locale   String
+  kicker   String? // small label above the title, e.g. "SCENE 01"
+  title    String
+  body     String?
+
+  sceneId Int
+  scene   StoryScene @relation(fields: [sceneId], references: [id], onDelete: Cascade)
+
+  @@unique([sceneId, locale])
+  @@index([locale])
+  @@map("story_scene_translations")
+}
+
+model TestimonialTranslation {
+  id     Int    @id @default(autoincrement())
+  locale String
+  quote  String
+
+  testimonialId Int
+  testimonial   Testimonial @relation(fields: [testimonialId], references: [id], onDelete: Cascade)
+
+  @@unique([testimonialId, locale])
+  @@index([locale])
+  @@map("testimonial_translations")
+}
+
+model Faq {
+  id        Int     @id @default(autoincrement())
+  active    Boolean @default(true)
+  sortOrder Int     @default(0)
+
+  translations FaqTranslation[]
+
+  @@index([active, sortOrder])
+  @@map("faqs")
+}
+
+model FaqTranslation {
+  id       Int    @id @default(autoincrement())
+  locale   String
+  question String
+  answer   String
+
+  faqId Int
+  faq   Faq  @relation(fields: [faqId], references: [id], onDelete: Cascade)
+
+  @@unique([faqId, locale])
+  @@index([locale])
+  @@map("faq_translations")
+}
+
+// ---------------------------------------------------------------------------
+// SEO
+// ---------------------------------------------------------------------------
+
+/// Per-page, per-locale SEO metadata managed by the CMS.
+model SeoEntry {
+  id     Int    @id @default(autoincrement())
+  page   String // route key, e.g. "home", "pricing", "contact"
+  locale String
+
+  title       String
+  description String
+  keywords    String?
+  canonical   String?
+  robots      String? // e.g. "index,follow"
+
+  ogTitle             String?
+  ogDescription       String?
+  ogImage             String?
+  twitterTitle        String?
+  twitterDescription  String?
+  twitterImage        String?
+
+  @@unique([page, locale])
+  @@index([page])
+  @@map("seo_entries")
+}

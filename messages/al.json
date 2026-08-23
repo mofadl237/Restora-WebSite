@@ -1,0 +1,60 @@
+{
+  "HomePage": {
+    "title": "Menaxho restorantin tuaj me elegancë"
+  },
+  "NotFound": {
+    "title": "Faqja nuk u gjet",
+    "description": "Faqja që kërkoni nuk ekziston.",
+    "backHome": "Kthehu në faqen kryesore"
+  },
+  "Nav": {
+    "features": "Veçoritë",
+    "howItWorks": "Si funksionon",
+    "pricing": "Çmimet",
+    "faq": "Pyetje të shpeshta",
+    "contact": "Kontakti",
+    "login": "Hyr",
+    "getStarted": "Fillo tani",
+    "menu": "Hap menynë"
+  },
+  "Pricing": {
+    "title": "Çmime të thjeshta që rriten me ju",
+    "subtitle": "Një platformë për gjithë restorantin tuaj. Zgjidhni planin, vendin dhe filloni sot.",
+    "monthly": "Mujore",
+    "yearly": "Vjetore",
+    "perMonth": "/muaj",
+    "perYear": "/vit",
+    "billedYearly": "paguhet çdo vit",
+    "popular": "Më e kërkuara",
+    "save": "Kurseni {percent}%",
+    "choosePlan": "Zgjidhni {plan}",
+    "country": "Vendi",
+    "currencyDisclaimer": "Çmimet në {currency}. Takat mund të aplikohen.",
+    "giftsTitle": "Dhurata falas me planet vjetore",
+    "giftsSubtitle": "Çdo abonim vjetor përfshin këto ekstra pa pagesë",
+    "includedFeatures": "Çfarë përfshihet",
+    "loading": "Duke ngarkuar çmimet…"
+  },
+  "Testimonials": {
+    "title": "Restorantet funksionojnë më mirë me RESTORA",
+    "previous": "Vlerësimi i mëparshëm",
+    "next": "Vlerësimi tjetër"
+  },
+  "Hero": {
+    "seeStory": "Shiko si funksionon",
+    "newOrder": "Porosi e re",
+    "justNow": "tani",
+    "guestRating": "Vlerësimi i vizitorëve"
+  },
+  "FinalCta": {
+    "serviceRating": "Shërbim me vlerësim 4.9"
+  },
+  "Common": {
+    "learnMore": "Mëso më shumë",
+    "seePricing": "Shiko çmimet"
+  },
+  "Story": {
+    "scanBrowseOrder": "Skano · Shfletoni · Porositni",
+    "noDownloads": "Pa nevojë për aplikacion"
+  }
+}
