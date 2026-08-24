@@ -15,7 +15,9 @@
     "contact": "Contact",
     "login": "Log in",
     "getStarted": "Get started",
-    "menu": "Open menu"
+    "menu": "Open menu",
+    "blog": "Blog",
+    "business": "For Business"
   },
   "Pricing": {
     "title": "Simple pricing that grows with you",
@@ -33,7 +35,8 @@
     "giftsTitle": "Free gifts with yearly plans",
     "giftsSubtitle": "Every annual subscription includes these extras at no cost",
     "includedFeatures": "What's included",
-    "loading": "Loading pricing…"
+    "loading": "Loading pricing…",
+    "everythingInPrevious": "Everything in {plan}, plus:"
   },
   "Testimonials": {
     "title": "Restaurants run better on RESTORA",
@@ -56,5 +59,136 @@
   "Story": {
     "scanBrowseOrder": "Scan · Browse · Order",
     "noDownloads": "0 downloads needed"
+  },
+  "Clients": {
+    "kicker": "Trusted by restaurants",
+    "title": "Restaurants growing with RESTORA",
+    "subtitle": "From Cairo to Riyadh — teams who swapped chaos for one calm dashboard."
+  },
+  "WhatsApp": {
+    "label": "Chat with us on WhatsApp"
+  },
+  "Contact": {
+    "title": "Contact us",
+    "kicker": "Get in touch",
+    "heading": "Let’s talk about your restaurant",
+    "subheading": "Tell us a bit about your place and we’ll get back to you within one business day.",
+    "fullName": "Full name",
+    "country": "Country",
+    "phone": "Phone number",
+    "email": "Email",
+    "optional": "optional",
+    "businessType": "Business type (restaurant, café, cloud kitchen…)",
+    "message": "Your message",
+    "submit": "Send message",
+    "successTitle": "Message sent!",
+    "successBody": "Thanks for reaching out — our team will contact you shortly."
+  },
+  "Blog": {
+    "title": "The RESTORA blog",
+    "kicker": "Insights",
+    "subtitle": "Practical guides and honest advice for restaurant owners.",
+    "readingTime": "{minutes} min read",
+    "empty": "No articles yet — check back soon.",
+    "backToBlog": "Back to blog",
+    "related": "Related articles",
+    "home": "Home"
+  },
+  "Moments": {
+    "chaosKicker": "THE DAILY REALITY",
+    "chaosTitle": "Your orders are everywhere. Except where you need them.",
+    "chaosSubtitle": "Watch what happens when they all land in one place.",
+    "chaosItems": "WhatsApp order|Phone call|Paper ticket|Voice message|Photo of a menu",
+    "chaosResult": "One dashboard. Zero chaos.",
+    "branchKicker": "YOUR ONLINE BRANCH",
+    "branchTitle": "You don’t need to open a new location…",
+    "branchAccent": "you can open your branch on the internet.",
+    "branchNodes": "Google Maps|Social media|Your website|QR menu|Online orders|New customers",
+    "menuKicker": "THE TRANSFORMATION",
+    "menuTitle": "From a paper menu… to a menu that sells.",
+    "menuBefore": "Paper menu",
+    "menuAfter": "RESTORA digital menu",
+    "menuNote": "Printed once, outdated tomorrow. Digital: updated in seconds, ordered from directly."
+  },
+  "Share": {
+    "label": "Share this article",
+    "copy": "Copy link",
+    "copied": "Copied!"
+  },
+  "Business": {
+    "metaTitle": "RESTORA for Food Businesses",
+    "kicker": "FOR FOOD BUSINESSES",
+    "title": "One system for every kind of food business.",
+    "subtitle": "From a home kitchen to a restaurant group — RESTORA adapts to the way you cook and sell.",
+    "segments": {
+      "restaurant": {
+        "icon": "🍽️",
+        "label": "Restaurants"
+      },
+      "cafe": {
+        "icon": "☕",
+        "label": "Cafés"
+      },
+      "bakery": {
+        "icon": "🥖",
+        "label": "Bakeries"
+      },
+      "sweets": {
+        "icon": "🍰",
+        "label": "Sweets & Pastry"
+      },
+      "juices": {
+        "icon": "🧃",
+        "label": "Juice Bars"
+      },
+      "cloud-kitchen": {
+        "icon": "📦",
+        "label": "Cloud Kitchens"
+      },
+      "food-truck": {
+        "icon": "🚚",
+        "label": "Food Trucks"
+      },
+      "catering": {
+        "icon": "🍱",
+        "label": "Catering & Buffets"
+      },
+      "home-chef": {
+        "icon": "🏠",
+        "label": "Home Chefs"
+      }
+    },
+    "steps": {
+      "idea": {
+        "title": "You have the food, we have the system",
+        "desc": "Sign up, add your menu with photos and prices — no technical skills needed."
+      },
+      "menu": {
+        "title": "Your menu goes online in minutes",
+        "desc": "A QR code and a website link put your full menu in every customer’s pocket."
+      },
+      "orders": {
+        "title": "Orders start arriving",
+        "desc": "Accept delivery and pickup orders from one dashboard — no missed calls, no chat chaos."
+      },
+      "growth": {
+        "title": "Grow with real numbers",
+        "desc": "Best-sellers, busy hours and repeat customers — decide your next step from data, not guesswork."
+      }
+    },
+    "recType": "What kind of business do you run?",
+    "recSize": "How big is it today?",
+    "size": {
+      "small": "Just starting",
+      "growing": "Steady orders",
+      "multi": "More than one branch"
+    },
+    "recResult": "RECOMMENDED FOR YOU",
+    "perMonth": "/ month",
+    "recCta": "See plans & pricing",
+    "recHint": "Pick your business type to see the recommended plan."
+  },
+  "StickyCta": {
+    "cta": "Start now"
   }
 }

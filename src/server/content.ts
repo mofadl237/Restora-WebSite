@@ -69,6 +69,8 @@ export type PublicTestimonial = {
   id: number;
   customerName: string;
   restaurantName: string | null;
+  jobTitle: string | null;
+  countryCode: string | null;
   rating: number;
   quote: string;
 };
@@ -83,6 +85,8 @@ export async function getTestimonials(locale: string): Promise<PublicTestimonial
     id: t.id,
     customerName: t.customerName,
     restaurantName: t.restaurantName,
+    jobTitle: t.jobTitle,
+    countryCode: t.countryCode,
     rating: t.rating,
     quote: pick(t.translations, locale)?.quote ?? "",
   }));
@@ -101,4 +105,117 @@ export async function getFaqs(locale: string): Promise<PublicFaq[]> {
     question: pick(f.translations, locale)?.question ?? "",
     answer: pick(f.translations, locale)?.answer ?? "",
   }));
+}
+
+// ---------------------------------------------------------------------------
+// Clients
+// ---------------------------------------------------------------------------
+
+export type PublicClient = {
+  id: number;
+  name: string;
+  imageUrl: string | null;
+  countryCode: string | null;
+  websiteUrl: string | null;
+  category: string | null;
+};
+
+export async function getClients(): Promise<PublicClient[]> {
+  const clients = await prisma.client.findMany({
+    where: { active: true },
+    orderBy: { sortOrder: "asc" },
+  });
+  return clients.map((c) => ({
+    id: c.id,
+    name: c.name,
+    imageUrl: c.imageUrl,
+    countryCode: c.countryCode,
+    websiteUrl: c.websiteUrl,
+    category: c.category,
+  }));
+}
+
+// ---------------------------------------------------------------------------
+// Blog
+// ---------------------------------------------------------------------------
+
+function estimateReadingTime(content: string): number {
+  const words = content.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(words / 180));
+}
+
+export type PublicBlogPost = {
+  id: number;
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  tags: string[];
+  authorName: string;
+  coverImage: string | null;
+  featured: boolean;
+  readingTime: number;
+  publishedAt: Date | null;
+  seoTitle: string | null;
+  seoDescription: string | null;
+  ogImage: string | null;
+};
+
+export async function getBlogPosts(locale: string): Promise<PublicBlogPost[]> {
+  const posts = await prisma.blogPost.findMany({
+    where: { published: true },
+    orderBy: [{ displayOrder: "asc" }, { publishedAt: "desc" }],
+    include: { translations: true },
+  });
+  return posts.map((p) => {
+    const t = pick(p.translations, locale);
+    return {
+      id: p.id,
+      slug: p.slug,
+      title: t?.title ?? p.slug,
+      excerpt: t?.excerpt ?? "",
+      category: p.category,
+      tags: p.tags,
+      authorName: p.authorName,
+      coverImage: p.coverImage,
+      featured: p.featured,
+      readingTime: t ? estimateReadingTime(t.content) : 1,
+      publishedAt: p.publishedAt,
+      seoTitle: p.seoTitle,
+      seoDescription: p.seoDescription,
+      ogImage: p.ogImage,
+    };
+  });
+}
+
+export type PublicBlogArticle = PublicBlogPost & { content: string };
+
+export async function getBlogPost(
+  locale: string,
+  slug: string,
+): Promise<PublicBlogArticle | null> {
+  const post = await prisma.blogPost.findUnique({
+    where: { slug },
+    include: { translations: true },
+  });
+  if (!post || !post.published) return null;
+  const t = pick(post.translations, locale);
+  if (!t) return null;
+  return {
+    id: post.id,
+    slug: post.slug,
+    title: t.title,
+    excerpt: t.excerpt,
+    content: t.content,
+    category: post.category,
+    tags: post.tags,
+    authorName: post.authorName,
+    coverImage: post.coverImage,
+    featured: post.featured,
+    readingTime: estimateReadingTime(t.content),
+    publishedAt: post.publishedAt,
+    seoTitle: post.seoTitle,
+    seoDescription: post.seoDescription,
+    ogImage: post.ogImage,
+  };
 }

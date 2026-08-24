@@ -18,6 +18,7 @@ import {
   plansSeed,
   giftsSeed,
   countryPricingOverrides,
+  clientsSeed,
 } from "./seed-data";
 import {
   sectionsSeed,
@@ -27,6 +28,8 @@ import {
   faqsSeed,
   seoEntriesSeed,
 } from "./seed-content";
+import { blogPostsSeed } from "./seed-blog";
+import { seedSegmentPages } from "./seed-segments";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
@@ -85,6 +88,7 @@ async function seedPlansAndPricing() {
       monthlyCompareAtPrice: p.monthlyCompareAtPrice ?? null,
       yearlyCompareAtPrice: p.yearlyCompareAtPrice ?? null,
       badgeKey: p.badgeKey ?? null,
+      recommendedFor: p.recommendedFor ?? [],
     };
     const plan = await prisma.plan.upsert({
       where: { slug: p.slug },
@@ -177,8 +181,54 @@ async function seedSections() {
       };
       await prisma.marketingSectionTranslation.upsert({
         where: { sectionId_locale: { sectionId: section.id, locale } },
+        // Seed is the source of truth for EN/AR marketing copy — admin can
+        // override afterwards per environment.
         update: data,
         create: { sectionId: section.id, locale, ...data },
+      });
+    }
+  }
+}
+
+async function seedClients() {
+  for (const c of clientsSeed) {
+    const found = await prisma.client.findFirst({ where: { name: c.name } });
+    if (found) {
+      await prisma.client.update({
+        where: { id: found.id },
+        data: { countryCode: c.countryCode, websiteUrl: c.websiteUrl, category: c.category, sortOrder: c.sortOrder },
+      });
+    } else {
+      await prisma.client.create({ data: { ...c, active: true } });
+    }
+  }
+}
+
+async function seedBlogPosts() {
+  for (const p of blogPostsSeed) {
+    const publishedAt = new Date(Date.now() - p.publishedDaysAgo * 24 * 60 * 60 * 1000);
+    const data = {
+      authorName: p.authorName,
+      category: p.category,
+      tags: p.tags,
+      featured: !!p.featured,
+      displayOrder: p.publishedDaysAgo,
+      seoTitle: p.seoTitle ?? null,
+      seoDescription: p.seoDescription ?? null,
+    };
+    const post = await prisma.blogPost.upsert({
+      where: { slug: p.slug },
+      update: data,
+      create: { ...data, slug: p.slug, published: true, publishedAt },
+    });
+    for (const locale of LOCALES) {
+      const t = p[locale as "en" | "ar"];
+      if (!t) continue;
+      const tData = { title: t.title, excerpt: t.excerpt, content: t.content };
+      await prisma.blogPostTranslation.upsert({
+        where: { postId_locale: { postId: post.id, locale } },
+        update: tData,
+        create: { postId: post.id, locale, ...tData },
       });
     }
   }
@@ -191,9 +241,20 @@ async function seedTestimonials() {
       where: { customerName: t.customerName, restaurantName: t.restaurantName },
     });
     const testimonial = found
-      ? await prisma.testimonial.update({ where: { id: found.id }, data: { rating: t.rating, sortOrder: order } })
+      ? await prisma.testimonial.update({
+          where: { id: found.id },
+          data: { rating: t.rating, sortOrder: order, jobTitle: t.jobTitle ?? null, countryCode: t.countryCode ?? null },
+        })
       : await prisma.testimonial.create({
-          data: { customerName: t.customerName, restaurantName: t.restaurantName, rating: t.rating, sortOrder: order, active: true },
+          data: {
+            customerName: t.customerName,
+            restaurantName: t.restaurantName,
+            rating: t.rating,
+            sortOrder: order,
+            jobTitle: t.jobTitle ?? null,
+            countryCode: t.countryCode ?? null,
+            active: true,
+          },
         });
     for (const locale of LOCALES) {
       await prisma.testimonialTranslation.upsert({
@@ -267,6 +328,9 @@ async function main() {
   await seedTestimonials();
   await seedFaqs();
   await seedSeo();
+  await seedClients();
+  await seedBlogPosts();
+  await seedSegmentPages();
 
   const counts = {
     countries: await prisma.country.count(),
@@ -279,6 +343,8 @@ async function main() {
     faqs: await prisma.faq.count(),
     seoEntries: await prisma.seoEntry.count(),
     countryPrices: await prisma.planCountryPricing.count(),
+    clients: await prisma.client.count(),
+    blogPosts: await prisma.blogPost.count(),
   };
   console.log("Seed complete:", counts);
 }

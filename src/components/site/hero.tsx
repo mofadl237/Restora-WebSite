@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { useTranslations } from "next-intl";
 import { gsap, EASE } from "@/src/lib/gsap";
+import { useMagnetic } from "@/src/lib/use-magnetic";
 import { DashboardMockup } from "@/src/components/mockups/ui";
 import { QrBadge } from "@/src/components/mockups/ui";
 
@@ -22,6 +23,7 @@ type HeroProps = {
  */
 export function Hero({ eyebrow, title, description, ctaLabel, ctaHref }: HeroProps) {
   const root = useRef<HTMLDivElement>(null);
+  const magneticCta = useMagnetic<HTMLAnchorElement>(0.22);
   const t = useTranslations("Hero");
 
   const words = title.split(" ");
@@ -147,6 +149,7 @@ export function Hero({ eyebrow, title, description, ctaLabel, ctaHref }: HeroPro
               <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
                 {ctaHref && (
                   <a
+                    ref={magneticCta}
                     data-hero-cta
                     href={ctaHref}
                     className="group inline-flex items-center gap-2 rounded-full bg-[var(--brand-accent)] px-7 py-3 text-sm font-semibold text-accent-foreground shadow-lift transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98]"

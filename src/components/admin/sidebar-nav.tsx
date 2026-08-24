@@ -14,6 +14,9 @@ import {
   Quote,
   HelpCircle,
   Search,
+  Building2,
+  Newspaper,
+  Inbox,
 } from "lucide-react";
 import { cn } from "@/src/lib/utils";
 
@@ -27,6 +30,9 @@ const NAV_ITEMS = [
   { href: "/admin/story", label: "Product Story", icon: Clapperboard },
   { href: "/admin/sections", label: "Marketing Sections", icon: PanelsTopLeft },
   { href: "/admin/testimonials", label: "Testimonials", icon: Quote },
+  { href: "/admin/clients", label: "Clients", icon: Building2 },
+  { href: "/admin/blog", label: "Blog", icon: Newspaper },
+  { href: "/admin/contact", label: "Contact inbox", icon: Inbox },
   { href: "/admin/faqs", label: "FAQs", icon: HelpCircle },
   { href: "/admin/seo", label: "SEO", icon: Search },
 ] as const;

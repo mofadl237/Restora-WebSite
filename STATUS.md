@@ -2,11 +2,22 @@
 
 ## Current Phase
 
-**Phase 7 — Visual QA + polish pass complete; production build verified**
+**ALL PHASES (8–20) COMPLETE** — roadmap finished; verified via production build + full smoke.
+
+Recent completions:
+- P11: chef-hat custom cursor + magnetic CTAs (`use-magnetic.ts`)
+- P12: blog polish (reading progress, share row + copy link, Article/Breadcrumb JSON-LD, breadcrumbs, sitemap 35 URLs)
+- P13: pricing cumulative ladder ("كل ما في باقة X، بالإضافة إلى:" via newFeatures diff in `resolvePricing`) + SCALE dark escalation
+- P14/15: QA sweep + production build PASS
+- P16: `/business` page — segments grid, journey timeline, CMS-driven plan recommender (`Plan.recommendedFor` migration), Business ns ×5
+- P19: Menu Transformation moment E (paper → digital scrub scene, `menu-transformation.tsx`)
+- P20: mobile sticky CTA bar (`sticky-cta.tsx`) with WhatsApp quick contact
+
+Optional polish backlog (not required): dynamic-import below-fold widgets, nav link to /business, admin CRUD for biz-* marketing sections, real client logos.
 
 ## Overall Progress
 
-**88%**
+**88%** of original scope · Phase 8 just starting (of extended roadmap Phases 8–20)
 
 ---
 

@@ -5,6 +5,9 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { routing } from "@/src/i18n/routing";
 import { notFound } from "next/navigation";
 import { ThemeProvider } from "@/src/components/theme-provider";
+import { WhatsappFloat } from "@/src/components/site/whatsapp-float";
+import { CustomCursor } from "@/src/components/site/custom-cursor";
+import { StickyCta } from "@/src/components/site/sticky-cta";
 import { prisma } from "@/src/lib/db";
 import "../globals.css";
 
@@ -71,6 +74,12 @@ export default async function LocaleLayout({
     ? `:root{--brand-primary:${branding.primaryColor};--brand-secondary:${branding.secondaryColor};--brand-accent:${branding.accentColor};}`
     : undefined;
 
+  // Floating WhatsApp CTA — only when a whatsapp link is configured in CMS
+  const whatsappLink = await prisma.socialLink.findFirst({
+    where: { platform: "whatsapp", active: true },
+    select: { url: true },
+  });
+
   return (
     <html
       lang={locale}
@@ -81,7 +90,12 @@ export default async function LocaleLayout({
       <body className="min-h-full flex flex-col">
         {brandStyle && <style>{brandStyle}</style>}
         <NextIntlClientProvider messages={messages}>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            {children}
+            <CustomCursor />
+            {whatsappLink && <WhatsappFloat url={whatsappLink.url} />}
+            <StickyCta whatsappUrl={whatsappLink?.url ?? null} />
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

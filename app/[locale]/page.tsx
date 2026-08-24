@@ -5,6 +5,7 @@ import {
   getStoryScenes,
   getTestimonials,
   getFaqs,
+  getClients,
 } from "@/src/server/content";
 import { getPricingViewModel } from "@/src/server/pricing";
 import { getBranding, getSocialLinks } from "@/src/server/branding";
@@ -17,6 +18,10 @@ import { WhyRestora } from "@/src/components/site/why-restora";
 import { Outcomes } from "@/src/components/site/outcomes";
 import { PricingSection } from "@/src/components/pricing/pricing-section";
 import { TestimonialsCarousel } from "@/src/components/site/testimonials-carousel";
+import { ClientsShowcase } from "@/src/components/site/clients-showcase";
+import { ChaosControl } from "@/src/components/site/chaos-control";
+import { OnlineBranch } from "@/src/components/site/online-branch";
+import { MenuTransformation } from "@/src/components/site/menu-transformation";
 import { FinalCta } from "@/src/components/site/final-cta";
 import { Reveal } from "@/src/components/site/reveal";
 import { JsonLd, organizationSchema, softwareApplicationSchema, faqSchema } from "@/src/components/site/json-ld";
@@ -29,7 +34,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Pricing" });
-  return buildMetadata("home", locale, t("title"));
+  return buildMetadata("home", locale, t("title"), { path: "" });
 }
 
 export default async function HomePage({
@@ -44,7 +49,7 @@ export default async function HomePage({
 
   const t = await getTranslations({ locale, namespace: "Nav" });
 
-  const [sections, scenes, pricing, branding, testimonials, faqs, socialLinks] =
+  const [sections, scenes, pricing, branding, testimonials, faqs, socialLinks, clients] =
     await Promise.all([
       getSections(locale),
       getStoryScenes(locale),
@@ -53,6 +58,7 @@ export default async function HomePage({
       getTestimonials(locale),
       getFaqs(locale),
       getSocialLinks(),
+      getClients(),
     ]);
 
   const stepKeys = ["step-1", "step-2", "step-3"] as const;
@@ -108,6 +114,22 @@ export default async function HomePage({
           ctaHref={sections.hero?.ctaHref}
         />
 
+        {/* FOR-WHOM — segment strip: every food business sees itself here */}
+        {sections["for-whom"]?.description && (
+          <section className="border-y border-border/60 bg-secondary/30 py-5">
+            <div className="container-page text-center">
+              <Reveal direction="up" amount={0.4}>
+                <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+                  {sections["for-whom"].title}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {sections["for-whom"].description}
+                </p>
+              </Reveal>
+            </div>
+          </section>
+        )}
+
         {/* PROBLEM — bold typographic statement */}
         <section className="container-page py-20 text-center md:py-28">
           <Reveal direction="up" amount={0.4}>
@@ -121,6 +143,9 @@ export default async function HomePage({
             </p>
           </Reveal>
         </section>
+
+        {/* SIGNATURE MOMENT B — CHAOS → CONTROL (scattered orders → one dashboard) */}
+        <ChaosControl />
 
         {/* SOLUTION — bridge into the story */}
         <section className="border-y border-border bg-secondary/40 py-16 md:py-20">
@@ -151,6 +176,9 @@ export default async function HomePage({
           />
         </div>
 
+        {/* SIGNATURE MOMENT E — MENU TRANSFORMATION (paper → digital) */}
+        <MenuTransformation />
+
         {/* OUTCOMES */}
         <Outcomes heading={sections.outcomes?.title} items={outcomes} />
 
@@ -163,6 +191,9 @@ export default async function HomePage({
         <div className="border-y border-border bg-secondary/40">
           <TestimonialsCarousel items={testimonials} />
         </div>
+
+        {/* CLIENTS — hidden entirely when no active clients */}
+        <ClientsShowcase clients={clients} />
 
         {/* FAQ */}
         {faqs.length > 0 && (
@@ -189,6 +220,9 @@ export default async function HomePage({
             </div>
           </section>
         )}
+
+        {/* SIGNATURE MOMENT A — ONLINE BRANCH */}
+        <OnlineBranch />
 
         {/* FINAL CTA */}
         <FinalCta

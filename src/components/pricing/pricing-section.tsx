@@ -88,13 +88,14 @@ export function PricingSection({ data }: { data: PricingViewModel }) {
         </Select>
       </div>
 
-      {/* Plan cards */}
+      {/* Plan cards — START→BUILD→GROW→SCALE visual escalation */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-        {plans.map((plan) => {
+        {plans.map((plan, index) => {
           const price = billing === "monthly" ? plan.monthlyPrice : plan.yearlyPrice;
           const compareAt =
             billing === "monthly" ? plan.monthlyCompareAtPrice : plan.yearlyCompareAtPrice;
           const pct = discountPercent(price, compareAt);
+          const isLast = index === plans.length - 1;
 
           return (
             <Card
@@ -102,7 +103,9 @@ export function PricingSection({ data }: { data: PricingViewModel }) {
               className={
                 plan.popular
                   ? "relative border-primary shadow-glow"
-                  : "relative"
+                  : isLast
+                    ? "relative overflow-hidden border-primary/40 bg-[color-mix(in_srgb,var(--brand-secondary)_92%,black)] text-[#f2f0e9] shadow-lift"
+                    : "relative"
               }
             >
               {plan.popular && (
@@ -113,7 +116,7 @@ export function PricingSection({ data }: { data: PricingViewModel }) {
               <CardContent className="flex h-full flex-col gap-5 p-6">
                 <div>
                   <h3 className="font-display text-xl font-semibold">{plan.name}</h3>
-                  <p className="mt-1 min-h-10 text-sm text-muted-foreground">{plan.shortDescription}</p>
+                  <p className={`mt-1 min-h-10 text-sm ${isLast ? "text-white/70" : "text-muted-foreground"}`}>{plan.shortDescription}</p>
                 </div>
 
                 <div className="min-h-20">
@@ -137,7 +140,7 @@ export function PricingSection({ data }: { data: PricingViewModel }) {
                         <p className="text-xs text-muted-foreground">{t("billedYearly")}</p>
                       )}
                       {compareAt && (
-                        <p className="mt-0.5 text-sm">
+                        <p className={`mt-0.5 text-sm ${isLast ? "text-white/80" : ""}`}>
                           <s className="text-muted-foreground">{country?.currencySymbol} {compareAt}</s>{" "}
                           {pct !== null && (
                             <span className="ms-1 font-medium text-success">{t("save", { percent: pct })}</span>
@@ -148,10 +151,21 @@ export function PricingSection({ data }: { data: PricingViewModel }) {
                   </AnimatePresence>
                 </div>
 
+                {/* Cumulative value ladder: "everything in X, plus…" + only NEW features */}
                 <ul className="flex-1 space-y-2.5 text-sm" aria-label={t("includedFeatures")}>
-                  {plan.features.map((f) => (
-                    <li key={f.key} className="flex items-start gap-2.5">
+                  {plan.previousPlanName && (
+                    <li
+                      className={`flex items-start gap-2.5 rounded-lg px-2 py-1.5 font-semibold ${
+                        isLast ? "bg-white/10" : "bg-primary/10 text-primary"
+                      }`}
+                    >
                       <Check className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
+                      {t("everythingInPrevious", { plan: plan.previousPlanName })}
+                    </li>
+                  )}
+                  {(plan.previousPlanName ? plan.newFeatures : plan.features).map((f) => (
+                    <li key={f.key} className="flex items-start gap-2.5">
+                      <Check className={`mt-0.5 size-4 shrink-0 ${isLast ? "text-[var(--brand-accent)]" : "text-primary"}`} aria-hidden />
                       <span>
                         {f.name}
                         {f.limitValue && (

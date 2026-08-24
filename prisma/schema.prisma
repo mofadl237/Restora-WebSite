@@ -101,6 +101,9 @@ model Plan {
   ctaUrl  String?
   badgeKey String? // optional i18n key for card badge e.g. "popular"
 
+  /// Segment keys this plan best fits (drives the /business recommender).
+  recommendedFor String[] @default([])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -283,6 +286,8 @@ model Testimonial {
   id             Int     @id @default(autoincrement())
   customerName   String
   restaurantName String?
+  jobTitle       String? // e.g. "Restaurant Owner"
+  countryCode    String? // ISO alpha-2, e.g. EG — flag + country display
   imageUrl       String?
   rating         Int     @default(5) // 1..5
   active         Boolean @default(true)
@@ -387,4 +392,135 @@ model SeoEntry {
   @@unique([page, locale])
   @@index([page])
   @@map("seo_entries")
+}
+
+// ---------------------------------------------------------------------------
+// Clients (social-proof showcase)
+// ---------------------------------------------------------------------------
+
+/// A restaurant/business using RESTORA, shown in the clients showcase.
+model Client {
+  id          Int     @id @default(autoincrement())
+  name        String
+  imageUrl    String? // logo or storefront image (circular crop in UI)
+  countryCode String? // ISO alpha-2 — flag rendered from code
+  websiteUrl  String?
+  category    String? // optional short category label
+  active      Boolean @default(true)
+  sortOrder   Int     @default(0)
+
+  @@index([active, sortOrder])
+  @@map("clients")
+}
+
+// ---------------------------------------------------------------------------
+// Contact submissions (lead inbox)
+// ---------------------------------------------------------------------------
+
+/// A lead submitted through the public contact form.
+model ContactSubmission {
+  id           Int      @id @default(autoincrement())
+  fullName     String
+  countryCode  String // ISO alpha-2 chosen in the form
+  dialCode     String // e.g. "+20"
+  phone        String // digits only, without dial code
+  email        String?
+  businessType String?
+  message      String
+  status       String   @default("NEW") // NEW | CONTACTED | QUALIFIED | CLOSED
+  sourcePage   String?
+  createdAt    DateTime @default(now())
+
+  @@index([status, createdAt])
+  @@map("contact_submissions")
+}
+
+// ---------------------------------------------------------------------------
+// Blog / articles
+// ---------------------------------------------------------------------------
+
+model BlogPost {
+  id          Int       @id @default(autoincrement())
+  slug        String    @unique
+  coverImage  String?
+  authorName  String
+  category    String    @default("general")
+  tags        String[]  @default([])
+  featured    Boolean   @default(false)
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  displayOrder Int      @default(0)
+
+  seoTitle       String?
+  seoDescription String?
+  ogImage        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  translations BlogPostTranslation[]
+
+  @@index([published, publishedAt])
+  @@map("blog_posts")
+}
+
+model BlogPostTranslation {
+  id          Int    @id @default(autoincrement())
+  locale      String
+  title       String
+  excerpt     String
+  content     String // markdown-ish body
+  readingTime Int    @default(1) // minutes
+
+  postId Int
+  post   BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, locale])
+  @@index([locale])
+  @@map("blog_post_translations")
+}
+
+// ---------------------------------------------------------------------------
+
+/// SEO landing pages per customer segment (/business/[slug]).
+/// Pipe-separated list fields keep the CMS simple while allowing rich,
+/// genuinely-differentiated content per segment.
+model SegmentPage {
+  id        Int     @id @default(autoincrement())
+  slug      String  @unique
+  /// Slug of the Plan recommended for this segment.
+  planSlug  String?
+  icon      String?
+  active    Boolean @default(true)
+  sortOrder Int     @default(0)
+
+  translations SegmentPageTranslation[]
+
+  @@map("segment_pages")
+}
+
+model SegmentPageTranslation {
+  id      Int    @id @default(autoincrement())
+  locale  String
+
+  title       String // H1
+  subtitle    String? // kicker
+  description String // intro paragraph
+  /// Pain points, pipe-separated.
+  problems    String
+  /// How RESTORA is used, pipe-separated.
+  useCases    String
+  /// Most-relevant capabilities, pipe-separated.
+  features    String
+  /// FAQs encoded as "question::answer" pairs joined by "||".
+  faqs        String
+  seoTitle       String?
+  seoDescription String?
+
+  segmentId   Int
+  segmentPage SegmentPage @relation(fields: [segmentId], references: [id], onDelete: Cascade)
+
+  @@unique([segmentId, locale])
+  @@index([locale])
+  @@map("segment_page_translations")
 }

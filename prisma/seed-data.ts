@@ -20,10 +20,24 @@ export const brandingSeed = {
 };
 
 export const socialLinksSeed = [
-  { platform: "facebook", url: "https://facebook.com/restora", sortOrder: 0 },
-  { platform: "instagram", url: "https://instagram.com/restora", sortOrder: 1 },
-  { platform: "linkedin", url: "https://linkedin.com/company/restora", sortOrder: 2 },
+  { platform: "whatsapp", url: "https://wa.me/201554491132", sortOrder: 0 },
+  { platform: "facebook", url: "https://facebook.com/restora", sortOrder: 1 },
+  { platform: "instagram", url: "https://instagram.com/restora", sortOrder: 2 },
+  { platform: "tiktok", url: "https://tiktok.com/@restora", sortOrder: 3 },
+  { platform: "linkedin", url: "https://linkedin.com/company/restora", sortOrder: 4 },
 ];
+
+// ---------------------------------------------------------------------------
+// Clients (demo showcase entries — replace with real clients from Admin)
+// ---------------------------------------------------------------------------
+export const clientsSeed = [
+  { name: "Zayn Grill", countryCode: "EG", websiteUrl: null, category: "Grill · Cairo" },
+  { name: "Cairo Bites", countryCode: "EG", websiteUrl: null, category: "Fast food · Giza" },
+  { name: "Levantine House", countryCode: "SA", websiteUrl: null, category: "Oriental · Riyadh" },
+  { name: "Palm & Bean", countryCode: "AE", websiteUrl: null, category: "Café · Dubai" },
+  { name: "Sweet Nile", countryCode: "EG", websiteUrl: null, category: "Desserts · Alexandria" },
+  { name: "Cloud Plate", countryCode: "SA", websiteUrl: null, category: "Cloud kitchen · Jeddah" },
+].map((c, i) => ({ ...c, sortOrder: i }));
 
 // ---------------------------------------------------------------------------
 // Countries
@@ -135,6 +149,8 @@ export type PlanSeed = {
   yearlyCompareAtPrice?: string;
   badgeKey?: string;
   features: string[];
+  /** Segment keys (Business ns) this plan best fits — /business recommender. */
+  recommendedFor?: string[];
   en: { name: string; shortDescription: string; longDescription: string };
   ar: { name: string; shortDescription: string; longDescription: string };
 };
@@ -152,6 +168,7 @@ export const plansSeed: PlanSeed[] = [
   {
     slug: "starter",
     displayOrder: 0,
+    recommendedFor: ["home-chef", "food-truck"],
     monthlyPrice: "447",
     yearlyPrice: "4470",
     features: starterFeatures,
@@ -169,6 +186,7 @@ export const plansSeed: PlanSeed[] = [
   {
     slug: "growth",
     displayOrder: 1,
+    recommendedFor: ["cafe", "bakery", "sweets", "juices"],
     popular: true,
     badgeKey: "popular",
     monthlyPrice: "947",
@@ -190,6 +208,7 @@ export const plansSeed: PlanSeed[] = [
   {
     slug: "professional",
     displayOrder: 2,
+    recommendedFor: ["restaurant", "cloud-kitchen"],
     monthlyPrice: "1447",
     yearlyPrice: "14470",
     monthlyCompareAtPrice: "2894",
@@ -209,6 +228,7 @@ export const plansSeed: PlanSeed[] = [
   {
     slug: "enterprise",
     displayOrder: 3,
+    recommendedFor: ["catering", "franchise"],
     monthlyPrice: "2997",
     yearlyPrice: "29970",
     features: enterpriseFeatures,

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { useTranslations } from "next-intl";
 import { gsap } from "@/src/lib/gsap";
+import { useMagnetic } from "@/src/lib/use-magnetic";
 import { Chef } from "@/src/components/site/chef";
 import { QrBadge } from "@/src/components/mockups/ui";
 
@@ -25,7 +26,7 @@ export function FinalCta({
   ctaHref?: string | null;
 }) {
   const root = useRef<HTMLElement>(null);
-  const btn = useRef<HTMLAnchorElement>(null);
+  const btn = useMagnetic<HTMLAnchorElement>(0.25);
   const t = useTranslations("FinalCta");
 
   useGSAP(
@@ -60,29 +61,6 @@ export function FinalCta({
           scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom top", scrub: true },
         });
       });
-
-      // magnetic button (pointer devices only)
-      const fine = window.matchMedia("(pointer: fine)").matches;
-      if (fine && btn.current) {
-        const el = btn.current;
-        const xTo = gsap.quickTo(el, "x", { duration: 0.35, ease: "power3" });
-        const yTo = gsap.quickTo(el, "y", { duration: 0.35, ease: "power3" });
-        const onMove = (e: MouseEvent) => {
-          const r = el.getBoundingClientRect();
-          xTo((e.clientX - (r.left + r.width / 2)) * 0.25);
-          yTo((e.clientY - (r.top + r.height / 2)) * 0.35);
-        };
-        const onLeave = () => {
-          xTo(0);
-          yTo(0);
-        };
-        el.addEventListener("mousemove", onMove);
-        el.addEventListener("mouseleave", onLeave);
-        return () => {
-          el.removeEventListener("mousemove", onMove);
-          el.removeEventListener("mouseleave", onLeave);
-        };
-      }
     },
     { scope: root },
   );

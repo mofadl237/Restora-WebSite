@@ -14,7 +14,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Pricing" });
-  return buildMetadata("pricing", locale, t("title"));
+  return buildMetadata("pricing", locale, t("title"), { path: "/pricing" });
 }
 
 export default async function PricingPage({

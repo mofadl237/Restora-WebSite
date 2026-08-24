@@ -16,14 +16,14 @@ export const sectionsSeed: SectionSeed[] = [
     en: {
       title: "Run your restaurant. We handle the digital operation.",
       subtitle: "The operating system for modern restaurants",
-      description: "Website, digital menu, QR ordering, delivery and analytics — one system instead of five disconnected tools.",
+      description: "Your own website, digital menu, online ordering and analytics — one system for restaurants, cafés, cloud kitchens and home food brands.",
       ctaLabel: "Start with RESTORA",
       ctaHref: "/pricing",
     },
     ar: {
-      title: "ركّز على مطعمك… واحنا نشغّل الجزء الرقمي.",
+      title: "ركّز على مطعمك… واحنا نشغّل وجودك على الإنترنت.",
       subtitle: "نظام تشغيل المطاعم الحديثة",
-      description: "موقع ومنيو رقمي وطلب بالـ QR وتوصيل وتحليلات — نظام واحد بدل خمس أدوات متفرقة.",
+      description: "موقع خاص بيك ومنيو إلكتروني وطلبات أونلاين وتحليلات — نظام واحد للمطاعم والكافيهات والمطابخ السحابية وحتى مشاريع الأكل من البيت.",
       ctaLabel: "ابدأ مع RESTORA",
       ctaHref: "/pricing",
     },
@@ -31,23 +31,34 @@ export const sectionsSeed: SectionSeed[] = [
   {
     sectionKey: "problem", sortOrder: 1,
     en: {
-      title: "How much is disconnection costing you?",
-      description: "Lost orders, wasted hours, customers who never find you — most restaurants don't lose to competitors, they lose to friction.",
+      title: "Every lost order is a customer who never came back",
+      description: "An order scattered across ten WhatsApp chats. A phone ringing during rush hour. An outdated menu apologizing for sold-out items. Customers who searched online and never found you. You're not losing to better food — you're losing to friction.",
     },
     ar: {
-      title: "التشتت بيكلفك كام؟",
-      description: "طلبات ضايعة وساعات مهدرة وعملاء مش لاقيينك — أغلب المطاعم مش بتخسر بسبب المنافسين، بتخسر بسبب التعقيد.",
+      title: "كل طلب بيضيع… عميل مش هيرجع تاني",
+      description: "طلب ضايع بين عشر شاتات واتساب. تليفون بيرن في وقت الزحمة. منيو قديم بيعتذر عن أصناف خلصانة. وعملاء دوّروا أونلاين وملاقوش وجودك. انت مش بتخسر بسبب الأكل — بتخسر بسبب الفوضى اللي بتاكل مجهودك وفلوسك.",
     },
   },
   {
     sectionKey: "solution", sortOrder: 2,
     en: {
-      title: "One system. Every part of your digital restaurant.",
-      description: "RESTORA connects your storefront, menu, orders, customers and numbers in a single platform built for restaurants.",
+      title: "One system runs your entire online presence",
+      description: "From the digital menu to the order, delivery and daily numbers — RESTORA gathers what five disconnected tools used to do, and puts it in front of you in one place.",
     },
     ar: {
-      title: "نظام واحد… لكل جزء رقمي في مطعمك.",
-      description: "RESTORA بيربط موقعك ومنيوك وطلباتك وعملائك وأرقامك في منصة واحدة معمولة خصيصًا للمطاعم.",
+      title: "نظام واحد يشغّل وجودك كله على الإنترنت",
+      description: "من المنيو الإلكتروني لحد الطلب والتوصيل وأرقام اليوم — RESTORA بيجمع شغل خمس أدوات متفرقة في مكان واحد قدامك.",
+    },
+  },
+  {
+    sectionKey: "for-whom", sortOrder: 2,
+    en: {
+      title: "Built for every food business",
+      description: "Restaurants · Cafés · Bakeries · Pastry & dessert shops · Juice bars · Cloud kitchens · Food trucks · Catering · Home chefs & home food brands",
+    },
+    ar: {
+      title: "معمول لكل بيزنس أكل",
+      description: "مطاعم · كافيهات · مخبوزات · حلويات ومعجنات · عصائر · مطابخ سحابية · فوود ترك · بوفيهات وضيافة · شيفات بيتية ومشاريع أكل من البيت",
     },
   },
   {
@@ -76,22 +87,24 @@ export const sectionsSeed: SectionSeed[] = [
     sectionKey: "outcomes", sortOrder: 5,
     en: {
       title: "What changes when RESTORA runs your digital side",
-      description: "More captured orders. Less manual work. Customers who come back. Numbers you can act on.",
+      description: "Orders land organized instead of lost. Hours come back to you. And your restaurant finally exists online, where customers are looking.",
     },
     ar: {
       title: "إيه اللي هيتغير لما RESTORA يشغّل جانبك الرقمي",
-      description: "طلبات أكتر. مجهود يدوي أقل. عملاء بيرجعوا تاني. أرقام تقدر تتحرك عليها.",
+      description: "الطلبات توصلك منظمة بدل ما تتضيّع. ساعاتك ترجعلك. ومطعمك أخيرًا يبقى موجود أونلاين، فين ما العملاء بيدوروا.",
     },
   },
   {
     sectionKey: "final-cta", sortOrder: 6,
     en: {
-      title: "Your restaurant deserves better tools",
+      title: "Open your restaurant's branch on the internet",
+      description: "Ready in days — our team sets everything up with you. Start with the plan that fits your size today, and upgrade whenever you grow.",
       ctaLabel: "Choose your plan",
       ctaHref: "/pricing",
     },
     ar: {
-      title: "مطعمك يستاهل أدوات أحسن",
+      title: "افتح فرع مطعمك على الإنترنت",
+      description: "جاهز في أيام — فريقنا بيهندس التجهيز معاك. ابدأ بالخطة اللي على قدّ مشروعك النهاردة، وارتقي أول ما تكبر.",
       ctaLabel: "اختار خطتك",
       ctaHref: "/pricing",
     },
@@ -101,6 +114,8 @@ export const sectionsSeed: SectionSeed[] = [
 export type TestimonialSeed = {
   customerName: string;
   restaurantName: string;
+  jobTitle?: string;
+  countryCode?: string;
   rating: number;
   en: { quote: string };
   ar: { quote: string };
@@ -108,17 +123,17 @@ export type TestimonialSeed = {
 
 export const testimonialsSeed: TestimonialSeed[] = [
   {
-    customerName: "Ahmed El-Sayed", restaurantName: "Zayn Grill", rating: 5,
+    customerName: "Ahmed El-Sayed", restaurantName: "Zayn Grill", jobTitle: "Restaurant Owner", countryCode: "EG", rating: 5,
     en: { quote: "Before RESTORA we juggled three apps and a paper notebook. Now everything lands in one dashboard — orders, tables, delivery." },
     ar: { quote: "قبل RESTORA كنا بنشتغل على ثلاث تطبيقات ودفتر ورقي. دلوقتي كل حاجة بتيجي على لوحة واحدة — طلبات وطاولات وتوصيل." },
   },
   {
-    customerName: "Mariam Hassan", restaurantName: "Cairo Bites", rating: 5,
+    customerName: "Mariam Hassan", restaurantName: "Cairo Bites", jobTitle: "Founder", countryCode: "EG", rating: 5,
     en: { quote: "Our QR menu paid for itself in the first week. Customers browse faster and our waiters finally have time to serve properly." },
     ar: { quote: "منيو الـQR غطى تكلفته في أول أسبوع. العملاء بيتصفحوا أسرع والجرسونين بقى عندهم وقت يقدموا خدمة أحسن." },
   },
   {
-    customerName: "Omar Farouk", restaurantName: "Levantine House", rating: 5,
+    customerName: "Omar Farouk", restaurantName: "Levantine House", jobTitle: "General Manager", countryCode: "SA", rating: 5,
     en: { quote: "I used to discover problems at closing time. With the analytics I see slow hours coming before they hurt revenue." },
     ar: { quote: "كنت باكتشف المشاكل وقت القفل. بس مع التحليلات بشوف الساعات الهادية قبل ما تأثر على الإيرادات." },
   },
@@ -154,6 +169,14 @@ export const faqsSeed: FaqSeed[] = [
     en: { question: "Can I upgrade my plan later?", answer: "Yes. Start small and move up whenever your restaurant grows — your data, menu and orders carry over automatically." },
     ar: { question: "أقدر أرقّي خطتي بعدين؟", answer: "أيوه. ابدأ صغير وارتقي في أي وقت مطعمك يكبر — بياناتك ومنيوك وطلباتك بتتنقل تلقائيًا." },
   },
+  {
+    en: { question: "I cook from home. Is RESTORA for me?", answer: "Yes — home food brands are one of the best fits. You get your own website, a digital menu and an ordering link, so customers order from you professionally without needing a storefront. Your kitchen stays at home; your presence doesn't have to.", },
+    ar: { question: "أنا بعمل أكل من البيت… RESTORA ينفعلي؟", answer: "أيوه، مشاريع الأكل البيتي من أنجح حالات RESTORA. هتاخد موقع خاص بيك ومنيو إلكتروني ولينك طلبات — عملاؤك يطلبوا منك بشكل احترافي من غير محل ولا واجهة. مطبخك في البيت… لكن وجودك مش محدود بيه.", },
+  },
+  {
+    en: { question: "I own more than one branch. Can RESTORA handle that?", answer: "Yes. Branches run under the same system, each keeping its menu and orders, while you see the full picture from one dashboard as you grow.", },
+    ar: { question: "عندي أكتر من فرع… النظام يغطيني؟", answer: "أيوه. الفروع بتشتغل تحت نفس النظام، كل فرع بمنيوك وطلباته، وأنت شايف الصورة الكاملة من لوحة واحدة وانت بتكبر.", },
+  },
 ];
 
 export type SeoEntrySeed = {
@@ -178,7 +201,7 @@ export const seoEntriesSeed: SeoEntrySeed[] = [
     locale: "en",
     title: "RESTORA — Restaurant Management Software & Online Ordering System",
     description: "RESTORA gives your restaurant a website, digital menu, QR ordering, delivery tracking and analytics in one system. Get more orders with less manual work.",
-    keywords: "restaurant management software, restaurant ordering system, digital menu for restaurants, QR menu, online ordering for restaurants, restaurant website",
+    keywords: "restaurant management software, restaurant ordering system, digital menu for restaurants, QR menu, online ordering for restaurants, restaurant website, cafe digital menu, cloud kitchen ordering, home food business online",
     ogTitle: "RESTORA — The Operating System for Modern Restaurants",
     ogDescription: "One system for your restaurant's website, menu, orders, customers and growth.",
     twitterTitle: "RESTORA — Run Your Restaurant Digitally",
@@ -189,11 +212,25 @@ export const seoEntriesSeed: SeoEntrySeed[] = [
     locale: "ar",
     title: "RESTORA — نظام إدارة المطاعم والطلب أونلاين",
     description: "RESTORA بيدي مطعمك موقع ومنيو رقمي وطلب بالـQR وتوصيل وتحليلات في نظام واحد. طلبات أكتر ومجهود أقل.",
-    keywords: "نظام إدارة مطاعم, منيو رقمي, طلب أونلاين للمطاعم, منيو QR, موقع مطعم",
+    keywords: "نظام إدارة مطاعم, منيو إلكتروني, منيو QR للمطاعم, طلب أونلاين للمطاعم, موقع مطعم, منيو إلكتروني للكافيهات, نظام طلبات المطاعم, مشروع أكل من البيت",
     ogTitle: "RESTORA — نظام تشغيل المطاعم الحديثة",
     ogDescription: "نظام واحد لموقع مطعمك ومنيوك وطلباتك وعملائك ونموّك.",
     twitterTitle: "RESTORA — شغّل مطعمك رقميًا",
     twitterDescription: "موقع ومنيو رقمي وطلب بالـQR وتوصيل وتحليلات — نظام واحد.",
+  },
+  {
+    page: "business",
+    locale: "en",
+    title: "RESTORA for Food Businesses — Restaurants, Cafés, Cloud Kitchens & Home Brands",
+    description: "Whatever food business you run, RESTORA takes it online: website, digital menu, QR ordering and delivery in one system. Find the right plan for your segment.",
+    keywords: "restaurant software, cafe ordering system, cloud kitchen platform, home food business online, food truck ordering, catering software",
+  },
+  {
+    page: "business",
+    locale: "ar",
+    title: "RESTORA للأعمال الغذائية — مطاعم، كافيهات، مطابخ سحابية ومشاريع أكل من البيت",
+    description: "أي مشروع أكل بتديره، RESTORA يشغّله أونلاين: موقع ومنيو رقمي وطلب بالـQR وتوصيل في نظام واحد. اكتشف الباقة المناسبة لنشاطك.",
+    keywords: "نظام لمطعمك, نظام للكافيهات, مطبخ سحابي أونلاين, مشروع أكل من البيت, نظام فوود ترك, برنامج بوفيهات",
   },
 ];
 
@@ -252,8 +289,8 @@ export const extraSectionsSeed: SectionSeed[] = [
   },
   {
     sectionKey: "step-3", sortOrder: 12,
-    en: { title: "You grow, we run the ops", description: "Orders flow in, analytics pile up, and RESTORA keeps your digital operation humming." },
-    ar: { title: "انت كبّر، وإحنا نشغّل", description: "الطلبات بتدفق والتحليلات تتراكم وRESTORA مشغّل جانبك الرقمي على طول." },
+    en: { title: "You grow, we run the ops", description: "Orders flow in organized, your numbers add up by themselves, and RESTORA keeps scaling from one kitchen to many branches." },
+    ar: { title: "انت كبّر، وإحنا نشغّل", description: "الطلبات بتوصلك منظمة، والأرقام بتتجمع لوحدها، وRESTORA بيكبر معاك من مطبخ واحد لفروع كتير." },
   },
   {
     sectionKey: "why-1", sortOrder: 20,
@@ -272,17 +309,71 @@ export const extraSectionsSeed: SectionSeed[] = [
   },
   {
     sectionKey: "outcome-1", sortOrder: 30,
-    en: { title: "+38%", description: "online orders within the first months" },
-    ar: { title: "+38%", description: "زيادة في الطلبات أونلاين خلال أول شهور" },
+    en: { title: "Orders", description: "reach you organized in one place — no lost tickets, no missed calls" },
+    ar: { title: "الطلبات", description: "بتوصلك منظمة في مكان واحد — لا ورق ضايع ولا مكالمات بتضيع" },
   },
   {
     sectionKey: "outcome-2", sortOrder: 31,
-    en: { title: "-70%", description: "less time wasted on phone orders and manual work" },
-    ar: { title: "-70%", description: "وقت أقل في طلبات التليفون والشغل اليدوي" },
+    en: { title: "Time", description: "comes back to your kitchen and your customers, not to app-juggling" },
+    ar: { title: "وقتك", description: "بيرجع لمطبخك وعملائك، بدل ما يروح في متابعة تطبيقات متفرقة" },
   },
   {
     sectionKey: "outcome-3", sortOrder: 32,
-    en: { title: "Days", description: "to go live — not months of setup" },
-    ar: { title: "أيام", description: "وتشتغل — مش شهور من التجهيز" },
+    en: { title: "Online", description: "in days — a professional presence where new customers can find you" },
+    ar: { title: "أونلاين", description: "في أيام — وجود محترف يجيب لك عملاء جداد من غير ما تدور عليهم" },
+  },
+
+  // --- /business page sections ---
+  {
+    sectionKey: "biz-hero", sortOrder: 40,
+    en: {
+      title: "Whatever you cook, RESTORA runs it online.",
+      subtitle: "FOR FOOD BUSINESSES",
+      description: "From a home kitchen to a restaurant group — one system that takes your food business from first idea to steady online orders.",
+    },
+    ar: {
+      title: "مهما كان مشروعك… RESTORA يشغّله أونلاين.",
+      subtitle: "للأعمال الغذائية",
+      description: "من مطبخ بيتي صغير لمجموعة مطاعم — نظام واحد ياخد مشروع الأكل من أول فكرة لطلبات أونلاين مستمرة.",
+    },
+  },
+  {
+    sectionKey: "biz-segments", sortOrder: 41,
+    en: {
+      title: "Built around your kind of business",
+      description: "Pick your segment — the system adapts to how you work.",
+    },
+    ar: {
+      title: "معمّول على مقاس نوع مشروعك",
+      description: "اختار نوع نشاطك — والنظام يتأقلم مع طريقة شغلك.",
+    },
+  },
+  {
+    sectionKey: "biz-journey", sortOrder: 42,
+    en: {
+      title: "Your journey with RESTORA",
+      subtitle: "FROM IDEA TO GROWTH",
+      description: "",
+    },
+    ar: {
+      title: "رحلتك مع RESTORA",
+      subtitle: "من الفكرة للنمو",
+      description: "",
+    },
+  },
+  {
+    sectionKey: "biz-recommender", sortOrder: 43,
+    en: {
+      title: "Which plan fits your project?",
+      description: "Tell us about your business and we'll point you to the right starting plan — you can always scale up later.",
+      ctaLabel: "See plans & pricing",
+      ctaHref: "/pricing",
+    },
+    ar: {
+      title: "أنهي باقة تناسب مشروعك؟",
+      description: "قولنا عن مشروعك وهنرشحلك الباقة المناسبة للبداية — وبتقدر تكبّر في أي وقت.",
+      ctaLabel: "شوف الباقات والأسعار",
+      ctaHref: "/pricing",
+    },
   },
 ];

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Reveal } from "@/src/components/site/reveal";
 import { cn } from "@/src/lib/utils";
@@ -10,40 +10,65 @@ export type TestimonialItem = {
   id: number;
   customerName: string;
   restaurantName: string | null;
+  jobTitle: string | null;
+  countryCode: string | null;
   rating: number;
   quote: string;
 };
 
-const AUTOPLAY_MS = 6000;
+const AUTOPLAY_MS = 6500;
 
-/** Auto-advancing, swipeable testimonial spotlight. Pauses on hover/focus. */
+function flagFromCode(code: string): string {
+  if (!/^[A-Za-z]{2}$/.test(code)) return "";
+  return String.fromCodePoint(
+    ...code
+      .toUpperCase()
+      .split("")
+      .map((c) => 127397 + c.charCodeAt(0)),
+  );
+}
+
+/**
+ * Cinematic depth slider — central card full size, neighbours visible at the
+ * sides with scale/opacity falloff. Drag, arrows, dots, autoplay
+ * (pause-on-hover/focus), keyboard accessible, RTL-aware, reduced-motion
+ * falls back to a quiet crossfade.
+ */
 export function TestimonialsCarousel({ items }: { items: TestimonialItem[] }) {
   const t = useTranslations("Testimonials");
+  const locale = useLocale();
   const reduced = useReducedMotion();
   const [index, setIndex] = useState(0);
-  const [dir, setDir] = useState(1);
   const [paused, setPaused] = useState(false);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+  const n = items.length;
 
   const go = useCallback(
-    (next: number, direction: number) => {
-      setDir(direction);
-      setIndex(((next % items.length) + items.length) % items.length);
+    (next: number) => {
+      setIndex(((next % n) + n) % n);
     },
-    [items.length],
+    [n],
   );
 
   useEffect(() => {
-    if (paused || reduced || items.length < 2) return;
-    timer.current = setInterval(() => go(index + 1, 1), AUTOPLAY_MS);
+    if (paused || reduced || n < 2) return;
+    timer.current = setInterval(() => go(index + 1), AUTOPLAY_MS);
     return () => {
       if (timer.current) clearInterval(timer.current);
     };
-  }, [index, paused, reduced, items.length, go]);
+  }, [index, paused, reduced, n, go]);
 
-  if (!items.length) return null;
+  if (!n) return null;
+
+  // Wrapped offset of each card relative to the active one (-1 side, 0 center, 1 other side)
+  const offsetOf = (i: number) => {
+    let o = (((i - index) % n) + n) % n;
+    if (o > n / 2) o -= n;
+    return o;
+  };
+  const rtl = locale === "ar";
+
   const current = items[index];
-  const rtl = dir < 0;
 
   return (
     <section className="container-page py-20 md:py-28" aria-labelledby="testimonials-heading">
@@ -54,7 +79,7 @@ export function TestimonialsCarousel({ items }: { items: TestimonialItem[] }) {
       </Reveal>
 
       <div
-        className="relative mx-auto mt-12 max-w-3xl"
+        className="relative mx-auto mt-12 max-w-4xl"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}
@@ -62,44 +87,72 @@ export function TestimonialsCarousel({ items }: { items: TestimonialItem[] }) {
       >
         {/* quote mark */}
         <span
-          className="pointer-events-none absolute -top-8 start-1/2 -translate-x-1/2 select-none font-display text-[7rem] leading-none text-primary/15 rtl:translate-x-1/2"
+          className="pointer-events-none absolute -top-10 start-1/2 z-20 -translate-x-1/2 select-none font-display text-[7rem] leading-none text-primary/15 rtl:translate-x-1/2"
           aria-hidden
         >
           ”
         </span>
 
-        <div className="relative min-h-56 overflow-hidden rounded-3xl border border-border bg-card p-8 shadow-card md:p-10">
-          <AnimatePresence mode="wait" initial={false} custom={rtl}>
-            <motion.figure
-              key={current.id}
-              custom={rtl}
-              initial={reduced ? false : { opacity: 0, x: rtl ? -48 : 48 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={reduced ? undefined : { opacity: 0, x: rtl ? 48 : -48 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="text-center"
-            >
-              <div className="text-lg tracking-wide text-warning" aria-label={`${current.rating}/5`}>
-                {"★".repeat(current.rating)}
-              </div>
-              <blockquote className="mx-auto mt-4 max-w-xl text-balance text-lg leading-relaxed md:text-xl">
-                “{current.quote}”
-              </blockquote>
-              <figcaption className="mt-5">
-                <span className="font-semibold">{current.customerName}</span>
-                {current.restaurantName && (
-                  <span className="text-muted-foreground"> · {current.restaurantName}</span>
-                )}
-              </figcaption>
-            </motion.figure>
-          </AnimatePresence>
-        </div>
+        {/* ---------- reduced motion: quiet crossfade ---------- */}
+        {reduced ? (
+          <div className="relative min-h-56 overflow-hidden rounded-3xl border border-border bg-card p-8 shadow-card md:p-10">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.figure
+                key={current.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35 }}
+                className="text-center"
+              >
+                <QuoteBody item={current} />
+              </motion.figure>
+            </AnimatePresence>
+          </div>
+        ) : (
+          /* ---------- depth stage ---------- */
+          <div className="relative flex h-[24rem] items-center justify-center md:h-[22rem]">
+            {items.map((item, i) => {
+              const o = offsetOf(i);
+              if (Math.abs(o) > 1) return null;
+              const side = o === 0 ? 0 : o < 0 ? -1 : 1;
+              const xPos = side * (rtl ? -58 : 58); // % of own width
+              const isActive = o === 0;
+              return (
+                <motion.figure
+                  key={item.id}
+                  className="absolute w-[min(38rem,88%)] cursor-grab rounded-3xl border border-border bg-card p-8 shadow-card will-change-transform active:cursor-grabbing md:p-10"
+                  initial={false}
+                  animate={{
+                    x: `${xPos}%`,
+                    scale: isActive ? 1 : 0.86,
+                    opacity: isActive ? 1 : Math.abs(o) > 0 ? 0.4 : 1,
+                    zIndex: isActive ? 10 : 5,
+                    filter: isActive ? "blur(0px)" : "blur(1px)",
+                  }}
+                  transition={{ type: "spring", stiffness: 210, damping: 28 }}
+                  drag={isActive && n > 1 ? "x" : false}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.6}
+                  onDragEnd={(_, info) => {
+                    const swipe = rtl ? -info.offset.x : info.offset.x;
+                    if (swipe < -60) go(index + 1);
+                    else if (swipe > 60) go(index - 1);
+                  }}
+                  aria-hidden={!isActive}
+                >
+                  <QuoteBody item={item} muted={!isActive} />
+                </motion.figure>
+              );
+            })}
+          </div>
+        )}
 
         {/* controls */}
         <div className="mt-6 flex items-center justify-center gap-4">
           <button
             type="button"
-            onClick={() => go(index - 1, -1)}
+            onClick={() => go(index - 1)}
             aria-label={t("previous")}
             className="grid size-9 place-items-center rounded-full border border-border bg-card transition-colors hover:bg-secondary"
           >
@@ -115,7 +168,7 @@ export function TestimonialsCarousel({ items }: { items: TestimonialItem[] }) {
                 role="tab"
                 aria-selected={i === index}
                 aria-label={`${i + 1}`}
-                onClick={() => go(i, i > index ? 1 : -1)}
+                onClick={() => go(i)}
                 className={cn(
                   "h-1.5 rounded-full transition-all duration-300",
                   i === index ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/50",
@@ -125,7 +178,7 @@ export function TestimonialsCarousel({ items }: { items: TestimonialItem[] }) {
           </div>
           <button
             type="button"
-            onClick={() => go(index + 1, 1)}
+            onClick={() => go(index + 1)}
             aria-label={t("next")}
             className="grid size-9 place-items-center rounded-full border border-border bg-card transition-colors hover:bg-secondary"
           >
@@ -136,5 +189,30 @@ export function TestimonialsCarousel({ items }: { items: TestimonialItem[] }) {
         </div>
       </div>
     </section>
+  );
+}
+
+function QuoteBody({ item, muted }: { item: TestimonialItem; muted?: boolean }) {
+  return (
+    <>
+      <div className={`text-lg tracking-wide ${muted ? "opacity-70" : ""}`} aria-label={`${item.rating}/5`}>
+        {"★".repeat(item.rating)}
+      </div>
+      <blockquote className={cn("mx-auto mt-4 max-w-xl text-balance leading-relaxed md:text-xl", muted && "text-sm")}>
+        “{item.quote}”
+      </blockquote>
+      <figcaption className="mt-5">
+        <span className="font-semibold">{item.customerName}</span>
+        {item.jobTitle && <span className="text-muted-foreground"> · {item.jobTitle}</span>}
+        {item.restaurantName && (
+          <span className="text-muted-foreground"> · {item.restaurantName}</span>
+        )}
+        {item.countryCode && (
+          <span className="ms-1" aria-label={item.countryCode}>
+            {flagFromCode(item.countryCode)}
+          </span>
+        )}
+      </figcaption>
+    </>
   );
 }

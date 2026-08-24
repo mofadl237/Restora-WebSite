@@ -11,7 +11,34 @@ const LINKS = [
   { href: "#story", key: "howItWorks" },
   { href: "#pricing", key: "pricing" },
   { href: "#faq", key: "faq" },
+  { href: "/blog", key: "blog" },
+  { href: "/contact", key: "contact" },
 ] as const;
+
+function NavLink({
+  href,
+  className,
+  onClick,
+  children,
+}: {
+  href: string;
+  className?: string;
+  onClick?: () => void;
+  children: React.ReactNode;
+}) {
+  if (href.startsWith("#")) {
+    return (
+      <a href={href} className={className} onClick={onClick}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className} onClick={onClick}>
+      {children}
+    </Link>
+  );
+}
 
 /**
  * Sticky navbar: hides while scrolling down, returns on scroll up;
@@ -51,12 +78,12 @@ export function Navbar({ brandName }: { brandName: string }) {
         <ul className="ms-auto hidden items-center gap-1 md:flex">
           {LINKS.map(({ href, key }) => (
             <li key={key}>
-              <a
+              <NavLink
                 href={href}
                 className="rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
               >
                 {t(key)}
-              </a>
+              </NavLink>
             </li>
           ))}
         </ul>
@@ -90,13 +117,13 @@ export function Navbar({ brandName }: { brandName: string }) {
             <ul className="container-page space-y-1 py-3">
               {LINKS.map(({ href, key }) => (
                 <li key={key}>
-                  <a
+                  <NavLink
                     href={href}
                     onClick={() => setOpen(false)}
                     className="block rounded-md px-3 py-2.5 text-sm hover:bg-secondary"
                   >
                     {t(key)}
-                  </a>
+                  </NavLink>
                 </li>
               ))}
               <li className="pt-2">

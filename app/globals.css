@@ -212,6 +212,22 @@
     background: color-mix(in oklab, var(--brand-accent) 30%, transparent);
   }
 
+  /* Chef-hat custom cursor: hide the native cursor only while the branded
+     one is active; form fields keep their native affordances. */
+  html.has-chef-cursor body,
+  html.has-chef-cursor a,
+  html.has-chef-cursor button,
+  html.has-chef-cursor [role="button"],
+  html.has-chef-cursor label,
+  html.has-chef-cursor summary {
+    cursor: none;
+  }
+  html.has-chef-cursor input,
+  html.has-chef-cursor textarea,
+  html.has-chef-cursor select {
+    cursor: auto;
+  }
+
   h1, h2, h3 {
     font-family: var(--font-display);
     text-wrap: balance;

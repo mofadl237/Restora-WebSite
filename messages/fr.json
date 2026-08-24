@@ -15,7 +15,9 @@
     "contact": "Contact",
     "login": "Connexion",
     "getStarted": "Commencer",
-    "menu": "Ouvrir le menu"
+    "menu": "Ouvrir le menu",
+    "blog": "Blog",
+    "business": "Pour les pros"
   },
   "Pricing": {
     "title": "Des tarifs simples qui grandissent avec vous",
@@ -33,7 +35,8 @@
     "giftsTitle": "Cadeaux offerts avec les plans annuels",
     "giftsSubtitle": "Chaque abonnement annuel inclut ces extras gratuitement",
     "includedFeatures": "Ce qui est inclus",
-    "loading": "Chargement des tarifs…"
+    "loading": "Chargement des tarifs…",
+    "everythingInPrevious": "Tout ce que contient {plan}, plus :"
   },
   "Testimonials": {
     "title": "Les restaurants fonctionnent mieux avec RESTORA",
@@ -56,5 +59,136 @@
   "Story": {
     "scanBrowseOrder": "Scannez · Parcourez · Commandez",
     "noDownloads": "0 application à télécharger"
+  },
+  "Clients": {
+    "kicker": "Approuvé par des restaurants",
+    "title": "Des restaurants qui grandissent avec RESTORA",
+    "subtitle": "Du Caire à Riyad — des équipes qui ont échangé le chaos contre un tableau de bord serein."
+  },
+  "WhatsApp": {
+    "label": "Discutez avec nous sur WhatsApp"
+  },
+  "Contact": {
+    "title": "Contactez-nous",
+    "kicker": "Démarrons la discussion",
+    "heading": "Parlons de votre restaurant",
+    "subheading": "Dites-nous en un peu sur votre établissement, nous vous répondons sous un jour ouvré.",
+    "fullName": "Nom complet",
+    "country": "Pays",
+    "phone": "Numéro de téléphone",
+    "email": "E-mail",
+    "optional": "facultatif",
+    "businessType": "Type d’activité (restaurant, café, cuisine cloud…)",
+    "message": "Votre message",
+    "submit": "Envoyer le message",
+    "successTitle": "Message envoyé !",
+    "successBody": "Merci pour votre message — notre équipe vous contactera très vite."
+  },
+  "Blog": {
+    "title": "Le blog RESTORA",
+    "kicker": "Analyses",
+    "subtitle": "Guides pratiques et conseils honnêtes pour les restaurateurs.",
+    "readingTime": "{minutes} min de lecture",
+    "empty": "Pas encore d’articles — revenez bientôt.",
+    "backToBlog": "Retour au blog",
+    "related": "Articles liés",
+    "home": "Accueil"
+  },
+  "Moments": {
+    "chaosKicker": "LE QUOTIDIEN RÉEL",
+    "chaosTitle": "Vos commandes sont partout. Sauf là où vous en avez besoin.",
+    "chaosSubtitle": "Voyez ce qui se passe quand elles arrivent toutes au même endroit.",
+    "chaosItems": "Commande WhatsApp|Appel téléphonique|Ticket papier|Message vocal|Photo d’un menu",
+    "chaosResult": "Un seul tableau de bord. Zéro chaos.",
+    "branchKicker": "VOTRE SUCCURSALE EN LIGNE",
+    "branchTitle": "Pas besoin d’ouvrir un nouvel emplacement…",
+    "branchAccent": "vous pouvez ouvrir votre succursale sur internet.",
+    "branchNodes": "Google Maps|Réseaux sociaux|Votre site|Menu QR|Commandes en ligne|Nouveaux clients",
+    "menuKicker": "LA TRANSFORMATION",
+    "menuTitle": "D’un menu papier… à un menu qui vend.",
+    "menuBefore": "Menu papier",
+    "menuAfter": "Menu digital RESTORA",
+    "menuNote": "Imprimé une fois, dépassé demain. Le digital se met à jour en secondes — et le client commande directement."
+  },
+  "Share": {
+    "label": "Partager cet article",
+    "copy": "Copier le lien",
+    "copied": "Copié !"
+  },
+  "Business": {
+    "metaTitle": "RESTORA pour les entreprises alimentaires",
+    "kicker": "POUR LES ENTREPRISES ALIMENTAIRES",
+    "title": "Un seul système pour tous les métiers de la restauration.",
+    "subtitle": "De la cuisine à domicile au groupe de restaurants — RESTORA s’adapte à votre façon de travailler.",
+    "segments": {
+      "restaurant": {
+        "icon": "🍽️",
+        "label": "Restaurants"
+      },
+      "cafe": {
+        "icon": "☕",
+        "label": "Cafés"
+      },
+      "bakery": {
+        "icon": "🥖",
+        "label": "Boulangeries"
+      },
+      "sweets": {
+        "icon": "🍰",
+        "label": "Pâtisseries"
+      },
+      "juices": {
+        "icon": "🧃",
+        "label": "Bars à jus"
+      },
+      "cloud-kitchen": {
+        "icon": "📦",
+        "label": "Cuisines cloud"
+      },
+      "food-truck": {
+        "icon": "🚚",
+        "label": "Food trucks"
+      },
+      "catering": {
+        "icon": "🍱",
+        "label": "Traiteurs & buffets"
+      },
+      "home-chef": {
+        "icon": "🏠",
+        "label": "Chefs à domicile"
+      }
+    },
+    "steps": {
+      "idea": {
+        "title": "Vous avez la cuisine, nous avons le système",
+        "desc": "Inscrivez-vous, ajoutez votre menu avec photos et prix — aucune compétence technique requise."
+      },
+      "menu": {
+        "title": "Votre menu en ligne en quelques minutes",
+        "desc": "Un code QR et un lien web mettent tout votre menu dans la poche de chaque client."
+      },
+      "orders": {
+        "title": "Les commandes arrivent",
+        "desc": "Gérez livraison et à emporter depuis un seul tableau de bord — plus aucun appel manqué."
+      },
+      "growth": {
+        "title": "Grandissez avec de vrais chiffres",
+        "desc": "Meilleures ventes, heures de pointe, clients fidèles — décidez grâce aux données."
+      }
+    },
+    "recType": "Quel type d’activité dirigez-vous ?",
+    "recSize": "Quelle taille aujourd’hui ?",
+    "size": {
+      "small": "Je démarre",
+      "growing": "Commandes régulières",
+      "multi": "Plusieurs succursales"
+    },
+    "recResult": "RECOMMANDÉ POUR VOUS",
+    "perMonth": "/ mois",
+    "recCta": "Voir les formules & tarifs",
+    "recHint": "Choisissez votre type d’activité pour voir la formule recommandée."
+  },
+  "StickyCta": {
+    "cta": "Commencer"
   }
 }
