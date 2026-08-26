@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Link } from "@/src/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
   getSections,
@@ -8,6 +9,7 @@ import {
   getClients,
 } from "@/src/server/content";
 import { getPricingViewModel } from "@/src/server/pricing";
+import { listSegmentPages } from "@/src/server/segments";
 import { getBranding, getSocialLinks } from "@/src/server/branding";
 import { Navbar } from "@/src/components/site/navbar";
 import { Footer } from "@/src/components/site/footer";
@@ -16,6 +18,8 @@ import { ProductStory } from "@/src/components/site/product-story";
 import { HowItWorks } from "@/src/components/site/how-it-works";
 import { WhyRestora } from "@/src/components/site/why-restora";
 import { Outcomes } from "@/src/components/site/outcomes";
+import { WhoWeHelp } from "@/src/components/site/who-we-help";
+import { TourismBand } from "@/src/components/site/tourism-band";
 import { PricingSection } from "@/src/components/pricing/pricing-section";
 import { TestimonialsCarousel } from "@/src/components/site/testimonials-carousel";
 import { ClientsShowcase } from "@/src/components/site/clients-showcase";
@@ -24,7 +28,8 @@ import { OnlineBranch } from "@/src/components/site/online-branch";
 import { MenuTransformation } from "@/src/components/site/menu-transformation";
 import { FinalCta } from "@/src/components/site/final-cta";
 import { Reveal } from "@/src/components/site/reveal";
-import { JsonLd, organizationSchema, softwareApplicationSchema, faqSchema } from "@/src/components/site/json-ld";
+import { JsonLd, organizationSchema, websiteSchema, softwareApplicationSchema, faqSchema } from "@/src/components/site/json-ld";
+import { routing } from "@/src/i18n/routing";
 import { buildMetadata } from "@/src/server/seo";
 
 export async function generateMetadata({
@@ -49,7 +54,7 @@ export default async function HomePage({
 
   const t = await getTranslations({ locale, namespace: "Nav" });
 
-  const [sections, scenes, pricing, branding, testimonials, faqs, socialLinks, clients] =
+  const [sections, scenes, pricing, branding, testimonials, faqs, socialLinks, clients, segmentLinks] =
     await Promise.all([
       getSections(locale),
       getStoryScenes(locale),
@@ -59,6 +64,7 @@ export default async function HomePage({
       getFaqs(locale),
       getSocialLinks(),
       getClients(),
+      listSegmentPages(locale),
     ]);
 
   const stepKeys = ["step-1", "step-2", "step-3"] as const;
@@ -80,6 +86,7 @@ export default async function HomePage({
   const defaultCountryPricing = pricing.byCountry[pricing.defaultCountryCode] ?? [];
   const jsonLd: Array<Record<string, unknown>> = [
     organizationSchema(branding.brandName, socialLinks.map((s) => s.url), branding.logoUrl),
+    websiteSchema(branding.brandName, routing.locales),
     ...(defaultCountryPricing.length
       ? [
           softwareApplicationSchema(
@@ -114,17 +121,26 @@ export default async function HomePage({
           ctaHref={sections.hero?.ctaHref}
         />
 
-        {/* FOR-WHOM — segment strip: every food business sees itself here */}
-        {sections["for-whom"]?.description && (
+        {/* FOR-WHOM — segment strip: every food business sees itself here (links to landing pages) */}
+        {segmentLinks.length > 0 && (
           <section className="border-y border-border/60 bg-secondary/30 py-5">
             <div className="container-page text-center">
               <Reveal direction="up" amount={0.4}>
-                <p className="text-xs font-semibold uppercase tracking-wide text-primary">
-                  {sections["for-whom"].title}
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {sections["for-whom"].description}
-                </p>
+                {sections["for-whom"]?.title && (
+                  <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+                    {sections["for-whom"].title}
+                  </p>
+                )}
+                <nav aria-label={sections["for-whom"]?.title ?? ""} className="mt-2 flex flex-wrap items-center justify-center gap-x-1 gap-y-1 text-sm leading-relaxed text-muted-foreground">
+                  {segmentLinks.map((s, i) => (
+                    <span key={s.slug} className="inline-flex items-center gap-1">
+                      {i > 0 && <span aria-hidden>·</span>}
+                      <Link href={`/business/${s.slug}`} className="transition-colors hover:text-primary hover:underline">
+                        {s.subtitle ?? s.title}
+                      </Link>
+                    </span>
+                  ))}
+                </nav>
               </Reveal>
             </div>
           </section>
@@ -181,6 +197,11 @@ export default async function HomePage({
 
         {/* OUTCOMES */}
         <Outcomes heading={sections.outcomes?.title} items={outcomes} />
+        <WhoWeHelp
+          segments={segmentLinks}
+          plans={defaultCountryPricing.map((p) => ({ slug: p.slug, name: p.name, monthlyPrice: Number(p.monthlyPrice) }))}
+        />
+        <TourismBand />
 
         {/* PRICING */}
         <section id="pricing" className="container-page py-20 md:py-28">

@@ -426,6 +426,8 @@ model ContactSubmission {
   phone        String // digits only, without dial code
   email        String?
   businessType String?
+  selectedPlan String? // plan slug chosen before landing on the form (attached automatically)
+  locale       String? // browser locale when the lead was submitted
   message      String
   status       String   @default("NEW") // NEW | CONTACTED | QUALIFIED | CLOSED
   sourcePage   String?

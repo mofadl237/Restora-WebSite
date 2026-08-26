@@ -18,13 +18,27 @@ export function JsonLd({ data }: { data: Array<Record<string, unknown>> }) {
 
 export function organizationSchema(brandName: string, socialUrls: string[], logoUrl?: string | null) {
   const base = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "http://localhost:3000";
+  const absoluteLogo =
+    logoUrl && !logoUrl.startsWith("http") ? `${base}${logoUrl.startsWith("/") ? "" : "/"}${logoUrl}` : logoUrl;
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: brandName,
     url: base,
-    ...(logoUrl ? { logo: logoUrl } : {}),
+    ...(absoluteLogo ? { logo: absoluteLogo } : {}),
     ...(socialUrls.length ? { sameAs: socialUrls } : {}),
+  };
+}
+
+/** WebSite entity — anchors the site as an entity for its topic clusters. */
+export function websiteSchema(name: string, locales: readonly string[]) {
+  const base = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "http://localhost:3000";
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name,
+    url: base,
+    inLanguage: locales,
   };
 }
 

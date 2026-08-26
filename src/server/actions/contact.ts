@@ -6,7 +6,7 @@ import { prisma } from "@/src/lib/db";
 import { assertAdminAllowed } from "@/src/server/admin/access";
 
 // ---------------------------------------------------------------------------
-// Public — contact form submission (NO admin gate)
+// Public - contact form submission (NO admin gate)
 // ---------------------------------------------------------------------------
 
 const COUNTRY_CODES = ["EG", "SA", "AE", "KW", "QA", "BH", "OM", "JO"];
@@ -20,6 +20,8 @@ const submitContactSchema = z.object({
   businessType: z.string().max(60).optional().or(z.literal("")),
   message: z.string().trim().min(5).max(2000),
   sourcePage: z.string().max(120).optional().or(z.literal("")),
+  selectedPlan: z.string().max(40).optional().or(z.literal("")),
+  locale: z.string().max(10).optional().or(z.literal("")),
 });
 
 export type ContactSubmitInput = z.infer<typeof submitContactSchema>;
@@ -42,6 +44,8 @@ export async function submitContact(input: unknown) {
       message: d.message,
       status: "NEW",
       sourcePage: d.sourcePage || null,
+      selectedPlan: d.selectedPlan || null,
+      locale: d.locale || null,
     },
   });
   return { ok: true as const };

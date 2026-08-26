@@ -76,3 +76,60 @@ Optional polish backlog (not required): dynamic-import below-fold widgets, nav l
 ## Last Updated
 
 2026-08-23 — Visual QA + rebrand-to-orange polish pass completed; production build + route/content verification passed.
+
+## SEO-First Audit + Implementation (2026-08-24)
+
+Full rendered-site audit (curl HTML) then implementation of the organic-search platform:
+
+**Fixed (was broken):**
+- Canonicals: every subpage pointed at `/{locale}` home → `src/server/seo.ts` rewritten with path-aware `buildMetadata(page, locale, fallbackTitle, {path?, image?, description?})`; all callers pass explicit paths; metadataBase + x-default added. VERIFIED on article + segment pages.
+- Hreflang clusters: were home-only → now per-path ×5 locales + x-default.
+- Articles had NO meta description → stored seoTitle/seoDescription/ogImage surfaced via content.ts mappers + article generateMetadata (excerpt/cover fallbacks).
+- /pricing had no H1 → PricingSection `headingLevel` prop (h1 standalone, h2 homepage).
+- No WebSite JSON-LD → `websiteSchema()` on homepage; Organization logo absolute.
+
+**New — segment SEO landing pages (CMS-driven, EN+AR):**
+- Prisma `SegmentPage`/`SegmentPageTranslation` (migration `add_segment_pages`) + `prisma/seed-segments.ts`: 9 differentiated segments w/ problems/useCases/features/faqs/seoTitle/seoDescription; DB seeded (9 active).
+- `app/[locale]/business/[segment]/page.tsx`: SSG from CMS, FAQPage+BreadcrumbList JSON-LD, hero H1, pain/solution split, plan recommendation card (real EGP prices), FAQs accordion, internal links (segments + category-matched articles). Hub grid links to all 9.
+- Homepage for-whom strip → 9 segment Links. Sitemap → 80 URLs (45 segment). VERIFIED rendered.
+
+**Content engine:** `prisma/seed-blog-more.ts` adds 6 substantial intent-targeted EN+AR articles (digital menu how-to, commissions-free ordering, Google visibility, home food business, software buying guide) → blog = 8 articles; related posts scored by shared category/tags; new end-of-article `ArticleCta` (→ /pricing + /business; Blog.cta* keys ×5).
+
+**Product safety:** theme pinned to light (`forcedTheme="light"` in [locale]/layout) until a real dark palette is designed (backlog).
+
+Verification: tsc clean · ESLint 0/0 · production build PASS (~135s) · rendered assertions: article canonical/description/hreflang ✓, /ar/business/restaurants title/canonical/h1=1/FAQPage ✓, homepage 9 segment hrefs + WebSite JSON-LD ✓, /ar/pricing h1 ✓, sitemap 45 business URLs ✓, blog index lists all articles ✓, article CTA + related-by-category render ✓.
+
+Backlog: SegmentPage admin CRUD · nav link to /business · dark-mode design pass + toggle · dynamic-import below-fold widgets · real OG image asset · reviews schema markup.
+
+Known Issues additions: docker CLI only inside WSL this session (`wsl.exe sh -c "docker exec postgres-db psql …"`, pipe through `tr -d '\0'`); psql needs camelCase quoted identifiers ("segmentId", "seoTitle").
+
+## Last Updated
+
+2026-08-25 — 8-locale international platform, premium navbar (lang+theme), plan→contact lead flow, tourism segment; tsc/lint/build green, all locales smoke-tested.
+
+
+2026-08-24 — SEO-first audit + acquisition-platform implementation completed; build + rendered verification passed.
+
+## Premium UX + International Platform (2026-08-25, post-interruption completion)
+
+Directive: premium navbar, 8 locales, lead flow, tourism segment — implemented & verified:
+
+**i18n (exactly 8 locales):** `routing.ts`/`proxy.ts` → ar(default,RTL)/en/de/ru/uk/tr/it/fr; `messages/al.json` deleted (old /al/* → middleware redirect → 404 by design). Native de/ru/uk/tr message files authored; en/ar/fr/it patched; all namespaces aligned ×8. DB translations backfilled to all 8 via idempotent `prisma/backfill-locales.sql` (verified: segments 10/locale, plans 4/locale).
+
+**Premium navbar:** rewritten minimal links (Home/Business/Pricing/Blog/Contact) + LanguageSwitcher (popover/mobile sheet, deep-link preserving, NEXT_LOCALE cookie persistence) + ThemeToggle + "ابدأ الآن" CTA → /contact. Mobile sheet embeds all controls.
+
+**Dark mode:** forcedTheme="light" REMOVED (supersedes earlier decision); system-aware ThemeProvider + `.dark` tokens already in globals.css; html theme transition; CSS-only sun/moon toggle icons (no hydration mismatch). Fixed mangled globals.css html block that broke dev compile.
+
+**Lead flow (plan → contact):** ContactSubmission += selectedPlan + locale (migrations add_selected_plan/add_submission_locale; prisma client regenerated). submitContact persists both. Pricing cards + segment-page plan CTAs + WhoWeHelp aside → `/contact?plan={slug}`. Contact page resolves ?plan= against DB plans (byCountry flatten); form shows non-editable plan card; success screen offers WhatsApp handoff pre-filled with name/phone/plan/message/locale. VERIFIED: /ar/contact?plan=growth renders "الباقة المختارة" card with DB Arabic plan name.
+
+**Admin inbox:** status+plan filters (options derived from actual submissions), plan badge resolved to localized DB plan names via new `planNames` map (getPlanRecommendations(locale)), locale badge. VERIFIED rendered with QA row (de/growth → "★ جروث").
+
+**Who we help + tourism:** CMS-driven interactive segment selector on homepage (chips→problems/useCases + recommended plan w/ real price); tourism greeting-cycle band → /business/tourist-restaurants. 10th segment tourist-restaurants seeded EN+AR (+ backfilled ×6), sitemap now lists it ×8 locales.
+
+**Chaos moment enriched:** per-chip channel icons + 14 decorative fragments dissolving in scrub timeline before chips converge (desktop only).
+
+**CRITICAL FIX — locale-aware links:** public components used plain next/link → non-Arabic pages emitted unprefixed hrefs and middleware bounced users to Arabic. Switched navbar/footer/final-cta/sticky-cta/pricing-section/who-we-help/tourism-band/article-cta/plan-recommender/homepage/blog/business pages to i18n navigation Link. VERIFIED: /de/pricing emits /de/contact?plan=* etc.
+
+Verification: tsc clean · ESLint 0 errors · production build PASS · hero entrance confirmed mount-once · smoke: de/ru/fr/uk/tr/it business|blog|pricing|contact?plan all 200; hreflang = 8 locales + x-default per page; /al redirects then 404.
+
+Backlog remaining from directive: branch-on-internet cinematic scrub upgrade · global typography audit · imagery pass (needs manual asset sourcing/admin upload) · per-locale long-form keyword content · seo_entries rows for the 6 new locales (currently fall back to page-level titles/descriptions).

@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/src/components/theme-provider";
 import { WhatsappFloat } from "@/src/components/site/whatsapp-float";
 import { CustomCursor } from "@/src/components/site/custom-cursor";
 import { StickyCta } from "@/src/components/site/sticky-cta";
+import { ScrollTop } from "@/src/components/site/scroll-top";
 import { prisma } from "@/src/lib/db";
 import "../globals.css";
 
@@ -90,9 +91,11 @@ export default async function LocaleLayout({
       <body className="min-h-full flex flex-col">
         {brandStyle && <style>{brandStyle}</style>}
         <NextIntlClientProvider messages={messages}>
+          {/* System-aware theme: persists explicit choice, respects OS on first visit. */}
           <ThemeProvider>
             {children}
             <CustomCursor />
+            <ScrollTop />
             {whatsappLink && <WhatsappFloat url={whatsappLink.url} />}
             <StickyCta whatsappUrl={whatsappLink?.url ?? null} />
           </ThemeProvider>

@@ -2,14 +2,15 @@ import type { MetadataRoute } from "next";
 import { routing } from "@/src/i18n/routing";
 import { SITE_URL } from "@/src/server/seo";
 import { getBlogPosts } from "@/src/server/content";
+import { listSegmentPages } from "@/src/server/segments";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
   const entries: MetadataRoute.Sitemap = [];
 
-  const staticPaths = ["", "/pricing", "/blog", "/contact"];
+  const staticPaths = ["", "/pricing", "/blog", "/contact", "/business"];
   for (const locale of routing.locales) {
-    const posts = await getBlogPosts(locale);
+    const [posts, segments] = await Promise.all([getBlogPosts(locale), listSegmentPages(locale)]);
     for (const path of staticPaths) {
       entries.push({
         url: `${SITE_URL}/${locale}${path}`,
@@ -21,6 +22,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             routing.locales.map((l) => [l, `${SITE_URL}/${l}${path}`]),
           ),
         },
+      });
+    }
+    for (const seg of segments) {
+      entries.push({
+        url: `${SITE_URL}/${locale}/business/${seg.slug}`,
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 0.7,
       });
     }
     for (const post of posts) {

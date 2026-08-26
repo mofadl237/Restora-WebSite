@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/src/i18n/navigation";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getBranding, getSocialLinks } from "@/src/server/branding";
@@ -10,6 +10,7 @@ import { RichText } from "@/src/components/site/rich-text";
 import { Reveal } from "@/src/components/site/reveal";
 import { ReadingProgress } from "@/src/components/site/reading-progress";
 import { ShareRow } from "@/src/components/site/share-row";
+import { ArticleCta } from "@/src/components/site/article-cta";
 import { buildMetadata, SITE_URL } from "@/src/server/seo";
 
 export async function generateMetadata({
@@ -54,7 +55,17 @@ export default async function BlogArticlePage({
 
   const t = await getTranslations("Blog");
   const all = await getBlogPosts(locale);
-  const related = all.filter((p) => p.slug !== slug).slice(0, 2);
+  // Related = same category first, then shared tags, then most recent others.
+  const scored = all
+    .filter((p) => p.slug !== slug)
+    .map((p) => ({
+      post: p,
+      score:
+        (p.category === post.category ? 2 : 0) +
+        p.tags.filter((tag) => post.tags.includes(tag)).length,
+    }))
+    .sort((a, b) => b.score - a.score);
+  const related = scored.slice(0, 2).map((s) => s.post);
   const articleUrl = `${SITE_URL}/${locale}/blog/${post.slug}`;
 
   const articleJsonLd = {
@@ -120,6 +131,7 @@ export default async function BlogArticlePage({
                 <RichText content={post.content} />
               </div>
               <ShareRow url={articleUrl} title={post.title} />
+              <ArticleCta />
             </Reveal>
 
             {related.length > 0 && (

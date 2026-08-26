@@ -17,7 +17,13 @@
     "getStarted": "Get started",
     "menu": "Open menu",
     "blog": "Blog",
-    "business": "For Business"
+    "business": "Who we serve",
+    "home": "Home",
+    "lang": "Language",
+    "theme": "Toggle theme",
+    "scrollTop": "Back to top",
+    "selectedPlan": "Selected plan",
+    "waFollow": "Continue on WhatsApp"
   },
   "Pricing": {
     "title": "Simple pricing that grows with you",
@@ -82,7 +88,9 @@
     "message": "Your message",
     "submit": "Send message",
     "successTitle": "Message sent!",
-    "successBody": "Thanks for reaching out — our team will contact you shortly."
+    "successBody": "Thanks for reaching out — our team will contact you shortly.",
+    "selectedPlan": "Selected plan",
+    "waFollow": "Continue on WhatsApp"
   },
   "Blog": {
     "title": "The RESTORA blog",
@@ -92,7 +100,11 @@
     "empty": "No articles yet — check back soon.",
     "backToBlog": "Back to blog",
     "related": "Related articles",
-    "home": "Home"
+    "home": "Home",
+    "ctaTitle": "Want to put this into practice?",
+    "ctaBody": "RESTORA gives restaurants, cafés and home food businesses one system for menus, orders and growth — no technical setup needed.",
+    "ctaPricing": "See plans & pricing",
+    "ctaBusiness": "Choose your business type"
   },
   "Moments": {
     "chaosKicker": "THE DAILY REALITY",
@@ -186,9 +198,38 @@
     "recResult": "RECOMMENDED FOR YOU",
     "perMonth": "/ month",
     "recCta": "See plans & pricing",
-    "recHint": "Pick your business type to see the recommended plan."
+    "recHint": "Pick your business type to see the recommended plan.",
+    "segCta": "See plans & pricing",
+    "segCtaSecondary": "Talk to us",
+    "segProblemsTitle": "Sound familiar?",
+    "segUseCasesTitle": "How teams use RESTORA",
+    "segFeaturesTitle": "What matters most here",
+    "segPlanKicker": "RECOMMENDED PLAN",
+    "segPlanCta": "Compare plans",
+    "segFaqTitle": "Common questions",
+    "segOtherTitle": "Other business types",
+    "segReadTitle": "Keep reading",
+    "home": "Home"
   },
   "StickyCta": {
     "cta": "Start now"
+  },
+  "Tourism": {
+    "kicker": "TOURIST DESTINATIONS",
+    "title": "When your menu speaks your guest's language",
+    "subtitle": "In Hurghada, Sharm El Sheikh or Luxor, the whole world walks past your door. RESTORA helps international guests understand you — and order.",
+    "cta": "More for tourist restaurants",
+    "langsLine": "8 languages. One menu. Zero barrier."
+  },
+  "Segments": {
+    "kicker": "WHO DO WE HELP?",
+    "title": "Every food business. One system that fits.",
+    "subtitle": "Pick your business type and see what RESTORA changes for you — the problems it removes, the plan that fits, nothing generic.",
+    "losingLabel": "What it costs you",
+    "helpLabel": "How RESTORA helps",
+    "segmentLink": "Open your segment",
+    "planKicker": "RECOMMENDED PLAN",
+    "perMonth": "/mo",
+    "planCta": "Start with {plan}"
   }
 }

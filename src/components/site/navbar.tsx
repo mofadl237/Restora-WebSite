@@ -1,16 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { Link } from "@/src/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { Button } from "@/src/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "@/src/components/site/theme-toggle";
+import { LanguageSwitcher } from "@/src/components/site/language-switcher";
 
+/**
+ * Minimal first-class destinations only — homepage storytelling sections
+ * stay on the page, not in the nav (see execution plan §34).
+ */
 const LINKS = [
-  { href: "#story", key: "howItWorks" },
-  { href: "#pricing", key: "pricing" },
-  { href: "#faq", key: "faq" },
+  { href: "/", key: "home" },
+  { href: "/business", key: "business" },
+  { href: "/pricing", key: "pricing" },
   { href: "/blog", key: "blog" },
   { href: "/contact", key: "contact" },
 ] as const;
@@ -26,13 +32,6 @@ function NavLink({
   onClick?: () => void;
   children: React.ReactNode;
 }) {
-  if (href.startsWith("#")) {
-    return (
-      <a href={href} className={className} onClick={onClick}>
-        {children}
-      </a>
-    );
-  }
   return (
     <Link href={href} className={className} onClick={onClick}>
       {children}
@@ -41,8 +40,8 @@ function NavLink({
 }
 
 /**
- * Sticky navbar: hides while scrolling down, returns on scroll up;
- * gains a solid blur backdrop once the page is scrolled.
+ * Premium sticky navbar: hides scrolling down, returns on scroll up;
+ * glass blur once scrolled; language + theme + one strong conversion CTA.
  */
 export function Navbar({ brandName }: { brandName: string }) {
   const t = useTranslations("Nav");
@@ -61,26 +60,28 @@ export function Navbar({ brandName }: { brandName: string }) {
     <motion.header
       animate={{ y: hidden ? "-100%" : "0%" }}
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className={`sticky top-0 z-50 transition-colors duration-300 ${
+      className={`sticky top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 ${
         scrolled || open
-          ? "border-b border-border/60 bg-background/85 backdrop-blur-md"
+          ? "border-b border-border/60 bg-background/75 shadow-[0_8px_32px_-24px_rgb(0_0_0/0.4)] backdrop-blur-xl"
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <nav className="container-page flex h-14 items-center gap-6" aria-label="Main">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="grid size-7 place-items-center rounded-lg bg-primary font-display text-xs font-bold text-primary-foreground">
+      <nav className="container-page flex h-16 items-center gap-3 md:h-16" aria-label="Main">
+        {/* Logo */}
+        <Link href="/" className="group flex items-center gap-2.5" aria-label={brandName}>
+          <span className="grid size-8 place-items-center rounded-xl bg-primary font-display text-sm font-bold text-primary-foreground shadow-card transition-transform duration-300 group-hover:-rotate-6 motion-reduce:transition-none">
             R
           </span>
-          <span className="font-display text-base font-bold tracking-tight">{brandName}</span>
+          <span className="font-display text-lg font-bold tracking-tight">{brandName}</span>
         </Link>
 
-        <ul className="ms-auto hidden items-center gap-1 md:flex">
+        {/* Desktop links */}
+        <ul className="ms-auto hidden items-center gap-0.5 lg:flex">
           {LINKS.map(({ href, key }) => (
             <li key={key}>
               <NavLink
                 href={href}
-                className="rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                className="relative rounded-full px-3.5 py-2 text-sm text-muted-foreground transition-colors after:absolute after:inset-x-3.5 after:-bottom-px after:h-px after:origin-center after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:text-foreground hover:after:scale-x-100 motion-reduce:after:hidden"
               >
                 {t(key)}
               </NavLink>
@@ -88,23 +89,28 @@ export function Navbar({ brandName }: { brandName: string }) {
           ))}
         </ul>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <Link href="#pricing">
-            <Button size="sm" className="rounded-full">{t("getStarted")}</Button>
+        {/* Right cluster */}
+        <div className="ms-auto flex items-center gap-2 lg:ms-6">
+          <LanguageSwitcher />
+          <ThemeToggle />
+          <Link href="/contact" className="hidden sm:block">
+            <Button size="sm" className="rounded-full px-5 shadow-card transition-shadow hover:shadow-glow">
+              {t("getStarted")}
+            </Button>
           </Link>
+          <button
+            type="button"
+            className="rounded-md p-2 lg:hidden"
+            aria-expanded={open}
+            aria-label={t("menu")}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}
+          </button>
         </div>
-
-        <button
-          type="button"
-          className="ms-auto rounded-md p-2 md:hidden"
-          aria-expanded={open}
-          aria-label={t("menu")}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}
-        </button>
       </nav>
 
+      {/* Mobile sheet */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -112,22 +118,29 @@ export function Navbar({ brandName }: { brandName: string }) {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-border bg-background md:hidden"
+            className="overflow-hidden border-t border-border bg-background/95 backdrop-blur-xl lg:hidden"
           >
-            <ul className="container-page space-y-1 py-3">
+            <ul className="container-page space-y-1 py-4">
               {LINKS.map(({ href, key }) => (
                 <li key={key}>
                   <NavLink
                     href={href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-md px-3 py-2.5 text-sm hover:bg-secondary"
+                    className="block rounded-xl px-3 py-2.5 text-base hover:bg-secondary"
                   >
                     {t(key)}
                   </NavLink>
                 </li>
               ))}
+              <li className="flex items-center justify-between rounded-xl px-3 py-1">
+                <LanguageSwitcher variant="mobile" />
+              </li>
+              <li className="flex items-center justify-between rounded-xl px-3 py-2">
+                <span className="text-sm text-muted-foreground">{t("theme")}</span>
+                <ThemeToggle />
+              </li>
               <li className="pt-2">
-                <Link href="#pricing" onClick={() => setOpen(false)} className="block">
+                <Link href="/contact" onClick={() => setOpen(false)} className="block">
                   <Button size="sm" className="w-full rounded-full">{t("getStarted")}</Button>
                 </Link>
               </li>

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/src/i18n/navigation";
 import { useTranslations } from "next-intl";
 import type { PublicBranding, PublicSocialLink } from "@/src/server/branding";
 

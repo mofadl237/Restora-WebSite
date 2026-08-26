@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { submitContact } from "@/src/server/actions/contact";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
@@ -28,13 +28,19 @@ function flagFromCode(code: string): string {
 export function ContactForm({
   countries,
   sourcePage,
+  selectedPlan = null,
+  whatsappUrl = null,
 }: {
   countries: ContactCountry[];
   sourcePage: string;
+  selectedPlan?: { slug: string; name: string } | null;
+  whatsappUrl?: string | null;
 }) {
   const t = useTranslations("Contact");
+  const locale = useLocale();
   const [isPending, startTransition] = useTransition();
   const [done, setDone] = useState(false);
+  const [waHref, setWaHref] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [countryCode, setCountryCode] = useState(countries[0]?.code ?? "EG");
 
@@ -52,6 +58,16 @@ export function ContactForm({
         <CheckCircle2 className="size-10 text-primary" aria-hidden />
         <p className="font-display text-lg font-semibold">{t("successTitle")}</p>
         <p className="max-w-sm text-sm text-muted-foreground">{t("successBody")}</p>
+        {waHref && (
+          <a
+            href={waHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-flex items-center gap-2 rounded-full bg-[var(--brand-accent)] px-5 py-2.5 text-sm font-semibold text-accent-foreground shadow-card transition-shadow hover:shadow-glow"
+          >
+            {t("waFollow")}
+          </a>
+        )}
       </div>
     );
   }
@@ -60,18 +76,35 @@ export function ContactForm({
     <form
       action={(fd) => {
         setError(null);
+        const fullName = String(fd.get("fullName") ?? "");
+        const phone = String(fd.get("phone") ?? "").replace(/\D/g, "");
+        const message = String(fd.get("message") ?? "");
         startTransition(async () => {
           const res = await submitContact({
-            fullName: String(fd.get("fullName") ?? ""),
+            fullName,
             countryCode,
             dialCode: selected?.dialCode ?? "",
-            phone: String(fd.get("phone") ?? "").replace(/\D/g, ""),
+            phone,
             email: String(fd.get("email") ?? ""),
             businessType: String(fd.get("businessType") ?? ""),
-            message: String(fd.get("message") ?? ""),
+            message,
             sourcePage,
+            selectedPlan: selectedPlan?.slug ?? "",
+            locale,
           });
           if (res.ok) {
+            // Offer a WhatsApp handoff carrying the full lead context.
+            if (whatsappUrl) {
+              const lines = [
+                "RESTORA 👋",
+                `${t("fullName")}: ${fullName}`,
+                `${t("phone")}: ${selected?.dialCode ?? ""}${phone}`,
+                selectedPlan ? `${t("selectedPlan")}: ${selectedPlan.name}` : null,
+                message ? `—\n${message}` : null,
+                `(${locale})`,
+              ].filter(Boolean);
+              setWaHref(`${whatsappUrl}${whatsappUrl.includes("?") ? "&" : "?"}text=${encodeURIComponent(lines.join("\n"))}`);
+            }
             setDone(true);
           } else {
             setError(res.error);
@@ -80,6 +113,15 @@ export function ContactForm({
       }}
       className="space-y-4 rounded-2xl border border-border bg-card p-6 shadow-card md:p-8"
     >
+      {selectedPlan && (
+        <div className="flex items-center justify-between gap-3 rounded-xl border border-primary/30 bg-secondary/60 px-4 py-3">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">{t("selectedPlan")}</p>
+            <p className="font-display font-bold">{selectedPlan.name}</p>
+          </div>
+          <span aria-hidden className="text-lg">✅</span>
+        </div>
+      )}
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
           <Label htmlFor="ct-name">{t("fullName")}</Label>

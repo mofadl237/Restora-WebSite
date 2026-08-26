@@ -11,7 +11,7 @@ export const config = {
     // Match root
     "/",
     // Match all localized paths explicitly
-    "/(ar|en|al|fr|it)/:path*",
+    "/(ar|en|de|ru|uk|tr|it|fr)/:path*",
     // Match all other paths except _next, api, _vercel, and static files
     "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
   ],

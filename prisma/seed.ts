@@ -29,6 +29,7 @@ import {
   seoEntriesSeed,
 } from "./seed-content";
 import { blogPostsSeed } from "./seed-blog";
+import { moreBlogPostsSeed } from "./seed-blog-more";
 import { seedSegmentPages } from "./seed-segments";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
@@ -205,7 +206,7 @@ async function seedClients() {
 }
 
 async function seedBlogPosts() {
-  for (const p of blogPostsSeed) {
+  for (const p of [...blogPostsSeed, ...moreBlogPostsSeed]) {
     const publishedAt = new Date(Date.now() - p.publishedDaysAgo * 24 * 60 * 60 * 1000);
     const data = {
       authorName: p.authorName,

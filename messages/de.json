@@ -1,0 +1,233 @@
+{
+  "HomePage": {
+    "title": "Führe dein Restaurant – mit Stil"
+  },
+  "NotFound": {
+    "title": "Seite nicht gefunden",
+    "description": "Die gesuchte Seite existiert nicht.",
+    "backHome": "Zur Startseite"
+  },
+  "Nav": {
+    "features": "Funktionen",
+    "howItWorks": "So funktioniert es",
+    "pricing": "Preise",
+    "faq": "FAQ",
+    "contact": "Kontakt",
+    "login": "Anmelden",
+    "getStarted": "Jetzt starten",
+    "menu": "Menü öffnen",
+    "blog": "Blog",
+    "business": "Für wen wir da sind",
+    "home": "Start",
+    "lang": "Sprache",
+    "theme": "Design wechseln",
+    "scrollTop": "Nach oben"
+  },
+  "Pricing": {
+    "title": "Faire Preise, die mit dir wachsen",
+    "subtitle": "Eine Plattform für dein ganzes Restaurant. Wähle einen Plan, dein Land und starte noch heute.",
+    "monthly": "Monatlich",
+    "yearly": "Jährlich",
+    "perMonth": "/Mo.",
+    "perYear": "/J.",
+    "billedYearly": "jährliche Abrechnung",
+    "popular": "Am beliebtesten",
+    "save": "{percent}% sparen",
+    "choosePlan": "{plan} wählen",
+    "country": "Land",
+    "currencyDisclaimer": "Preise in {currency}. Steueren können anfallen.",
+    "giftsTitle": "Geschenke zu Jahresplänen",
+    "giftsSubtitle": "Jedes Jahresabo enthält diese Extras kostenlos",
+    "includedFeatures": "Enthalten",
+    "loading": "Preise werden geladen…",
+    "everythingInPrevious": "Alles aus {plan}, plus:"
+  },
+  "Testimonials": {
+    "title": "Restaurants laufen besser mit RESTORA",
+    "previous": "Vorherige Stimme",
+    "next": "Nächste Stimme"
+  },
+  "Hero": {
+    "seeStory": "So funktioniert es",
+    "newOrder": "Neue Bestellung",
+    "justNow": "gerade eben",
+    "guestRating": "Gästebewertung"
+  },
+  "FinalCta": {
+    "serviceRating": "4,9 Sterne Service"
+  },
+  "Common": {
+    "learnMore": "Mehr erfahren",
+    "seePricing": "Preise ansehen"
+  },
+  "Story": {
+    "scanBrowseOrder": "Scannen · Stöbern · Bestellen",
+    "noDownloads": "0 Downloads nötig"
+  },
+  "Clients": {
+    "kicker": "Restaurants vertrauen uns",
+    "title": "Restaurants, die mit RESTORA wachsen",
+    "subtitle": "Von Kairo bis Riad – Teams, die Chaos gegen ein ruhiges Dashboard getauscht haben."
+  },
+  "WhatsApp": {
+    "label": "Schreib uns auf WhatsApp"
+  },
+  "Contact": {
+    "title": "Kontakt",
+    "kicker": "Sprich mit uns",
+    "heading": "Lass uns über dein Restaurant sprechen",
+    "subheading": "Erzähl uns kurz von deinem Betrieb – wir melden uns innerhalb eines Werktags.",
+    "fullName": "Vollständiger Name",
+    "country": "Land",
+    "phone": "Telefonnummer",
+    "email": "E-Mail",
+    "optional": "optional",
+    "businessType": "Art des Betriebs (Restaurant, Café, Cloud Kitchen…)",
+    "message": "Deine Nachricht",
+    "submit": "Nachricht senden",
+    "successTitle": "Nachricht gesendet!",
+    "successBody": "Danke für deine Anfrage – unser Team meldet sich in Kürze.",
+    "selectedPlan": "Gewählter Plan",
+    "waFollow": "Per WhatsApp fortsetzen"
+  },
+  "Blog": {
+    "title": "Der RESTORA Blog",
+    "kicker": "Einblicke",
+    "subtitle": "Praktische Ratgeber und ehrliches Wissen für Restaurantbesitzer.",
+    "readingTime": "{minutes} Min. Lesezeit",
+    "empty": "Noch keine Artikel – schau bald wieder vorbei.",
+    "backToBlog": "Zurück zum Blog",
+    "related": "Passende Artikel",
+    "home": "Start",
+    "ctaTitle": "Bereit, das umzusetzen?",
+    "ctaBody": "RESTORA vereint Restaurants, Cafés und Küchen von zuhause in einem System für Speisekarten, Bestellungen und Wachstum – ohne technische Einrichtung.",
+    "ctaPricing": "Pläne & Preise ansehen",
+    "ctaBusiness": "Betriebsart wählen"
+  },
+  "Moments": {
+    "chaosKicker": "DER ALLTAG",
+    "chaosTitle": "Deine Bestellungen sind überall. Nur nicht, wo du sie brauchst.",
+    "chaosSubtitle": "Sieh, was passiert, wenn alles an einem Ort ankommt.",
+    "chaosItems": "WhatsApp-Bestellung|Telefonanruf|Papierbon|Sprachnachricht|Foto einer Karte",
+    "chaosResult": "Ein Dashboard. Null Chaos.",
+    "branchKicker": "DEINE FILIALE IM NETZ",
+    "branchTitle": "Du musst keinen neuen Standort eröffnen…",
+    "branchAccent": "eröffne deine Filiale im Internet.",
+    "branchNodes": "Google Maps|Social Media|Deine Website|QR-Karte|Online-Bestellungen|Neue Gäste",
+    "menuKicker": "DIE VERWANDLUNG",
+    "menuTitle": "Von der Papierkarte… zur Karte, die verkauft.",
+    "menuBefore": "Papierkarte",
+    "menuAfter": "RESTORA Digitalkarte",
+    "menuNote": "Gedruckt einmal, morgen veraltet. Digital: in Sekunden aktualisiert, direkt daraus bestellt."
+  },
+  "Share": {
+    "label": "Artikel teilen",
+    "copy": "Link kopieren",
+    "copied": "Kopiert!"
+  },
+  "Business": {
+    "metaTitle": "RESTORA für Gastronomiebetriebe",
+    "kicker": "FÜR GASTRONOMIEBETRIEBE",
+    "title": "Ein System für jede Art von Food-Business.",
+    "subtitle": "Von der Hausküche bis zur Restaurantgruppe – RESTORA passt sich deiner Art zu kochen und zu verkaufen an.",
+    "segments": {
+      "restaurant": {
+        "icon": "🍽️",
+        "label": "Restaurants"
+      },
+      "cafe": {
+        "icon": "☕",
+        "label": "Cafés"
+      },
+      "bakery": {
+        "icon": "🥖",
+        "label": "Bäckereien"
+      },
+      "sweets": {
+        "icon": "🍰",
+        "label": "Süßes & Gebäck"
+      },
+      "juices": {
+        "icon": "🧃",
+        "label": "Safthäuser"
+      },
+      "cloud-kitchen": {
+        "icon": "📦",
+        "label": "Cloud Kitchens"
+      },
+      "food-truck": {
+        "icon": "🚚",
+        "label": "Foodtrucks"
+      },
+      "catering": {
+        "icon": "🍱",
+        "label": "Catering & Buffets"
+      },
+      "home-chef": {
+        "icon": "🏠",
+        "label": "Heimköche"
+      }
+    },
+    "steps": {
+      "idea": {
+        "title": "Du hast das Essen, wir das System",
+        "desc": "Registrieren, Karte mit Fotos und Preisen anlegen – kein Technikwissen nötig."
+      },
+      "menu": {
+        "title": "Deine Karte ist in Minuten online",
+        "desc": "Ein QR-Code und ein Weblink bringen deine komplette Karte in jede Gastetasche."
+      },
+      "orders": {
+        "title": "Die Bestellungen kommen",
+        "desc": "Liefer- und Abholbestellungen aus einem Dashboard – keine verpassten Anrufe, kein Chat-Chaos."
+      },
+      "growth": {
+        "title": "Wachse mit echten Zahlen",
+        "desc": "Bestseller, Stoßzeiten und Stammgäste – entscheide anhand von Daten statt Bauchgefühl."
+      }
+    },
+    "recType": "Welche Art von Betrieb führst du?",
+    "recSize": "Wie groß ist er heute?",
+    "size": {
+      "small": "Ganz am Anfang",
+      "growing": "Stetige Bestellungen",
+      "multi": "Mehr als eine Filiale"
+    },
+    "recResult": "FÜR DICH EMPFOHLEN",
+    "perMonth": "/ Monat",
+    "recCta": "Pläne & Preise ansehen",
+    "recHint": "Wähle deine Betriebsart, um den passenden Plan zu sehen.",
+    "segCta": "Pläne & Preise ansehen",
+    "segCtaSecondary": "Sprich mit uns",
+    "segProblemsTitle": "Klingt bekannt?",
+    "segUseCasesTitle": "So arbeiten Teams mit RESTORA",
+    "segFeaturesTitle": "Das zählt hier am meisten",
+    "segPlanKicker": "EMPFOHLENER PLAN",
+    "segPlanCta": "Pläne vergleichen",
+    "segFaqTitle": "Häufige Fragen",
+    "segOtherTitle": "Andere Betriebsarten",
+    "segReadTitle": "Weiterlesen",
+    "home": "Start"
+  },
+  "StickyCta": {
+    "cta": "Jetzt starten"
+  },
+  "Tourism": {
+    "kicker": "TOURISTISCHE LAGEN",
+    "title": "Wenn deine Karte die Sprache deiner Gäste spricht",
+    "subtitle": "In Hurghada, Sharm El Sheikh oder Luxor steht die Welt vor deiner Tür. RESTORA sorgt dafür, dass dich internationale Gäste verstehen – und bestellen.",
+    "cta": "Mehr für Touristen-Restaurants",
+    "langsLine": "8 Sprachen. Ein Menü. Keine Hürde."
+  },
+  "Segments": {
+    "kicker": "WEM WIR HELFEN",
+    "title": "Jedes Food-Business. Ein System, das passt.",
+    "subtitle": "Wähle deine Betriebsart und sieh, was RESTORA für dich ändert – ohne Generisches.",
+    "losingLabel": "Was es kostet",
+    "helpLabel": "So hilft RESTORA",
+    "segmentLink": "Segment öffnen",
+    "planKicker": "EMPFOHLENER PLAN",
+    "perMonth": "/Mo.",
+    "planCta": "Mit {plan} starten"
+  }
+}

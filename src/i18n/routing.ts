@@ -1,8 +1,9 @@
 import { defineRouting } from "next-intl/routing";
 
 export const routing = defineRouting({
-  // A list of all locales that are supported
-  locales: ["en", "ar", "al", "fr", "it"] as const,
+  // Exactly 8 supported locales: Arabic (default, RTL) + 7 LTR languages
+  // chosen for the Egyptian market + international tourists.
+  locales: ["ar", "en", "de", "ru", "uk", "tr", "it", "fr"] as const,
 
   // Used when no locale matches
   defaultLocale: "ar",

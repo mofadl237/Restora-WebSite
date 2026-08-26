@@ -3,9 +3,30 @@
 import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { useTranslations } from "next-intl";
-import { CheckCheck, Smartphone } from "lucide-react";
+import { CheckCheck, MessageCircle, PhoneCall, ReceiptText, Mic, Image as ImageIcon } from "lucide-react";
 import { gsap } from "@/src/lib/gsap";
 import { Reveal } from "@/src/components/site/reveal";
+
+const CHIP_ICONS = [MessageCircle, PhoneCall, ReceiptText, Mic, ImageIcon];
+
+/** Decorative disorder — tickets, notes, badges, prices. Desktop stage only;
+ * everything is absorbed into the dashboard during the scrub. */
+const FRAGMENTS = [
+  { glyph: "🧾", x: -4, y: 30, r: -14, size: "text-5xl" },
+  { glyph: "🗒️", x: 88, y: 18, r: 12, size: "text-4xl" },
+  { glyph: "⏰", x: 20, y: 78, r: -8, size: "text-4xl" },
+  { glyph: "🍔", x: 58, y: 82, r: 10, size: "text-5xl" },
+  { glyph: "❗", x: 44, y: 16, r: -6, size: "text-3xl" },
+  { glyph: "☎️", x: 8, y: -6, r: 14, size: "text-3xl" },
+  { glyph: "💬", x: 76, y: -8, r: -10, size: "text-4xl" },
+  { glyph: "#27", x: 94, y: 52, r: 8, size: "text-xl font-mono font-bold" },
+  { glyph: "🔥", x: 2, y: 92, r: 0, size: "text-3xl" },
+  { glyph: "EGP 120 ✕", x: 66, y: 34, r: -12, size: "text-sm font-bold line-through decoration-destructive" },
+  { glyph: "🍽️", x: 30, y: 40, r: 16, size: "text-4xl" },
+  { glyph: "🚴", x: 96, y: 84, r: -9, size: "text-4xl" },
+  { glyph: "📝", x: -3, y: 68, r: 11, size: "text-4xl" },
+  { glyph: "🔔 ×3", x: 50, y: -7, r: 6, size: "text-lg font-semibold" },
+];
 
 /**
  * Signature moment B — CHAOS → CONTROL.
@@ -44,6 +65,7 @@ export function ChaosControl() {
         const root = wrapRef.current;
         if (!root) return;
         const chips = Array.from(root.querySelectorAll<HTMLElement>("[data-chip]"));
+        const frags = Array.from(root.querySelectorAll<HTMLElement>("[data-frag]"));
         const card = root.querySelector<HTMLElement>("[data-result-card]");
         const ring = root.querySelector<SVGGeometryElement>("[data-draw-line]");
 
@@ -71,7 +93,16 @@ export function ChaosControl() {
           },
         });
 
-        // Phase 1 — chips converge toward the center (staggered)
+        // Phase 1 — fragments wobble then dissolve first (noise dies early)
+        frags.forEach((f, i) => {
+          tl.to(
+            f,
+            { rotate: `+=${i % 2 ? 8 : -8}`, yPercent: -4, duration: 0.5 },
+            i * 0.05,
+          );
+        });
+        tl.to(frags, { autoAlpha: 0, scale: 0.5, duration: 0.5, ease: "power2.in" }, 0.55);
+        // Phase 2 — chips converge toward the center (staggered)
         chips.forEach((chip, i) => {
           tl.to(
             chip,
@@ -159,15 +190,30 @@ export function ChaosControl() {
                     />
                   </svg>
 
-                  {items.map((label, i) => (
+                  {items.map((label, i) => {
+                    const Icon = CHIP_ICONS[i % CHIP_ICONS.length];
+                    return (
+                      <span
+                        key={label}
+                        data-chip
+                        style={{ left: `${scattered[i].x}%`, top: `${scattered[i].y}%`, rotate: `${scattered[i].r}deg` }}
+                        className="absolute inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-border bg-card px-3.5 py-2 text-xs font-medium text-muted-foreground shadow-card will-change-transform"
+                      >
+                        <Icon className="size-3.5 opacity-60 rtl:-scale-x-100" aria-hidden />
+                        {label}
+                      </span>
+                    );
+                  })}
+
+                  {FRAGMENTS.map((f, i) => (
                     <span
-                      key={label}
-                      data-chip
-                      style={{ left: `${scattered[i].x}%`, top: `${scattered[i].y}%`, rotate: `${scattered[i].r}deg` }}
-                      className="absolute inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-border bg-card px-3.5 py-2 text-xs font-medium text-muted-foreground shadow-card will-change-transform"
+                      key={i}
+                      data-frag
+                      aria-hidden
+                      style={{ left: `${f.x}%`, top: `${f.y}%`, rotate: `${f.r}deg` }}
+                      className={`absolute select-none opacity-80 will-change-transform ${f.size}`}
                     >
-                      <Smartphone className="size-3.5 opacity-60 rtl:-scale-x-100" aria-hidden />
-                      {label}
+                      {f.glyph}
                     </span>
                   ))}
 

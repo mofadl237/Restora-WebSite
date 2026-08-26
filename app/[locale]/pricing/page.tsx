@@ -36,7 +36,7 @@ export default async function PricingPage({
       <Navbar brandName={branding.brandName} />
       <main className="flex-1">
         <section className="container-page py-16 md:py-24">
-          <PricingSection data={pricing} />
+          <PricingSection data={pricing} headingLevel="h1" />
         </section>
         <div className="h-10" aria-hidden />
       </main>

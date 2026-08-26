@@ -17,7 +17,13 @@
     "getStarted": "Inizia ora",
     "menu": "Apri il menu",
     "blog": "Blog",
-    "business": "Per le attività"
+    "business": "A chi ci rivolgiamo",
+    "home": "Home",
+    "lang": "Lingua",
+    "theme": "Cambia tema",
+    "scrollTop": "Torna su",
+    "selectedPlan": "Piano selezionato",
+    "waFollow": "Continua su WhatsApp"
   },
   "Pricing": {
     "title": "Prezzi semplici che crescono con te",
@@ -82,7 +88,9 @@
     "message": "Il tuo messaggio",
     "submit": "Invia messaggio",
     "successTitle": "Messaggio inviato!",
-    "successBody": "Grazie per averci contattato — il nostro team ti risponderà presto."
+    "successBody": "Grazie per averci contattato — il nostro team ti risponderà presto.",
+    "selectedPlan": "Piano selezionato",
+    "waFollow": "Continua su WhatsApp"
   },
   "Blog": {
     "title": "Il blog RESTORA",
@@ -92,7 +100,11 @@
     "empty": "Ancora nessun articolo — torna presto.",
     "backToBlog": "Torna al blog",
     "related": "Articoli correlati",
-    "home": "Home"
+    "home": "Home",
+    "ctaTitle": "Vuoi metterlo in pratica?",
+    "ctaBody": "RESTORA unisce ristoranti, caffè e attività food in un solo sistema: menu, ordini e crescita.",
+    "ctaPricing": "Vedi piani e prezzi",
+    "ctaBusiness": "Scegli il tipo di attività"
   },
   "Moments": {
     "chaosKicker": "LA REALTÀ DI OGNI GIORNO",
@@ -186,9 +198,38 @@
     "recResult": "CONSIGLIATO PER TE",
     "perMonth": "/ mese",
     "recCta": "Vedi piani e prezzi",
-    "recHint": "Scegli il tipo di attività per vedere il piano consigliato."
+    "recHint": "Scegli il tipo di attività per vedere il piano consigliato.",
+    "segCta": "Vedi piani e prezzi",
+    "segCtaSecondary": "Contattaci",
+    "segProblemsTitle": "Ti suona familiare?",
+    "segUseCasesTitle": "Come si usa RESTORA",
+    "segFeaturesTitle": "Ciò che conta qui",
+    "segPlanKicker": "PIANO CONSIGLIATO",
+    "segPlanCta": "Confronta i piani",
+    "segFaqTitle": "Domande frequenti",
+    "segOtherTitle": "Altri tipi di attività",
+    "segReadTitle": "Continua a leggere",
+    "home": "Home"
   },
   "StickyCta": {
     "cta": "Inizia ora"
+  },
+  "Tourism": {
+    "kicker": "DESTINAZIONI TURISTICHE",
+    "title": "Quando il tuo menu parla la lingua dell'ospite",
+    "subtitle": "A Hurghada, Sharm El Sheikh o Luxor il mondo intero passa davanti alla tua porta. RESTORA aiuta gli ospiti internazionali a capirti — e a ordinare.",
+    "cta": "Di più per i ristoranti turistici",
+    "langsLine": "8 lingue. Un menu. Zero barriere."
+  },
+  "Segments": {
+    "kicker": "A CHI CI RIVOLGIAMO",
+    "title": "Ogni attività food. Un sistema su misura.",
+    "subtitle": "Scegli il tipo di attività e scopri cosa cambia con RESTORA — senza frasi generiche.",
+    "losingLabel": "Quanto ti costa",
+    "helpLabel": "Come aiuta RESTORA",
+    "segmentLink": "Apri il segmento",
+    "planKicker": "PIANO CONSIGLIATO",
+    "perMonth": "/mese",
+    "planCta": "Inizia con {plan}"
   }
 }

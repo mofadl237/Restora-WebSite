@@ -199,6 +199,8 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    /* Smooth theme transition (next-themes disables it during the switch to avoid flashes) */
+    transition: background-color 0.35s ease, color 0.35s ease;
   }
 
   body {

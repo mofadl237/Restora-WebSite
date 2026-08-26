@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Link } from "@/src/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
@@ -26,8 +27,9 @@ function discountPercent(current: string, compareAt: string | null): number | nu
   return Math.round(((a - c) / a) * 100);
 }
 
-export function PricingSection({ data }: { data: PricingViewModel }) {
+export function PricingSection({ data, headingLevel = "h2" }: { data: PricingViewModel; /** The standalone /pricing page renders this as the page H1. */ headingLevel?: "h1" | "h2" }) {
   const t = useTranslations("Pricing");
+  const HeadingTag = headingLevel;
   const prefersReducedMotion = useReducedMotion();
   const [countryCode, setCountryCode] = useState(data.defaultCountryCode);
   const [billing, setBilling] = useState<Billing>("yearly");
@@ -40,7 +42,7 @@ export function PricingSection({ data }: { data: PricingViewModel }) {
     <div className="space-y-10">
       {/* Heading */}
       <header className="mx-auto max-w-2xl text-center">
-        <h2 className="font-display text-display-md font-bold tracking-tight">{t("title")}</h2>
+        <HeadingTag className="font-display text-display-md font-bold tracking-tight">{t("title")}</HeadingTag>
         <p className="mt-3 text-muted-foreground">{t("subtitle")}</p>
       </header>
 
@@ -176,9 +178,11 @@ export function PricingSection({ data }: { data: PricingViewModel }) {
                   ))}
                 </ul>
 
-                <Button variant={plan.popular ? "default" : "secondary"} className="w-full">
-                  {t("choosePlan", { plan: plan.name })}
-                </Button>
+                <Link href={`/contact?plan=${plan.slug}`} className="block">
+                  <Button variant={plan.popular ? "default" : "secondary"} className="w-full">
+                    {t("choosePlan", { plan: plan.name })}
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           );

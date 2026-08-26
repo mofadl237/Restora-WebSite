@@ -1,0 +1,233 @@
+{
+  "HomePage": {
+    "title": "Restoranınıza şık bir düzen getirin"
+  },
+  "NotFound": {
+    "title": "Sayfa bulunamadı",
+    "description": "Aradığınız sayfa mevcut değil.",
+    "backHome": "Ana sayfaya dön"
+  },
+  "Nav": {
+    "features": "Özellikler",
+    "howItWorks": "Nasıl çalışır",
+    "pricing": "Fiyatlar",
+    "faq": "SSS",
+    "contact": "İletişim",
+    "login": "Giriş yap",
+    "getStarted": "Hemen başla",
+    "menu": "Menüyü aç",
+    "blog": "Blog",
+    "business": "Kime yardımcı oluyoruz",
+    "home": "Ana sayfa",
+    "lang": "Dil",
+    "theme": "Temanı değiştir",
+    "scrollTop": "Yukarı dön"
+  },
+  "Pricing": {
+    "title": "Sizinle büyüyen sade fiyatlandırma",
+    "subtitle": "Restoranınızın tamamı için tek platform. Bir plan ve ülke seçin, bugün başlayın.",
+    "monthly": "Aylık",
+    "yearly": "Yıllık",
+    "perMonth": "/ay",
+    "perYear": "/yıl",
+    "billedYearly": "yıllık faturalandırma",
+    "popular": "En popüler",
+    "save": "%{percent} tasarruf",
+    "choosePlan": "{plan} seç",
+    "country": "Ülke",
+    "currencyDisclaimer": "Fiyatlar {currency} cinsindendir. Vergiler uygulanabilir.",
+    "giftsTitle": "Yıllık planlara hediyeler",
+    "giftsSubtitle": "Her yıllık abonelik bu ekstraları ücretsiz içerir",
+    "includedFeatures": "Dahil olanlar",
+    "loading": "Fiyatlar yükleniyor…",
+    "everythingInPrevious": "{plan} paketindekilerin hepsi, artı:"
+  },
+  "Testimonials": {
+    "title": "Restoranlar RESTORA ile daha iyi çalışır",
+    "previous": "Önceki yorum",
+    "next": "Sonraki yorum"
+  },
+  "Hero": {
+    "seeStory": "Nasıl çalıştığını gör",
+    "newOrder": "Yeni sipariş",
+    "justNow": "şimdi",
+    "guestRating": "Misafir puanı"
+  },
+  "FinalCta": {
+    "serviceRating": "4,9 puanlı hizmet"
+  },
+  "Common": {
+    "learnMore": "Daha fazla bilgi",
+    "seePricing": "Fiyatları gör"
+  },
+  "Story": {
+    "scanBrowseOrder": "Tara · Göz at · Sipariş ver",
+    "noDownloads": "0 indirme gerekir"
+  },
+  "Clients": {
+    "kicker": "Restoranların tercihi",
+    "title": "RESTORA ile büyüyen restoranlar",
+    "subtitle": "Kahire'den Riyad'a — karmaşayı tek bir sakin panoya takas eden ekipler."
+  },
+  "WhatsApp": {
+    "label": "Bize WhatsApp'tan yazın"
+  },
+  "Contact": {
+    "title": "İletişim",
+    "kicker": "Bize ulaşın",
+    "heading": "Restoranınızı konuşalım",
+    "subheading": "İşletmenizden biraz bahsedin — bir iş günü içinde size dönüş yapıyoruz.",
+    "fullName": "Ad soyad",
+    "country": "Ülke",
+    "phone": "Telefon numarası",
+    "email": "E-posta",
+    "optional": "isteğe bağlı",
+    "businessType": "İşletme türü (restoran, kafe, cloud mutfak…)",
+    "message": "Mesajınız",
+    "submit": "Mesajı gönder",
+    "successTitle": "Mesaj gönderildi!",
+    "successBody": "Ulaştığınız için teşekkürler — ekibimiz kısa süre içinde sizinle iletişime geçecek.",
+    "selectedPlan": "Seçilen plan",
+    "waFollow": "WhatsApp'tan devam et"
+  },
+  "Blog": {
+    "title": "RESTORA blogu",
+    "kicker": "İçgörüler",
+    "subtitle": "Restoran sahipleri için pratik rehberler ve dürüst tavsiyeler.",
+    "readingTime": "{minutes} dk okuma",
+    "empty": "Henüz yazı yok — yakında tekrar bakın.",
+    "backToBlog": "Bloğa dön",
+    "related": "İlgili yazılar",
+    "home": "Ana sayfa",
+    "ctaTitle": "Bunu uygulamak ister misiniz?",
+    "ctaBody": "RESTORA; restoranları, kafeleri ve ev mutfaklarını menü, sipariş ve büyüme için tek sistemde buluşturur — teknik kurulum gerekmez.",
+    "ctaPricing": "Planlar ve fiyatlar",
+    "ctaBusiness": "İşletme türünüzü seçin"
+  },
+  "Moments": {
+    "chaosKicker": "GERÇEK GÜNLÜK HAYAT",
+    "chaosTitle": "Siparişleriniz her yerde. İhtiyacınız olan yerde değil.",
+    "chaosSubtitle": "Hepsi tek bir yere indiğinde ne olduğunu izleyin.",
+    "chaosItems": "WhatsApp siparişi|Telefon çağrısı|Kağıt fiş|Sesli mesaj|Menünün fotoğrafı",
+    "chaosResult": "Tek panel. Sıfır karmaşa.",
+    "branchKicker": "İNTERNETTEKİ ŞUBENİZ",
+    "branchTitle": "Yeni bir şube açmanıza gerek yok…",
+    "branchAccent": "şubenizi internette açabilirsiniz.",
+    "branchNodes": "Google Maps|Sosyal medya|Web siteniz|QR menü|Online siparişler|Yeni misafirler",
+    "menuKicker": "DÖNÜŞÜM",
+    "menuTitle": "Kağıt menüden… satan menüye.",
+    "menuBefore": "Kağıt menü",
+    "menuAfter": "RESTORA dijital menü",
+    "menuNote": "Bir kez basılır, yarın güncelliğini yitirir. Dijital: saniyeler içinde güncellenir, doğrudan üzerinden sipariş verilir."
+  },
+  "Share": {
+    "label": "Yazıyı paylaş",
+    "copy": "Bağlantıyı kopyala",
+    "copied": "Kopyalandı!"
+  },
+  "Business": {
+    "metaTitle": "RESTORA ile Gıda İşletmeleri",
+    "kicker": "GIDA İŞLETMELERİ İÇİN",
+    "title": "Her tür gıda işletmesi için tek sistem.",
+    "subtitle": "Ev mutfağından restoran zincirine — RESTORA, pişirme ve satış biçiminize uyum sağlar.",
+    "segments": {
+      "restaurant": {
+        "icon": "🍽️",
+        "label": "Restoranlar"
+      },
+      "cafe": {
+        "icon": "☕",
+        "label": "Kafeler"
+      },
+      "bakery": {
+        "icon": "🥖",
+        "label": "Fırınlar"
+      },
+      "sweets": {
+        "icon": "🍰",
+        "label": "Tatlı ve Pasta"
+      },
+      "juices": {
+        "icon": "🧃",
+        "label": "Meyve Suyu İşletmeleri"
+      },
+      "cloud-kitchen": {
+        "icon": "📦",
+        "label": "Cloud Mutfaklar"
+      },
+      "food-truck": {
+        "icon": "🚚",
+        "label": "Food Truck'lar"
+      },
+      "catering": {
+        "icon": "🍱",
+        "label": "Catering ve Büfe"
+      },
+      "home-chef": {
+        "icon": "🏠",
+        "label": "Ev Şefleri"
+      }
+    },
+    "steps": {
+      "idea": {
+        "title": "Yemek sizde, sistem bizde",
+        "desc": "Kaydolun, fotoğraflı ve fiyatlı menünüzü ekleyin — teknik bilgi gerekmez."
+      },
+      "menu": {
+        "title": "Menünüz dakikalar içinde online",
+        "desc": "Bir QR kod ve web bağlantısı, tüm menünüzü her misafirin cebine koyar."
+      },
+      "orders": {
+        "title": "Siparişler gelmeye başlar",
+        "desc": "Teslimat ve gel-al siparişlerini tek panodan alın — kaçan arama yok, sohbet karmaşası yok."
+      },
+      "growth": {
+        "title": "Gerçek rakamlarla büyüyün",
+        "desc": "Çok satanlar, yoğun saatler ve sadık misafirler — sonraki adımınızı tahminle değil veriyle belirleyin."
+      }
+    },
+    "recType": "Ne tür bir işletme işletiyorsunuz?",
+    "recSize": "Bugün ne kadar büyüktü?",
+    "size": {
+      "small": "Yeni başlıyorum",
+      "growing": "Düzenli siparişler",
+      "multi": "Birden fazla şube"
+    },
+    "recResult": "SİZİN İÇİN ÖNERİLEN",
+    "perMonth": "/ ay",
+    "recCta": "Planlar ve fiyatlar",
+    "recHint": "Önerilen planı görmek için işletme türünüzü seçin.",
+    "segCta": "Planlar ve fiyatlar",
+    "segCtaSecondary": "Bizimle konuşun",
+    "segProblemsTitle": "Tanıdık geliyor mu?",
+    "segUseCasesTitle": "Ekipler RESTORA'yı böyle kullanıyor",
+    "segFeaturesTitle": "Burada en çok işe yarayanlar",
+    "segPlanKicker": "ÖNERİLEN PLAN",
+    "segPlanCta": "Planları karşılaştır",
+    "segFaqTitle": "Sık sorulan sorular",
+    "segOtherTitle": "Diğer işletme türleri",
+    "segReadTitle": "Okumaya devam edin",
+    "home": "Ana sayfa"
+  },
+  "StickyCta": {
+    "cta": "Hemen başla"
+  },
+  "Tourism": {
+    "kicker": "TURİSTİK BÖLGELER",
+    "title": "Menünüz misafirinizin dilini konuştuğunda",
+    "subtitle": "Hurghada, Sharm El Sheikh ya da Luxor'da kapınızın önünde bütün dünya var. RESTORA, uluslararası misafirlerin sizi anlamasını — ve sipariş vermesini — sağlar.",
+    "cta": "Turistik restoranlar için daha fazlası",
+    "langsLine": "8 dil. Tek menü. Sıfır engel."
+  },
+  "Segments": {
+    "kicker": "KİME YARDIMCI OLUYORUZ",
+    "title": "Her gıda işletmesi. Uyan tek sistem.",
+    "subtitle": "İşletme türünü seçin ve RESTORA'nın neyi değiştirdiğini görün — genel ifadeler yok.",
+    "losingLabel": "Size maliyeti",
+    "helpLabel": "RESTORA nasıl yardım eder",
+    "segmentLink": "Segmenti aç",
+    "planKicker": "ÖNERİLEN PLAN",
+    "perMonth": "/ay",
+    "planCta": "{plan} ile başla"
+  }
+}

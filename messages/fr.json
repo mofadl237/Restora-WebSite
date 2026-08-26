@@ -17,7 +17,13 @@
     "getStarted": "Commencer",
     "menu": "Ouvrir le menu",
     "blog": "Blog",
-    "business": "Pour les pros"
+    "business": "À qui nous servons",
+    "home": "Accueil",
+    "lang": "Langue",
+    "theme": "Changer le thème",
+    "scrollTop": "Haut de page",
+    "selectedPlan": "Formule choisie",
+    "waFollow": "Continuer sur WhatsApp"
   },
   "Pricing": {
     "title": "Des tarifs simples qui grandissent avec vous",
@@ -82,7 +88,9 @@
     "message": "Votre message",
     "submit": "Envoyer le message",
     "successTitle": "Message envoyé !",
-    "successBody": "Merci pour votre message — notre équipe vous contactera très vite."
+    "successBody": "Merci pour votre message — notre équipe vous contactera très vite.",
+    "selectedPlan": "Formule choisie",
+    "waFollow": "Continuer sur WhatsApp"
   },
   "Blog": {
     "title": "Le blog RESTORA",
@@ -92,7 +100,11 @@
     "empty": "Pas encore d’articles — revenez bientôt.",
     "backToBlog": "Retour au blog",
     "related": "Articles liés",
-    "home": "Accueil"
+    "home": "Accueil",
+    "ctaTitle": "Envie de passer à la pratique ?",
+    "ctaBody": "RESTORA réunit restaurants, cafés et entreprises alimentaires dans un seul système : menus, commandes et croissance.",
+    "ctaPricing": "Voir les formules",
+    "ctaBusiness": "Choisissez votre activité"
   },
   "Moments": {
     "chaosKicker": "LE QUOTIDIEN RÉEL",
@@ -186,9 +198,38 @@
     "recResult": "RECOMMANDÉ POUR VOUS",
     "perMonth": "/ mois",
     "recCta": "Voir les formules & tarifs",
-    "recHint": "Choisissez votre type d’activité pour voir la formule recommandée."
+    "recHint": "Choisissez votre type d’activité pour voir la formule recommandée.",
+    "segCta": "Voir les formules & tarifs",
+    "segCtaSecondary": "Nous contacter",
+    "segProblemsTitle": "Ça vous parle ?",
+    "segUseCasesTitle": "Comment on utilise RESTORA",
+    "segFeaturesTitle": "Ce qui compte ici",
+    "segPlanKicker": "FORMULE RECOMMANDÉE",
+    "segPlanCta": "Comparer les formules",
+    "segFaqTitle": "Questions fréquentes",
+    "segOtherTitle": "Autres types d’activité",
+    "segReadTitle": "Poursuivre la lecture",
+    "home": "Accueil"
   },
   "StickyCta": {
     "cta": "Commencer"
+  },
+  "Tourism": {
+    "kicker": "ZONES TOURISTIQUES",
+    "title": "Quand votre carte parle la langue de vos hôtes",
+    "subtitle": "À Hurghada, Sharm El Sheikh ou Louxor, le monde entier passe devant votre porte. RESTORA aide les clients internationaux à vous comprendre — et à commander.",
+    "cta": "Plus pour les restaurants touristiques",
+    "langsLine": "8 langues. Une carte. Zéro barrière."
+  },
+  "Segments": {
+    "kicker": "À QUI NOUS SERVONS",
+    "title": "Chaque activité food. Un système qui s'adapte.",
+    "subtitle": "Choisissez votre type d'activité et voyez ce que RESTORA change — rien de générique.",
+    "losingLabel": "Ce que cela vous coûte",
+    "helpLabel": "Comment RESTORA aide",
+    "segmentLink": "Ouvrir votre segment",
+    "planKicker": "FORMULE RECOMMANDÉE",
+    "perMonth": "/mois",
+    "planCta": "Commencer avec {plan}"
   }
 }

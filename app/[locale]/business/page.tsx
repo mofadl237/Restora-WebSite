@@ -1,26 +1,16 @@
 import type { Metadata } from "next";
+import { Link } from "@/src/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getBranding, getSocialLinks } from "@/src/server/branding";
 import { getSections } from "@/src/server/content";
 import { getPlanRecommendations } from "@/src/server/pricing";
+import { listSegmentPages } from "@/src/server/segments";
 import { buildMetadata } from "@/src/server/seo";
 import { Navbar } from "@/src/components/site/navbar";
 import { Footer } from "@/src/components/site/footer";
 import { Reveal } from "@/src/components/site/reveal";
 import { BusinessJourney } from "@/src/components/site/business-journey";
 import { PlanRecommender } from "@/src/components/site/plan-recommender";
-
-const SEGMENT_KEYS = [
-  "restaurant",
-  "cafe",
-  "bakery",
-  "sweets",
-  "juices",
-  "cloud-kitchen",
-  "food-truck",
-  "catering",
-  "home-chef",
-] as const;
 
 export async function generateMetadata({
   params,
@@ -40,11 +30,12 @@ export default async function BusinessPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [branding, socialLinks, sections, plans] = await Promise.all([
+  const [branding, socialLinks, sections, plans, segmentPages] = await Promise.all([
     getBranding(),
     getSocialLinks(),
     getSections(locale),
     getPlanRecommendations(locale),
+    listSegmentPages(locale),
   ]);
   const t = await getTranslations("Business");
   const bizHero = sections["biz-hero"];
@@ -76,24 +67,35 @@ export default async function BusinessPage({
           </div>
         </section>
 
-        {/* segments grid */}
+        {/* segments grid — links into CMS-driven landing pages */}
         <section className="container-page py-20 md:py-28">
           <Reveal direction="up">
             <h2 className="text-center font-display font-bold tracking-tight text-display-md">
               {bizSegments?.title ?? ""}
             </h2>
+            {bizSegments?.description && (
+              <p className="mx-auto mt-4 max-w-xl text-balance text-center text-muted-foreground">
+                {bizSegments.description}
+              </p>
+            )}
           </Reveal>
           <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {SEGMENT_KEYS.map((key, i) => (
-              <Reveal key={key} direction="up" delay={i * 0.04}>
-                <div className="group h-full rounded-2xl border border-border bg-card p-6 text-center shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 motion-reduce:transition-none">
+            {segmentPages.map((seg, i) => (
+              <Reveal key={seg.slug} direction="up" delay={i * 0.04}>
+                <Link
+                  href={`/business/${seg.slug}`}
+                  className="group block h-full rounded-2xl border border-border bg-card p-6 text-center shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 motion-reduce:transition-none"
+                >
                   <span className="text-3xl" aria-hidden>
-                    {t(`segments.${key}.icon`)}
+                    {seg.icon}
                   </span>
                   <p className="mt-3 font-display font-bold leading-snug group-hover:text-primary">
-                    {t(`segments.${key}.label`)}
+                    {seg.subtitle ?? seg.title}
                   </p>
-                </div>
+                  <span aria-hidden className="mt-2 inline-block text-xs font-semibold text-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100 motion-reduce:opacity-100 rtl:rotate-180">
+                    →
+                  </span>
+                </Link>
               </Reveal>
             ))}
           </div>

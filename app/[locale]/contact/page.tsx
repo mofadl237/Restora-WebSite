@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getBranding, getSocialLinks } from "@/src/server/branding";
-import { listActiveCountries } from "@/src/server/pricing";
+import { listActiveCountries, getPricingViewModel } from "@/src/server/pricing";
 import { Navbar } from "@/src/components/site/navbar";
 import { Footer } from "@/src/components/site/footer";
 import { ContactForm } from "@/src/components/site/contact-form";
@@ -20,18 +20,28 @@ export async function generateMetadata({
 
 export default async function ContactPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ plan?: string }>;
 }) {
   const { locale } = await params;
+  const { plan: planSlug } = await searchParams;
   setRequestLocale(locale);
 
   const t = await getTranslations("Contact");
-  const [branding, socialLinks, countries] = await Promise.all([
+  const [branding, socialLinks, countries, pricing] = await Promise.all([
     getBranding(),
     getSocialLinks(),
     listActiveCountries(),
+    getPricingViewModel(locale),
   ]);
+
+  // Resolve the pre-selected plan (from /pricing or /business CTAs) against active plans.
+  const allPlans = Object.values(pricing.byCountry).flat();
+  const matched = planSlug ? allPlans.find((p) => p.slug === planSlug) : undefined;
+  const selectedPlan = matched ? { slug: matched.slug, name: matched.name } : null;
+  const whatsappLink = socialLinks.find((s) => s.platform === "whatsapp")?.url ?? null;
 
   return (
     <>
@@ -55,6 +65,8 @@ export default async function ContactPage({
               <ContactForm
                 countries={countries.map((c) => ({ code: c.code, name: c.name, dialCode: c.dialCode }))}
                 sourcePage="/contact"
+                selectedPlan={selectedPlan}
+                whatsappUrl={whatsappLink}
               />
             </Reveal>
           </div>

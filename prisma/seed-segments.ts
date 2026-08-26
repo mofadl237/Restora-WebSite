@@ -624,7 +624,79 @@ export const segmentPagesSeed: SegmentSeed[] = [
         "خلي منيو العصائر فريش كل يوم: تحديث توفر فوري، خلطات مخصصة، وطلب مقدم للاستلام. شوف RESTORA لمحلات العصائر.",
     },
   },
+  {
+    slug: "tourist-restaurants", planSlug: "growth", icon: "🌍", sortOrder: 10,
+    en: {
+      title: "Turn tourist foot traffic into seated, ordering guests",
+      subtitle: "For restaurants in Hurghada, Sharm El Sheikh, El Gouna, Luxor & Aswan",
+      description:
+        "Your location already gives you access to international customers. RESTORA removes the language and ordering friction between those guests and your tables — so walking past becomes sitting down.",
+      problems: [
+        "A guest opens the menu, can't read it, and walks to the next place",
+        "Staff lose time translating dishes instead of serving",
+        "Prices and ingredients confuse international guests, so they order less — or nothing",
+        "Tourists search online first; if your menu isn't clear in their language, they never arrive at all",
+      ],
+      useCases: [
+        "One QR code on every table opens your full menu in the guest's own language",
+        "Your restaurant website reads clearly for visitors searching before they arrive",
+        "Orders and reservations come in structured, without language ping-pong at the counter",
+        "Seasonal offers and photos do the selling while your team focuses on hospitality",
+      ],
+      features: [
+        "Digital menu in 8 languages",
+        "QR code on every table",
+        "Restaurant website & online presence",
+        "Clear prices and dish descriptions",
+        "Online orders & reservations",
+        "Works great on roaming data",
+      ],
+      faqs: [
+        { q: "Do my guests need to install an app?", a: "No. Scanning the table QR opens your menu instantly in the browser — iPhone or Android, no downloads." },
+        { q: "Which languages does the menu support?", a: "Arabic, English, German, Russian, Ukrainian, Turkish, Italian and French." },
+        { q: "We are a small beach restaurant. Is this too much for us?", a: "Not at all. The Growth plan is built exactly for single-location restaurants that want a professional multilingual presence." },
+      ],
+      seoTitle: "Multilingual Digital Menu for Tourist Restaurants in Egypt | RESTORA",
+      seoDescription:
+        "Hurghada, Sharm El Sheikh, El Gouna, Luxor: give tourists a QR menu and restaurant website in their own language. Turn passers-by into orders.",
+    },
+    ar: {
+      title: "حوّل مرور السائح قدام مطعمك لطولة بيطلب جوه",
+      subtitle: "لمطاعم الغردقة وشرم الشيخ والجونة والأقصر وأسوان",
+      description:
+        "موقعك أصلًا بيفتح باب الزباين من كل الجنسيات. RESTORA بيشيل حاجز اللغة والطلب بين السائح وطاولتك — فاللي بيعدي قدام المطعم بقى بيقعد ويطلب.",
+      problems: [
+        "سائح يفتح المنيو مش بيفهم منه حاجة ويمشي للمطعم اللي جنبه",
+        "الفريق بيضيّع وقته في ترجمة الأطباق بدل خدمة الزباين",
+        "الأسعار والمكونات غير واضحة للسائح فيطلب أقل — أو ما يطلبش أصلًا",
+        "السائح يدوّر أونلاين قبل ما يمشي؛ لو منيوك مش واضح بلغته عمره ما هيوصلك",
+      ],
+      useCases: [
+        "كود QR على كل طاولة يفتح المنيو الكامل بلغة الضيف نفسه",
+        "موقع مطعمك بيوضّح لأي زائر بيدوّر قبل ما يجي",
+        "الطلبات والحجوزات توصل منظمة بدون ترجمة على الكاشير",
+        "العروض وصور الأطباق تبيع وأنت مركز على الضيافة",
+      ],
+      features: [
+        "منيو رقمي بثمانية لغات",
+        "كود QR على كل طاولة",
+        "موقع مطعم وحضور أونلاين",
+        "أسعار ووصف أطباق واضح",
+        "طلبات وحجوزات أونلاين",
+        "خفيف وشغال على نت التجوال",
+      ],
+      faqs: [
+        { q: "الزائر محتاج ينزّل تطبيق؟", a: "لأ. مسح كود الـQR بيفتح المنيو فورًا في المتصفح — أندرويد أو آيفون، بدون تحميل." },
+        { q: "المنيو بيدعم أنهي لغات؟", a: "عربي وإنجليزي وألماني وروسي وأوكراني وتركي وإيطالي وفرنسي — تغطية أهم جنسيات الزوار للمناطق السياحية." },
+        { q: "إحنا مطعم صغير على البحر، هل ده كتير علينا؟", a: "خالص. باقة النمو معمولة بالذات لمطعم موقع واحد عايز حضور سياحي احترافي من غير أي تعقيد تقني." },
+      ],
+      seoTitle: "منيو إلكتروني متعدد اللغات للمطاعم السياحية في مصر | RESTORA",
+      seoDescription:
+        "الغردقة وشرم الشيخ والجونة والأقصر: منيو QR وموقع مطعم بلغة السائح — ألماني وروسي وأوكراني وإيطالي وأكثر. حوّل العابرين لطلبات.",
+    },
+  },
 ];
+
 
 const encode = (arr: string[]) => arr.join(" | ");
 
