@@ -28,11 +28,6 @@ const SEGMENT_CATEGORY: Record<string, string> = {
   "home-food-businesses": "growth",
 };
 
-export async function generateStaticParams() {
-  const segments = await listSegmentPages("en");
-  return segments.map((s) => ({ segment: s.slug }));
-}
-
 export async function generateMetadata({
   params,
 }: {

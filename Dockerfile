@@ -19,6 +19,7 @@ COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
+RUN yarn prisma generate
 RUN yarn build
 
 
