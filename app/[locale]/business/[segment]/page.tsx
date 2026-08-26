@@ -12,6 +12,9 @@ import { Navbar } from "@/src/components/site/navbar";
 import { Footer } from "@/src/components/site/footer";
 import { Reveal } from "@/src/components/site/reveal";
 
+export const dynamic = "force-dynamic";
+
+
 /** Which blog topic cluster relates to which segment (internal linking). */
 const SEGMENT_CATEGORY: Record<string, string> = {
   restaurants: "operations",
