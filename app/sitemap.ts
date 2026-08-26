@@ -4,6 +4,9 @@ import { SITE_URL } from "@/src/server/seo";
 import { getBlogPosts } from "@/src/server/content";
 import { listSegmentPages } from "@/src/server/segments";
 
+
+export const dynamic = 'force-dynamic'
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
   const entries: MetadataRoute.Sitemap = [];
