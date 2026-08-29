@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/src/lib/db";
 import { assertAdminAllowed } from "@/src/server/admin/access";
+import { adminRoutePattern } from "@/src/server/admin/path";
 
 const money = z
   .string()
@@ -78,7 +79,7 @@ export async function createPlan(
     return { ok: false as const, error: "Slug already exists" };
   }
 
-  revalidatePath("/[locale]/admin/plans", "page");
+  revalidatePath(adminRoutePattern("plans"), "page");
   revalidatePath("/", "page");
   return { ok: true as const };
 }
@@ -125,7 +126,7 @@ export async function updatePlan(
     });
   }
 
-  revalidatePath("/[locale]/admin/plans", "page");
+  revalidatePath(adminRoutePattern("plans"), "page");
   revalidatePath("/", "page");
   return { ok: true as const };
 }
@@ -134,7 +135,7 @@ export async function deletePlan(id: number) {
   await assertAdminAllowed();
   // Soft-deactivate to preserve historical data; hard delete available via DB.
   await prisma.plan.update({ where: { id }, data: { active: false } });
-  revalidatePath("/[locale]/admin/plans", "page");
+  revalidatePath(adminRoutePattern("plans"), "page");
   revalidatePath("/", "page");
   return { ok: true as const };
 }
@@ -142,7 +143,7 @@ export async function deletePlan(id: number) {
 export async function hardDeletePlan(id: number) {
   await assertAdminAllowed();
   await prisma.plan.delete({ where: { id } });
-  revalidatePath("/[locale]/admin/plans", "page");
+  revalidatePath(adminRoutePattern("plans"), "page");
   revalidatePath("/", "page");
   return { ok: true as const };
 }
@@ -173,7 +174,7 @@ export async function movePlan(id: number, direction: -1 | 1) {
   if (target) {
     await swapOrder(plan.id, target.id);
   }
-  revalidatePath("/[locale]/admin/plans", "page");
+  revalidatePath(adminRoutePattern("plans"), "page");
   revalidatePath("/", "page");
   return { ok: true as const };
 }
@@ -189,7 +190,7 @@ export async function setPlanFlags(
     await prisma.plan.updateMany({ data: { popular: false } });
   }
   await prisma.plan.update({ where: { id }, data: flags });
-  revalidatePath("/[locale]/admin/plans", "page");
+  revalidatePath(adminRoutePattern("plans"), "page");
   revalidatePath("/", "page");
   return { ok: true as const };
 }
@@ -223,7 +224,7 @@ export async function setPlanFeature(
       where: { planId, featureId },
     });
   }
-  revalidatePath(`/[locale]/admin/plans/${planId}`, "page");
+  revalidatePath(adminRoutePattern(`plans/${planId}`), "page");
   revalidatePath("/", "page");
   return { ok: true as const };
 }
@@ -265,7 +266,7 @@ export async function setPlanCountryPricing(
     create: { planId, countryId, ...data },
   });
 
-  revalidatePath(`/[locale]/admin/plans/${planId}`, "page");
+  revalidatePath(adminRoutePattern(`plans/${planId}`), "page");
   revalidatePath("/pricing", "page");
   return { ok: true as const };
 }

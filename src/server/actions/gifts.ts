@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/src/lib/db";
 import { assertAdminAllowed } from "@/src/server/admin/access";
+import { adminRoutePattern } from "@/src/server/admin/path";
 
 const giftSchema = z.object({
   slug: z
@@ -62,7 +63,7 @@ export async function createGift(input: GiftFormInput) {
     return { ok: false as const, error: "Gift slug already exists" };
   }
 
-  revalidatePath("/[locale]/admin/gifts", "page");
+  revalidatePath(adminRoutePattern("gifts"), "page");
   revalidatePath("/", "page");
   return { ok: true as const };
 }
@@ -102,7 +103,7 @@ export async function updateGift(
       });
     }
   }
-  revalidatePath("/[locale]/admin/gifts", "page");
+  revalidatePath(adminRoutePattern("gifts"), "page");
   revalidatePath("/", "page");
   return { ok: true as const };
 }
@@ -126,7 +127,7 @@ export async function moveGift(id: number, direction: -1 | 1) {
   const index = all.findIndex((g) => g.id === id);
   const target = all[index + direction];
   if (target) await swap(id, target.id);
-  revalidatePath("/[locale]/admin/gifts", "page");
+  revalidatePath(adminRoutePattern("gifts"), "page");
   revalidatePath("/", "page");
   return { ok: true as const };
 }
@@ -134,7 +135,7 @@ export async function moveGift(id: number, direction: -1 | 1) {
 export async function deleteGift(id: number) {
   await assertAdminAllowed();
   await prisma.gift.delete({ where: { id } });
-  revalidatePath("/[locale]/admin/gifts", "page");
+  revalidatePath(adminRoutePattern("gifts"), "page");
   revalidatePath("/", "page");
   return { ok: true as const };
 }

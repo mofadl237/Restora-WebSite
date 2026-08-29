@@ -9,6 +9,7 @@ import {
 } from "@/src/components/ui/card";
 import { Badge } from "@/src/components/ui/badge";
 import { ArrowRight } from "lucide-react";
+import { adminHref } from "@/src/server/admin/path";
 
 export default async function AdminOverviewPage() {
   const [branding, countryCount, planCount, featureCount, giftCount, sectionCount, testimonialCount, faqCount, seoCount] =
@@ -25,14 +26,14 @@ export default async function AdminOverviewPage() {
     ]);
 
   const stats = [
-    { label: "Countries", value: countryCount, href: "/admin/countries" },
-    { label: "Plans", value: planCount, href: "/admin/plans" },
-    { label: "Features", value: featureCount, href: "/admin/features" },
-    { label: "Gifts", value: giftCount, href: "/admin/gifts" },
-    { label: "Marketing Sections", value: sectionCount, href: "/admin/sections" },
-    { label: "Testimonials", value: testimonialCount, href: "/admin/testimonials" },
-    { label: "FAQs", value: faqCount, href: "/admin/faqs" },
-    { label: "SEO Entries", value: seoCount, href: "/admin/seo" },
+    { label: "Countries", value: countryCount, href: adminHref("countries") },
+    { label: "Plans", value: planCount, href: adminHref("plans") },
+    { label: "Features", value: featureCount, href: adminHref("features") },
+    { label: "Gifts", value: giftCount, href: adminHref("gifts") },
+    { label: "Marketing Sections", value: sectionCount, href: adminHref("sections") },
+    { label: "Testimonials", value: testimonialCount, href: adminHref("testimonials") },
+    { label: "FAQs", value: faqCount, href: adminHref("faqs") },
+    { label: "SEO Entries", value: seoCount, href: adminHref("seo") },
   ];
 
   return (
@@ -76,7 +77,7 @@ export default async function AdminOverviewPage() {
           />
           <div className="ms-auto">
             <Link
-              href="/admin/branding"
+              href={adminHref("branding")}
               className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
             >
               Edit branding <ArrowRight className="size-3.5 rtl:-scale-x-100" aria-hidden />

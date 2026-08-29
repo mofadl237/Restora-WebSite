@@ -5,6 +5,10 @@ import { routing } from "@/src/i18n/routing";
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "http://localhost:3000";
 export const DEFAULT_LOCALE = routing.defaultLocale;
 
+/** Brand image served from /public — used for OG/Twitter cards site-wide. */
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/restora.jpg`;
+const DEFAULT_OG_IMAGE_DIMS = { width: 1024, height: 1024 };
+
 /** Look up a CMS-managed SEO entry for a page + locale. */
 export async function getSeoEntry(page: string, locale: string) {
   return prisma.seoEntry.findUnique({
@@ -51,7 +55,7 @@ export async function buildMetadata(
   languages["x-default"] = `${SITE_URL}/${DEFAULT_LOCALE}${path}`;
 
   const description = entry?.description ?? options.description ?? undefined;
-  const image = options.image ?? entry?.ogImage ?? undefined;
+  const image = options.image ?? entry?.ogImage ?? DEFAULT_OG_IMAGE;
 
   return {
     // Absolute base for OG images and other protocol-relative resolutions.
@@ -73,11 +77,19 @@ export async function buildMetadata(
       siteName: "RESTORA",
       locale,
       alternateLocale: routing.locales.filter((l) => l !== locale),
-      images: image ? [{ url: image }] : undefined,
+      images: image
+        ? [
+            {
+              url: image,
+              ...(image === DEFAULT_OG_IMAGE ? DEFAULT_OG_IMAGE_DIMS : {}),
+              alt: "RESTORA",
+            },
+          ]
+        : undefined,
       type: "website",
     },
     twitter: {
-      card: image ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title: entry?.twitterTitle ?? entry?.ogTitle ?? entry?.title ?? fallbackTitle,
       description: entry?.twitterDescription ?? description,
       images: image ? [image] : undefined,

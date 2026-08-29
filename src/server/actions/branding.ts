@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/src/lib/db";
 import { assertAdminAllowed } from "@/src/server/admin/access";
+import { adminRoutePattern } from "@/src/server/admin/path";
 
 const hexColor = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
 
@@ -107,7 +108,7 @@ export async function addSocialLink(formData: FormData) {
     data: { ...parsed.data, brandingId: 1, sortOrder: (maxOrder._max.sortOrder ?? -1) + 1 },
   });
 
-  revalidatePath("/[locale]/admin/branding", "page");
+  revalidatePath(adminRoutePattern("branding"), "page");
   return { ok: true as const };
 }
 
@@ -118,13 +119,13 @@ export async function updateSocialLink(id: number, data: { url?: string; active?
     return { ok: false as const, error: "Invalid URL" };
   }
   await prisma.socialLink.update({ where: { id }, data });
-  revalidatePath("/[locale]/admin/branding", "page");
+  revalidatePath(adminRoutePattern("branding"), "page");
   return { ok: true as const };
 }
 
 export async function deleteSocialLink(id: number) {
   await assertAdminAllowed();
   await prisma.socialLink.delete({ where: { id } });
-  revalidatePath("/[locale]/admin/branding", "page");
+  revalidatePath(adminRoutePattern("branding"), "page");
   return { ok: true as const };
 }

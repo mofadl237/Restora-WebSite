@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/src/lib/db";
 import { assertAdminAllowed } from "@/src/server/admin/access";
+import { adminRoutePattern } from "@/src/server/admin/path";
 
 const countrySchema = z.object({
   code: z.string().regex(/^[A-Z]{2}$/, "Use 2-letter ISO code").max(2),
@@ -48,7 +49,7 @@ export async function createCountry(formData: FormData) {
     return { ok: false as const, error: "Country code already exists" };
   }
 
-  revalidatePath("/[locale]/admin/countries", "page");
+  revalidatePath(adminRoutePattern("countries"), "page");
   revalidatePath("/pricing", "page");
   return { ok: true as const };
 }
@@ -63,7 +64,7 @@ export async function updateCountry(
     return { ok: false as const, error: "Currency code must be 3 letters" };
   }
   await prisma.country.update({ where: { id }, data });
-  revalidatePath("/[locale]/admin/countries", "page");
+  revalidatePath(adminRoutePattern("countries"), "page");
   revalidatePath("/pricing", "page");
   return { ok: true as const };
 }
@@ -72,7 +73,7 @@ export async function deleteCountry(id: number) {
   await assertAdminAllowed();
   // Cascades plan-country pricing rows only; plan defaults remain intact.
   await prisma.country.delete({ where: { id } });
-  revalidatePath("/[locale]/admin/countries", "page");
+  revalidatePath(adminRoutePattern("countries"), "page");
   revalidatePath("/pricing", "page");
   return { ok: true as const };
 }

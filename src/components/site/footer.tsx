@@ -87,7 +87,6 @@ export function Footer({
       <div className="border-t border-border/60">
         <div className="container-page flex flex-wrap items-center justify-between gap-2 py-4 text-xs text-muted-foreground">
           <p>© {year} {branding.brandName}</p>
-          <Link href="/admin" className="hover:text-foreground">Admin</Link>
         </div>
       </div>
     </footer>

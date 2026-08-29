@@ -4,6 +4,7 @@ import { prisma } from "@/src/lib/db";
 import { PlanEditor } from "@/src/components/admin/plan-editor";
 import { Button } from "@/src/components/ui/button";
 import { ChevronLeft } from "lucide-react";
+import { adminHref } from "@/src/server/admin/path";
 
 export default async function AdminPlanEditPage({
   params,
@@ -37,7 +38,7 @@ export default async function AdminPlanEditPage({
     <div className="space-y-6">
       <div className="flex items-center gap-3">
         <Button asChild variant="ghost" size="icon" aria-label="Back to plans">
-          <Link href="/admin/plans">
+          <Link href={adminHref("plans")}>
             <ChevronLeft className="size-4 rtl:-scale-x-100" aria-hidden />
           </Link>
         </Button>

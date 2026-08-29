@@ -37,9 +37,11 @@ export type PlanRow = {
 export function PlansManager({
   plans,
   currency,
+  plansBase,
 }: {
   plans: PlanRow[];
   currency: string;
+  plansBase: string;
 }) {
   const [isPending, startTransition] = useTransition();
   const [confirmDelete, setConfirmDelete] = useState<number | null>(null);
@@ -133,7 +135,7 @@ export function PlansManager({
                 <td className="px-4 py-2.5">
                   <div className="flex items-center justify-end gap-1">
                     <Button asChild variant="ghost" size="sm">
-                      <Link href={`/admin/plans/${p.id}`}>
+                      <Link href={`${plansBase}/${p.id}`}>
                         Edit <ChevronRight className="size-3.5 rtl:-scale-x-100" aria-hidden />
                       </Link>
                     </Button>

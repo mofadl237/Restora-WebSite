@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/src/lib/db";
 import { assertAdminAllowed } from "@/src/server/admin/access";
+import { adminRoutePattern } from "@/src/server/admin/path";
 
 const featureSchema = z.object({
   key: z
@@ -61,7 +62,7 @@ export async function createFeature(input: FeatureFormInput) {
     return { ok: false as const, error: "Feature key already exists" };
   }
 
-  revalidatePath("/[locale]/admin/features", "page");
+  revalidatePath(adminRoutePattern("features"), "page");
   revalidatePath("/", "page");
   return { ok: true as const };
 }
@@ -91,7 +92,7 @@ export async function updateFeature(
       });
     }
   }
-  revalidatePath("/[locale]/admin/features", "page");
+  revalidatePath(adminRoutePattern("features"), "page");
   revalidatePath("/", "page");
   return { ok: true as const };
 }
@@ -115,7 +116,7 @@ export async function moveFeature(id: number, direction: -1 | 1) {
   const index = all.findIndex((f) => f.id === id);
   const target = all[index + direction];
   if (target) await swap(id, target.id);
-  revalidatePath("/[locale]/admin/features", "page");
+  revalidatePath(adminRoutePattern("features"), "page");
   revalidatePath("/", "page");
   return { ok: true as const };
 }

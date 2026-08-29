@@ -21,23 +21,23 @@ import {
 import { cn } from "@/src/lib/utils";
 
 const NAV_ITEMS = [
-  { href: "/admin", label: "Overview", icon: LayoutDashboard },
-  { href: "/admin/branding", label: "Branding", icon: Palette },
-  { href: "/admin/countries", label: "Countries", icon: Globe },
-  { href: "/admin/plans", label: "Plans", icon: Tag },
-  { href: "/admin/features", label: "Features", icon: Sparkles },
-  { href: "/admin/gifts", label: "Gifts", icon: Gift },
-  { href: "/admin/story", label: "Product Story", icon: Clapperboard },
-  { href: "/admin/sections", label: "Marketing Sections", icon: PanelsTopLeft },
-  { href: "/admin/testimonials", label: "Testimonials", icon: Quote },
-  { href: "/admin/clients", label: "Clients", icon: Building2 },
-  { href: "/admin/blog", label: "Blog", icon: Newspaper },
-  { href: "/admin/contact", label: "Contact inbox", icon: Inbox },
-  { href: "/admin/faqs", label: "FAQs", icon: HelpCircle },
-  { href: "/admin/seo", label: "SEO", icon: Search },
+  { suffix: "", label: "Overview", icon: LayoutDashboard },
+  { suffix: "/branding", label: "Branding", icon: Palette },
+  { suffix: "/countries", label: "Countries", icon: Globe },
+  { suffix: "/plans", label: "Plans", icon: Tag },
+  { suffix: "/features", label: "Features", icon: Sparkles },
+  { suffix: "/gifts", label: "Gifts", icon: Gift },
+  { suffix: "/story", label: "Product Story", icon: Clapperboard },
+  { suffix: "/sections", label: "Marketing Sections", icon: PanelsTopLeft },
+  { suffix: "/testimonials", label: "Testimonials", icon: Quote },
+  { suffix: "/clients", label: "Clients", icon: Building2 },
+  { suffix: "/blog", label: "Blog", icon: Newspaper },
+  { suffix: "/contact", label: "Contact inbox", icon: Inbox },
+  { suffix: "/faqs", label: "FAQs", icon: HelpCircle },
+  { suffix: "/seo", label: "SEO", icon: Search },
 ] as const;
 
-export function AdminSidebar() {
+export function AdminSidebar({ basePath }: { basePath: string }) {
   const pathname = usePathname();
 
   return (
@@ -52,9 +52,9 @@ export function AdminSidebar() {
         </div>
       </div>
       <nav className="flex-1 space-y-1 overflow-y-auto p-3" aria-label="Admin">
-        {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
-          const active =
-            href === "/admin" ? pathname === href : pathname.startsWith(href);
+        {NAV_ITEMS.map(({ suffix, label, icon: Icon }) => {
+          const href = `${basePath}${suffix}`;
+          const active = suffix === "" ? pathname === href : pathname.startsWith(href);
           return (
             <Link
               key={href}

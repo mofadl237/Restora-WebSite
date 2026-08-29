@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { ArrowLeft, ShieldAlert } from "lucide-react";
 import { isAdminAllowed } from "@/src/server/admin/access";
+import { ADMIN_PATH, adminHref } from "@/src/server/admin/path";
 import { AdminSidebar } from "@/src/components/admin/sidebar-nav";
 
 export const metadata = {
@@ -11,9 +13,17 @@ export const metadata = {
 
 export default async function AdminLayout({
   children,
+  params,
 }: {
   children: ReactNode;
+  params: Promise<{ locale: string; adminArea: string }>;
 }) {
+  const { adminArea } = await params;
+
+  // Only the configured secret segment renders the dashboard.
+  // Any other name in the URL here is a 404 — no white-label, no leak.
+  if (adminArea !== ADMIN_PATH) notFound();
+
   const allowed = await isAdminAllowed();
 
   if (!allowed) {
@@ -43,7 +53,7 @@ export default async function AdminLayout({
 
   return (
     <div className="flex min-h-dvh">
-      <AdminSidebar />
+      <AdminSidebar basePath={adminHref()} />
       <div className="min-w-0 flex-1">
         <main className="mx-auto w-full max-w-5xl p-5 md:p-8">{children}</main>
       </div>

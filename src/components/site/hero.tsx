@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { useTranslations } from "next-intl";
-import { gsap, EASE } from "@/src/lib/gsap";
+import { gsap } from "@/src/lib/gsap";
 import { useMagnetic } from "@/src/lib/use-magnetic";
 import { DashboardMockup } from "@/src/components/mockups/ui";
 import { QrBadge } from "@/src/components/mockups/ui";
@@ -17,57 +17,22 @@ type HeroProps = {
 };
 
 /**
- * Cinematic hero: staggered headline reveal, dashboard rising into view,
+ * Cinematic hero: static headline reveal (no text entrance animation),
  * floating UI cards with idle motion + scroll parallax.
- * Mobile/reduced-motion get simplified movement.
+ * Reduced-motion gets simplified movement.
  */
 export function Hero({ eyebrow, title, description, ctaLabel, ctaHref }: HeroProps) {
   const root = useRef<HTMLDivElement>(null);
   const magneticCta = useMagnetic<HTMLAnchorElement>(0.22);
   const t = useTranslations("Hero");
 
-  const words = title.split(" ");
-
   useGSAP(
     () => {
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduce) return;
+
       const rtl = document.documentElement.dir === "rtl";
       const mm = gsap.matchMedia();
-
-      if (reduce) {
-        gsap.set("[data-hero]", { opacity: 1 });
-        return;
-      }
-
-      // ---- entrance timeline ----
-      const tl = gsap.timeline({ defaults: { ease: EASE.expo }, delay: 0.15 });
-      tl.set("[data-hero]", { opacity: 1 })
-        .from("[data-hero-eyebrow]", { y: 18, opacity: 0, duration: 0.6 })
-        .from(
-          "[data-hero-word]",
-          { yPercent: 110, rotate: 4, duration: 0.9, stagger: 0.055 },
-          "-=0.35",
-        )
-        .from("[data-hero-desc]", { y: 22, opacity: 0, duration: 0.7 }, "-=0.5")
-        .from("[data-hero-cta]", { y: 16, opacity: 0, duration: 0.55, stagger: 0.08 }, "-=0.45")
-        .fromTo(
-          "[data-hero-dash]",
-          { y: 90, opacity: 0, scale: 0.96 },
-          { y: 0, opacity: 1, scale: 1, duration: 1.1 },
-          "-=0.8",
-        )
-        .from(
-          "[data-hero-float]",
-          { y: 40, opacity: 0, duration: 0.7, stagger: 0.12 },
-          "-=0.7",
-        );
-
-      // bars grow after dashboard lands
-      tl.from(
-        "[data-hero-dash] .mock-bar",
-        { scaleY: 0, transformOrigin: "bottom", duration: 0.6, stagger: 0.06, ease: EASE.out },
-        "-=0.5",
-      );
 
       // ---- idle float on decorative cards (transform-only) ----
       gsap.utils.toArray<HTMLElement>("[data-hero-float]").forEach((el, i) => {
@@ -123,24 +88,20 @@ export function Hero({ eyebrow, title, description, ctaLabel, ctaHref }: HeroPro
       <div className="container-page relative py-20 md:py-28">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
           {/* Copy */}
-          <div data-hero-copy data-hero className="opacity-0 text-center lg:text-start">
+          <div data-hero-copy className="text-center lg:text-start">
             {eyebrow && (
-              <span data-hero-eyebrow className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide backdrop-blur">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide backdrop-blur">
                 <span className="size-1.5 animate-pulse-dot rounded-full bg-[var(--brand-accent)]" aria-hidden />
                 {eyebrow}
               </span>
             )}
 
             <h1 className="mt-6 font-display font-bold leading-[1.04] tracking-tight text-display-lg" aria-label={title}>
-              {words.map((w, i) => (
-                <span key={i} className="inline-block overflow-hidden pb-1 align-bottom">
-                  <span data-hero-word className="inline-block will-change-transform">{w}{"\u00A0"}</span>
-                </span>
-              ))}
+              {title}
             </h1>
 
             {description && (
-              <p data-hero-desc className="mx-auto mt-5 max-w-xl text-balance text-base text-white/70 md:text-lg lg:mx-0">
+              <p className="mx-auto mt-5 max-w-xl text-balance text-base text-white/70 md:text-lg lg:mx-0">
                 {description}
               </p>
             )}
@@ -150,7 +111,6 @@ export function Hero({ eyebrow, title, description, ctaLabel, ctaHref }: HeroPro
                 {ctaHref && (
                   <a
                     ref={magneticCta}
-                    data-hero-cta
                     href={ctaHref}
                     className="group inline-flex items-center gap-2 rounded-full bg-[var(--brand-accent)] px-7 py-3 text-sm font-semibold text-accent-foreground shadow-lift transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98]"
                   >
@@ -161,7 +121,6 @@ export function Hero({ eyebrow, title, description, ctaLabel, ctaHref }: HeroPro
                   </a>
                 )}
                 <a
-                  data-hero-cta
                   href="#story"
                   className="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3 text-sm font-semibold text-white/85 backdrop-blur transition-colors duration-300 hover:bg-white/10"
                 >
@@ -172,10 +131,8 @@ export function Hero({ eyebrow, title, description, ctaLabel, ctaHref }: HeroPro
           </div>
 
           {/* Visual */}
-          <div data-hero className="relative mx-auto w-full max-w-xl opacity-0 lg:max-w-none">
-            <div data-hero-dash className="will-change-transform">
-              <DashboardMockup />
-            </div>
+          <div className="relative mx-auto w-full max-w-xl lg:max-w-none">
+            <DashboardMockup />
 
             {/* floating cards */}
             <div data-hero-float className="absolute -top-8 end-2 md:-end-6">

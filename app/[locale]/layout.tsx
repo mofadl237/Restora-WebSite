@@ -10,6 +10,7 @@ import { CustomCursor } from "@/src/components/site/custom-cursor";
 import { StickyCta } from "@/src/components/site/sticky-cta";
 import { ScrollTop } from "@/src/components/site/scroll-top";
 import { prisma } from "@/src/lib/db";
+import { SITE_URL, DEFAULT_OG_IMAGE } from "@/src/server/seo";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -36,9 +37,45 @@ const plexArabic = IBM_Plex_Sans_Arabic({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+const SITE_TITLE = "Restora — Run your restaurant, beautifully";
+const SITE_DESCRIPTION =
+  "Restora is the all-in-one operating system for restaurants: digital menus, online ordering, reservations and real-time analytics — in every language your guests speak.";
+
 export const metadata: Metadata = {
-  title: "Restora",
-  description: "Restora — Premium Restaurant Experience",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_TITLE,
+    template: "%s | Restora",
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: "Restora",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon", sizes: "48x48" },
+      { url: "/icon.png", type: "image/png", sizes: "48x48" },
+      { url: "/icon.svg", type: "image/svg+xml", sizes: "any" },
+    ],
+    shortcut: "/icon.png",
+    apple: "/apple-icon.png",
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Restora",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    locale: "en",
+    alternateLocale: routing.locales.filter((l) => l !== "en"),
+    images: [
+      { url: DEFAULT_OG_IMAGE, width: 1024, height: 1024, alt: "Restora" },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE],
+  },
 };
 
 export default async function LocaleLayout({
@@ -85,6 +122,18 @@ export default async function LocaleLayout({
     >
       <body className="min-h-full flex flex-col">
         {brandStyle && <style>{brandStyle}</style>}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Restora",
+              url: SITE_URL,
+              logo: `${SITE_URL}/restora-icon-512.png`,
+            }),
+          }}
+        />
         <NextIntlClientProvider messages={messages}>
           {/* System-aware theme: persists explicit choice, respects OS on first visit. */}
           <ThemeProvider>

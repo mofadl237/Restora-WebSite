@@ -1,6 +1,7 @@
 import { prisma } from "@/src/lib/db";
 import { PlansManager } from "@/src/components/admin/plans-manager";
 import { Alert, AlertDescription } from "@/src/components/ui/alert";
+import { adminHref } from "@/src/server/admin/path";
 
 export default async function AdminPlansPage() {
   const [plans, countries] = await Promise.all([
@@ -33,6 +34,7 @@ export default async function AdminPlansPage() {
       )}
 
       <PlansManager
+        plansBase={adminHref("plans")}
         currency={defaultCurrency}
         plans={plans.map((p) => ({
           id: p.id,

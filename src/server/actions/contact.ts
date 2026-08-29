@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/src/lib/db";
 import { assertAdminAllowed } from "@/src/server/admin/access";
+import { adminRoutePattern } from "@/src/server/admin/path";
 
 // ---------------------------------------------------------------------------
 // Public - contact form submission (NO admin gate)
@@ -61,13 +62,13 @@ export async function setSubmissionStatus(id: number, status: string) {
     return { ok: false as const, error: "Invalid status" };
   }
   await prisma.contactSubmission.update({ where: { id }, data: { status } });
-  revalidatePath("/admin/contact");
+  revalidatePath(adminRoutePattern("contact"));
   return { ok: true as const };
 }
 
 export async function deleteSubmission(id: number) {
   await assertAdminAllowed();
   await prisma.contactSubmission.delete({ where: { id } });
-  revalidatePath("/admin/contact");
+  revalidatePath(adminRoutePattern("contact"));
   return { ok: true as const };
 }

@@ -3,10 +3,12 @@ import { headers } from "next/headers";
 /**
  * Server-side admin access gate.
  *
- * Rules:
- * - ADMIN_ACCESS_ENABLED=true → only IPs in ADMIN_ALLOWED_IPS may access.
- * - Otherwise → allowed in development only (local/private CMS), always
- *   denied in production until a real authentication system is wired in.
+ * The admin routes live behind a secret URL segment (ADMIN_PATH). By default
+ * (ADMIN_ACCESS_ENABLED not "true") that secret URL is the only gate — anyone
+ * who knows it can reach the CMS.
+ *
+ * For stricter setups, set ADMIN_ACCESS_ENABLED=true and the CMS becomes
+ * reachable ONLY from IPs listed in ADMIN_ALLOWED_IPS.
  *
  * Never expose this decision logic to the client; every admin page and
  * server action must call these helpers.
@@ -30,8 +32,8 @@ export async function isAdminAllowed(): Promise<boolean> {
   const enabled = process.env.ADMIN_ACCESS_ENABLED === "true";
 
   if (!enabled) {
-    // Local development convenience only; production stays locked.
-    return process.env.NODE_ENV === "development";
+    // The secret ADMIN_PATH is the gate.
+    return true;
   }
 
   const allowed = getAllowedIps();
