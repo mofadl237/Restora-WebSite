@@ -1,3 +1,4 @@
+
 FROM node:22-alpine AS base
 
 WORKDIR /app
@@ -5,6 +6,9 @@ WORKDIR /app
 RUN corepack enable && corepack prepare yarn@1.22.22 --activate
 
 
+# =========================
+# Dependencies
+# =========================
 FROM base AS deps
 
 COPY package.json yarn.lock ./
@@ -12,6 +16,9 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 
+# =========================
+# Builder
+# =========================
 FROM base AS builder
 
 COPY --from=deps /app/node_modules ./node_modules
@@ -19,10 +26,20 @@ COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Build-time placeholder only.
+# Actual DATABASE_URL will be injected at runtime.
+ENV DATABASE_URL="postgresql://build:build@127.0.0.1:5432/build"
+
+ARG NEXT_PUBLIC_SITE_URL
+ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
+
 RUN yarn prisma generate
 RUN yarn build
 
 
+# =========================
+# Production Runner
+# =========================
 FROM node:22-alpine AS runner
 
 WORKDIR /app
